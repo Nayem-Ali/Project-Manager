@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "933388745290",
+    "project_id": "project-manager-4cea3",
+    "storage_bucket": "project-manager-4cea3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933388745290:android:92095dd69648f165bb04b3",
+        "android_client_info": {
+          "package_name": "com.leading.teamlead"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0wvu9wCsF3m1DuJhngCSZqx2jNBg7S28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

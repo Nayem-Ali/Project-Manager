@@ -88,83 +88,92 @@ class _ViewTeamState extends State<ViewTeam> {
               textAlign: TextAlign.center,
             ),
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            padding: const EdgeInsets.all(10),
-            width: Get.size.width,
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(50)),
-                gradient: LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
-            child: Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () async {
-                      final Uri url = Uri.parse(teamInfo['Proposal Drive Link']);
-                      if (!await launchUrl(url)) {
-                      } else {
-                        throw "Something went wrong";
-                      }
-                    },
-                    child: Text(
-                      teamInfo['Proposal Drive Link'],
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+          teamInfo['Proposal Drive Link'] != ''
+              ? Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  padding: const EdgeInsets.all(10),
+                  width: Get.size.width,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      gradient: LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () async {
+                            final Uri url = Uri.parse(teamInfo['Proposal Drive Link']);
+                            if (!await launchUrl(url)) {
+                            } else {
+                              throw "Something went wrong";
+                            }
+                          },
+                          child: Text(
+                            teamInfo['Proposal Drive Link'],
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: null,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
-                      maxLines: null,
-                      textAlign: TextAlign.center,
-                    ),
+                      IconButton(
+                        onPressed: () async {
+                          await Clipboard.setData(
+                              ClipboardData(text: teamInfo['Proposal Drive Link']));
+                        },
+                        icon: const Icon(Icons.copy),
+                      )
+                    ],
                   ),
-                ),
-                IconButton(
-                  onPressed: () async {
-                    await Clipboard.setData(ClipboardData(text: teamInfo['Proposal Drive Link']));
-                  },
-                  icon: const Icon(Icons.copy),
                 )
-              ],
+              : const SizedBox(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: totalMembers,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  padding: const EdgeInsets.all(10),
+                  width: Get.size.width,
+                  decoration: BoxDecoration(
+                    // borderRadius: const BorderRadius.all(Radius.circular(50)),
+                    border: Border.all(),
+                    // gradient: LinearGradient(colors: [Colors.greenAccent, Colors.tealAccent]),
+                  ),
+                  child: Column(
+                    children: [
+                      if (name.length == totalMembers)
+                        Text(
+                          "Name: ${name[index]}",
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      if (id.length == totalMembers)
+                        Text(
+                          "Student ID: ${id[index]}",
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      if (cgpa.length == totalMembers)
+                        Text(
+                          "CGPA: ${cgpa[index]}",
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      if (email.length == totalMembers)
+                        Text(
+                          "Email: ${email[index]}",
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      if (phone.length == totalMembers)
+                        Text(
+                          "Phone: ${phone[index]}",
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
-          Expanded(
-              child: ListView.builder(
-            itemCount: totalMembers,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                padding: const EdgeInsets.all(10),
-                width: Get.size.width,
-                decoration: BoxDecoration(
-                  // borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  border: Border.all(),
-                  // gradient: LinearGradient(colors: [Colors.greenAccent, Colors.tealAccent]),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      "Name: ${name[index]}",
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                    Text(
-                      "Student ID: ${id[index]}",
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                    Text(
-                      "CGPA: ${cgpa[index]}",
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                    Text(
-                      "Email: ${email[index]}",
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                    Text(
-                      "Phone: ${phone[index]}",
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                  ],
-                ),
-              );
-            },
-          )),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -200,8 +209,8 @@ class _ViewTeamState extends State<ViewTeam> {
                 onPressed: () {
                   Get.to(const ViewMark(), arguments: [teamInfo, Get.arguments[1]]);
                 },
-                icon: const Icon(Icons.remove_red_eye),
-                label: const Text("View Mark"),
+                icon: const Icon(Icons.bookmark_added_sharp),
+                label: const Text("Marking"),
               ),
             ],
           ),

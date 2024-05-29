@@ -6,7 +6,7 @@ import 'package:teamlead/View/student/proposal.dart';
 import 'package:teamlead/View/student/team_request.dart';
 import 'package:teamlead/View/student/view_submitted_data.dart';
 import 'package:teamlead/Widget/buttonStyle.dart';
-import 'package:teamlead/Widget/drawerScreen.dart';
+import 'package:teamlead/Widget/student_drawer.dart';
 import 'package:teamlead/services/db_service.dart';
 import 'package:teamlead/view/teacher/view_announcement.dart';
 import 'package:url_launcher/url_launcher.dart';

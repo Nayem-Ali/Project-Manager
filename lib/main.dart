@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
         // primaryColor: Colors.deepOrangeAccent,
         //fontFamily: "Poppins",
-        textTheme: GoogleFonts.aBeeZeeTextTheme(),
+        textTheme: GoogleFonts.adaminaTextTheme(),
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         // useMaterial3: true,
       ),

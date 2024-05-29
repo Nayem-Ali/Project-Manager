@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import '../View/auth/info_screen.dart';
 import '../View/auth/login_screen.dart';
 import '../Widget/logo.dart';
 

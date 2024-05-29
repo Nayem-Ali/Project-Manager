@@ -116,13 +116,18 @@ class DataBaseMethods {
   }
 
   submitEvaluation(List<Map<String, dynamic>> studentEvaluationData) async {
-    print(studentEvaluationData);
-    await firestore
-        .collection(studentEvaluationData[0]['projectType'])
-        .doc(studentEvaluationData[0]['title'])
-        .collection("evaluationData")
-        .doc(studentEvaluationData[0]['evaluatedBy'])
-        .set({"data": studentEvaluationData});
+    try{
+      await firestore
+          .collection(studentEvaluationData[0]['projectType'])
+          .doc(studentEvaluationData[0]['title'])
+          .collection("evaluationData")
+          .doc(studentEvaluationData[0]['evaluatedBy'])
+          .set({"data": studentEvaluationData});
+      return 'success';
+    } catch (e){
+      return e.toString();
+    }
+
   }
 
   getEvaluationID(String collectionName1, String documentName, String collectionName2) async {
@@ -165,7 +170,7 @@ class DataBaseMethods {
   getEvaluationData(String collection1, String document1, String collection2) async {
     try {
       QuerySnapshot querySnapshot =
-      await firestore.collection(collection1).doc(document1).collection(collection2).get();
+          await firestore.collection(collection1).doc(document1).collection(collection2).get();
       return querySnapshot.docs.map((doc) => doc.data()).toList();
     } catch (e) {
       return [];
@@ -232,7 +237,7 @@ class DataBaseMethods {
     dynamic allMarks = [];
 
     QuerySnapshot querySnapshot =
-    await firestore.collection(collectionName).doc(docName).collection("evaluationData").get();
+        await firestore.collection(collectionName).doc(docName).collection("evaluationData").get();
     allMarks = querySnapshot.docs.map((doc) => doc.data()).toList();
     return allMarks;
   }
@@ -245,7 +250,7 @@ class DataBaseMethods {
   }
 
   approveTeacher(String docName, String updatedData) async {
-    await firestore.collection('teacher').doc("$docName").update({"status": updatedData});
+    await firestore.collection('teacher').doc(docName).update({"status": updatedData});
   }
 
   getAllTeacherEmail() async {
@@ -281,7 +286,7 @@ class DataBaseMethods {
   deleteProposal(String type) async {
     final cse4801 = await ProjectSheetApi.getAllRows(type);
     print(cse4801);
-    if(cse4801 != null){
+    if (cse4801 != null) {
       for (var team in cse4801) {
         await firestore
             .collection(type)
@@ -345,7 +350,7 @@ class DataBaseMethods {
     return querySnapshot.docs.map((doc) => doc.id).toList();
   }
 
-  addSupervisorMark(String projectType,Map<String, dynamic> teamInfo, List<dynamic> marks) async {
+  addSupervisorMark(String projectType, Map<String, dynamic> teamInfo, List<dynamic> marks) async {
     dynamic teacherData = await getTeacher();
     firestore
         .collection(projectType)
@@ -357,27 +362,44 @@ class DataBaseMethods {
 
   updateSupervisorMark() async {}
 
-  getSupervisorMark(String projectType,Map<String, dynamic> teamInfo) async {
+  getSupervisorMark(String projectType, Map<String, dynamic> teamInfo) async {
     dynamic marks = [];
     dynamic teacherData = await getTeacher();
     try {
-      await firestore.collection(projectType).doc(teamInfo['Title']).collection
-        ('supervisorMark').doc(teacherData['initial']).get().then((value) {
+      await firestore
+          .collection(projectType)
+          .doc(teamInfo['Title'])
+          .collection('supervisorMark')
+          .doc(teacherData['initial'])
+          .get()
+          .then((value) {
         marks = value['data'];
       });
       return marks;
-    } catch (e){
+    } catch (e) {
       return [];
     }
   }
 
-  getSupervisorMarkForGenerateResult(String projectType, String title) async{
+  getSupervisorMarkForGenerateResult(String projectType, String title) async {
     dynamic marks = [];
     try {
-      QuerySnapshot querySnapshot = await firestore.collection(projectType).doc(title).collection
-        ('supervisorMark').get();
+      QuerySnapshot querySnapshot =
+          await firestore.collection(projectType).doc(title).collection('supervisorMark').get();
       marks = querySnapshot.docs[0].get('data');
       return marks;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  addTeamToTeacherMarked(String title, String type, String initial, int id) async {
+    await firestore.collection('marked').doc(initial).collection(type).doc(title).set({'id': id});
+  }
+  getTeamToTeacherMarked(String initial, String type) async {
+    try{
+      QuerySnapshot querySnapshot = await firestore.collection("marked").doc(initial).collection(type).get();
+      return querySnapshot.docs.map((doc) => doc.id).toList();
     } catch (e){
       return [];
     }

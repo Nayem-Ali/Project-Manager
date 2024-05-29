@@ -21,50 +21,14 @@ class _EvaluatePageState extends State<EvaluatePage> {
   List<String> cgpa = [];
   List<String> phone = [];
 
-  TextEditingController student1Criteria1 = TextEditingController();
-  TextEditingController student1Criteria2 = TextEditingController();
-  TextEditingController student2Criteria1 = TextEditingController();
-  TextEditingController student2Criteria2 = TextEditingController();
-  TextEditingController student3Criteria1 = TextEditingController();
-  TextEditingController student3Criteria2 = TextEditingController();
-  TextEditingController student4Criteria1 = TextEditingController();
-  TextEditingController student4Criteria2 = TextEditingController();
-
-  TextEditingController problemDefinition1 = TextEditingController();
-  TextEditingController problemDefinition2 = TextEditingController();
-  TextEditingController problemDefinition3 = TextEditingController();
-  TextEditingController problemDefinition4 = TextEditingController();
-
-  TextEditingController designComplexity1 = TextEditingController();
-  TextEditingController designComplexity2 = TextEditingController();
-  TextEditingController designComplexity3 = TextEditingController();
-  TextEditingController designComplexity4 = TextEditingController();
-
-  TextEditingController viva1 = TextEditingController();
-  TextEditingController viva2 = TextEditingController();
-  TextEditingController viva3 = TextEditingController();
-  TextEditingController viva4 = TextEditingController();
-
-  TextEditingController presentation1 = TextEditingController();
-  TextEditingController presentation2 = TextEditingController();
-  TextEditingController presentation3 = TextEditingController();
-  TextEditingController presentation4 = TextEditingController();
-
-  TextEditingController testing1 = TextEditingController();
-  TextEditingController testing2 = TextEditingController();
-  TextEditingController testing3 = TextEditingController();
-  TextEditingController testing4 = TextEditingController();
-
-  TextEditingController report1 = TextEditingController();
-  TextEditingController report2 = TextEditingController();
-  TextEditingController report3 = TextEditingController();
-  TextEditingController report4 = TextEditingController();
+  List<TextEditingController> criteria1 = [];
+  List<TextEditingController> criteria2 = [];
 
   bool enabled1 = true;
   bool enabled2 = true;
   final formKey = GlobalKey<FormState>();
 
-  List<bool> absent = [false, false, false,false];
+  List<bool> absent = [];
 
   @override
   void initState() {
@@ -73,54 +37,7 @@ class _EvaluatePageState extends State<EvaluatePage> {
     getData();
   }
 
-  List<Map<String, dynamic>> studentEvaluationData = [
-    {
-      "proposalID": "",
-      "projectType": "",
-      "title": "",
-      "evaluatedBy": "",
-    },
-    {
-      "criteria1": "",
-      "problemDefinition": "",
-      "designComplexity": "",
-      "viva": "",
-      "criteria2": "",
-      "presentation": "",
-      "testing": "",
-      "report": "",
-    },
-    {
-      "criteria1": "",
-      "problemDefinition": "",
-      "designComplexity": "",
-      "viva": "",
-      "criteria2": "",
-      "presentation": "",
-      "testing": "",
-      "report": "",
-    },
-    {
-      "criteria1": "",
-      "problemDefinition": "",
-      "designComplexity": "",
-      "viva": "",
-      "criteria2": "",
-      "presentation": "",
-      "testing": "",
-      "report": "",
-    },
-    {
-      "criteria1": "",
-      "problemDefinition": "",
-      "designComplexity": "",
-      "viva": "",
-      "criteria2": "",
-      "presentation": "",
-      "testing": "",
-      "report": "",
-    },
-  ];
+  List<Map<String, dynamic>> studentEvaluationData = [];
 
   getData() async {
     // print(teamInfo);
@@ -131,99 +48,35 @@ class _EvaluatePageState extends State<EvaluatePage> {
     email = teamInfo['Email'].split('\n');
     cgpa = teamInfo['CGPA'].split('\n');
     phone = teamInfo['Phone'].split('\n');
+
+    for (int i = 0; i < totalMembers; i++) {
+      criteria1.add(TextEditingController());
+      criteria2.add(TextEditingController());
+      absent.add(false);
+      if (Get.arguments.length == 3) {
+        criteria1[i].text = Get.arguments[2]['data'][i + 1]['criteria1'].toString();
+        criteria2[i].text = Get.arguments[2]['data'][i + 1]['criteria2'].toString();
+      }
+    }
     teacherInfo = await dataBaseMethods.getTeacher();
-    studentEvaluationData[0]["evaluatedBy"] = teacherInfo['initial'];
-    studentEvaluationData[0]["title"] = teamInfo['Title'];
-    studentEvaluationData[0]["projectType"] = Get.arguments[1];
-    studentEvaluationData[0]["proposalID"] = teamInfo['ID'];
+
     setState(() {});
   }
 
-  updateCriteria1(int index) {
-    if (index == 0) {
-      double designComplexity = double.tryParse(designComplexity1.text) ?? 0;
-      double problemDefinition = double.tryParse(problemDefinition1.text) ?? 0;
-      double viva = double.tryParse(viva1.text) ?? 0;
-      double total = designComplexity + viva + problemDefinition;
-      student1Criteria1.text = total.toString();
-      studentEvaluationData[index + 1]["criteria1"] = student1Criteria1.text;
-      studentEvaluationData[index + 1]["problemDefinition"] = problemDefinition1.text;
-      studentEvaluationData[index + 1]["designComplexity"] = designComplexity1.text;
-      studentEvaluationData[index + 1]["viva"] = viva1.text;
-    } else if (index == 1) {
-      double designComplexity = double.tryParse(designComplexity2.text) ?? 0;
-      double problemDefinition = double.tryParse(problemDefinition2.text) ?? 0;
-      double viva = double.tryParse(viva2.text) ?? 0;
-      double total = designComplexity + viva + problemDefinition;
-      student2Criteria1.text = total.toString();
-      studentEvaluationData[index + 1]["criteria1"] = student2Criteria1.text;
-      studentEvaluationData[index + 1]["problemDefinition"] = problemDefinition2.text;
-      studentEvaluationData[index + 1]["designComplexity"] = designComplexity2.text;
-      studentEvaluationData[index + 1]["viva"] = viva2.text;
-    } else if (index == 2) {
-      double designComplexity = double.tryParse(designComplexity3.text) ?? 0;
-      double problemDefinition = double.tryParse(problemDefinition3.text) ?? 0;
-      double viva = double.tryParse(viva3.text) ?? 0;
-      double total = designComplexity + viva + problemDefinition;
-      student3Criteria1.text = total.toString();
-      studentEvaluationData[index + 1]["criteria1"] = student3Criteria1.text;
-      studentEvaluationData[index + 1]["problemDefinition"] = problemDefinition3.text;
-      studentEvaluationData[index + 1]["designComplexity"] = designComplexity3.text;
-      studentEvaluationData[index + 1]["viva"] = viva3.text;
-    } else if (index == 3) {
-      double designComplexity = double.tryParse(designComplexity4.text) ?? 0;
-      double problemDefinition = double.tryParse(problemDefinition4.text) ?? 0;
-      double viva = double.tryParse(viva4.text) ?? 0;
-      double total = designComplexity + viva + problemDefinition;
-      student4Criteria1.text = total.toString();
-      studentEvaluationData[index + 1]["criteria1"] = student4Criteria1.text as double;
-      studentEvaluationData[index + 1]["problemDefinition"] = problemDefinition4.text;
-      studentEvaluationData[index + 1]["designComplexity"] = designComplexity4.text;
-      studentEvaluationData[index + 1]["viva"] = viva4.text;
-    }
-  }
-
-  updateCriteria2(int index) {
-    if (index == 0) {
-      double presentation = double.tryParse(presentation1.text) ?? 0;
-      double testing = double.tryParse(testing1.text) ?? 0;
-      double report = double.tryParse(report1.text) ?? 0;
-      double total = presentation + testing + report;
-      student1Criteria2.text = total.toString();
-      studentEvaluationData[index + 1]["criteria2"] = student1Criteria2.text;
-      studentEvaluationData[index + 1]["presentation"] = presentation1.text;
-      studentEvaluationData[index + 1]["testing"] = testing1.text;
-      studentEvaluationData[index + 1]["report"] = report1.text;
-    } else if (index == 1) {
-      double presentation = double.tryParse(presentation2.text) ?? 0;
-      double testing = double.tryParse(testing2.text) ?? 0;
-      double report = double.tryParse(report2.text) ?? 0;
-      double total = presentation + testing + report;
-      student2Criteria2.text = total.toString();
-      studentEvaluationData[index + 1]["criteria2"] = student2Criteria2.text;
-      studentEvaluationData[index + 1]["presentation"] = presentation2.text;
-      studentEvaluationData[index + 1]["testing"] = testing2.text;
-      studentEvaluationData[index + 1]["report"] = report2.text;
-    } else if (index == 2) {
-      double presentation = double.tryParse(presentation3.text) ?? 0;
-      double testing = double.tryParse(testing3.text) ?? 0;
-      double report = double.tryParse(report3.text) ?? 0;
-      double total = presentation + testing + report;
-      student3Criteria2.text = total.toString();
-      studentEvaluationData[index + 1]["criteria2"] = student3Criteria2.text;
-      studentEvaluationData[index + 1]["presentation"] = presentation3.text;
-      studentEvaluationData[index + 1]["testing"] = testing3.text;
-      studentEvaluationData[index + 1]["report"] = report3.text;
-    } else if (index == 3) {
-      double presentation = double.tryParse(presentation4.text) ?? 0;
-      double testing = double.tryParse(testing4.text) ?? 0;
-      double report = double.tryParse(report4.text) ?? 0;
-      double total = presentation + testing + report;
-      student4Criteria2.text = total.toString();
-      studentEvaluationData[index + 1]["criteria2"] = student4Criteria2.text;
-      studentEvaluationData[index + 1]["presentation"] = presentation4.text;
-      studentEvaluationData[index + 1]["testing"] = testing4.text;
-      studentEvaluationData[index + 1]["report"] = report4.text;
+  addEvaluationData() {
+    studentEvaluationData.clear();
+    Map<String, dynamic> info = {
+      "proposalID": teamInfo['ID'],
+      "projectType": Get.arguments[1],
+      "title": teamInfo['Title'],
+      "evaluatedBy": teacherInfo['initial'],
+    };
+    studentEvaluationData.add(info);
+    for (int i = 0; i < totalMembers; i++) {
+      studentEvaluationData.add({
+        'criteria1': double.tryParse(criteria1[i].text.trim().toString()) ?? 0,
+        'criteria2': double.tryParse(criteria2[i].text.trim().toString()) ?? 0,
+      });
     }
   }
 
@@ -251,7 +104,8 @@ class _EvaluatePageState extends State<EvaluatePage> {
                     return Column(
                       children: [
                         Card(
-                          color: index % 2 == 1 ? Colors.blue.shade100 : Colors.greenAccent.shade100,
+                          color:
+                              index % 2 == 1 ? Colors.blue.shade100 : Colors.greenAccent.shade100,
                           child: ListTile(
                             trailing: Stack(
                               alignment: Alignment.topCenter,
@@ -275,47 +129,8 @@ class _EvaluatePageState extends State<EvaluatePage> {
                                       setState(() {
                                         absent[index] = value;
                                         if (value == true) {
-                                          student1Criteria1.clear();
-                                          student1Criteria2.clear();
-                                          student2Criteria1.clear();
-                                          student2Criteria2.clear();
-                                          student3Criteria1.clear();
-                                          student3Criteria2.clear();
-                                          student4Criteria1.clear();
-                                          student4Criteria2.clear();
-
-                                          viva1.clear();
-                                          viva2.clear();
-                                          viva3.clear();
-                                          viva4.clear();
-
-                                          problemDefinition1.clear();
-                                          problemDefinition2.clear();
-                                          problemDefinition3.clear();
-                                          problemDefinition4.clear();
-
-                                          designComplexity1.clear();
-                                          designComplexity2.clear();
-                                          designComplexity3.clear();
-                                          designComplexity4.clear();
-
-                                          presentation1.clear();
-                                          presentation2.clear();
-                                          presentation3.clear();
-                                          presentation4.clear();
-
-                                          testing1.clear();
-                                          testing2.clear();
-                                          testing3.clear();
-                                          testing4.clear();
-
-                                          report1.clear();
-                                          report2.clear();
-                                          report3.clear();
-                                          report4.clear();
-
-                                          updateCriteria1(index);
-                                          updateCriteria2(index);
+                                          criteria1[index].clear();
+                                          criteria2[index].clear();
                                         }
                                       });
                                     },
@@ -337,244 +152,50 @@ class _EvaluatePageState extends State<EvaluatePage> {
                             ),
                           ),
                         ),
-                        if (absent[index] == false)
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                TextFormField(
-                                  controller: (index == 0)
-                                      ? student1Criteria1
-                                      : (index == 1)
-                                          ? student2Criteria1
-                                          : (index == 2)
-                                              ? student3Criteria1
-                                              : student4Criteria1,
-                                  onChanged: (value) {
-                                    if (value != "") {
-                                      (index == 0)
-                                          ? studentEvaluationData[index + 1]["criteria1"] =
-                                              student1Criteria1.text
-                                          : (index == 1)
-                                              ? studentEvaluationData[index + 1]["criteria1"] =
-                                                  student2Criteria1.text
-                                              : (index == 2)
-                                                  ? studentEvaluationData[index + 1]["criteria1"] =
-                                                      student3Criteria1.text
-                                                  : studentEvaluationData[index + 1]["criteria1"] =
-                                                      student4Criteria1.text;
-
-                                      setState(() {
-                                        enabled1 = false;
-                                      });
-                                    } else if (value == "") {
-                                      setState(() {
-                                        enabled1 = true;
-                                      });
-                                    }
-                                  },
-                                  validator: (value){
-
-                                    double total = double.tryParse(value!) ?? 0;
-                                    if(value.trim().isEmpty){
-                                      return "Cannot left empty";
-                                    }
-                                    if(total >30){
-                                      return "30 marks limit exceeded";
-                                    }
-                                    return null;
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    label: Text("Criteria - I"),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: (index == 0)
-                                            ? problemDefinition1
-                                            : (index == 1)
-                                                ? problemDefinition2
-                                                : (index == 2)
-                                                    ? problemDefinition3
-                                                    : problemDefinition4,
-                                        onChanged: (value) {
-                                          updateCriteria1(index);
-                                        },
-
-                                        enabled: enabled1,
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          label: Text("Problem Definition"),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: (index == 0)
-                                            ? designComplexity1
-                                            : (index == 1)
-                                                ? designComplexity2
-                                                : (index == 2)
-                                                    ? designComplexity3
-                                                    : designComplexity4,
-                                        onChanged: (value) {
-                                          updateCriteria1(index);
-                                        },
-                                        enabled: enabled1,
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          label: Text("Design Complexity"),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: (index == 0)
-                                            ? viva1
-                                            : (index == 1)
-                                                ? viva2
-                                                : (index == 2)
-                                                    ? viva3
-                                                    : viva4,
-                                        onChanged: (value) {
-                                          updateCriteria1(index);
-                                        },
-                                        enabled: enabled1,
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          label: Text("Viva"),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                TextFormField(
-                                  controller: (index == 0)
-                                      ? student1Criteria2
-                                      : (index == 1)
-                                          ? student2Criteria2
-                                          : (index == 2)
-                                              ? student3Criteria2
-                                              : student4Criteria2,
-                                  onChanged: (value) {
-                                    if (value != "") {
-                                      (index == 0)
-                                          ? studentEvaluationData[index + 1]["criteria2"] =
-                                              student1Criteria2.text
-                                          : (index == 1)
-                                              ? studentEvaluationData[index + 1]["criteria2"] =
-                                                  student2Criteria2.text
-                                              : (index == 2)
-                                                  ? studentEvaluationData[index + 1]["criteria2"] =
-                                                      student3Criteria2.text
-                                                  : studentEvaluationData[index + 1]["criteria2"] =
-                                                      student4Criteria2.text;
-                                      setState(() {
-                                        enabled2 = false;
-                                      });
-                                    } else if (value == "") {
-                                      setState(() {
-                                        enabled2 = true;
-                                      });
-                                    }
-                                  },
-                                  validator: (value){
-                                    double total = double.tryParse(value!) ?? 0;
-                                    if(value.trim().isEmpty){
-                                      return "Cannot left empty";
-                                    }
-                                    if(total >30){
-                                      return "30 marks limit exceeded";
-                                    }
-                                    return null;
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    label: Text("Criteria - II"),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: (index == 0)
-                                            ? presentation1
-                                            : (index == 1)
-                                                ? presentation2
-                                                : (index == 2)
-                                                    ? presentation3
-                                                    : presentation4,
-                                        onChanged: (value) {
-                                          updateCriteria2(index);
-                                        },
-                                        enabled: enabled2,
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          label: Text("Presentation"),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: (index == 0)
-                                            ? testing1
-                                            : (index == 1)
-                                                ? testing2
-                                                : (index == 2)
-                                                    ? testing3
-                                                    : testing4,
-                                        enabled: enabled2,
-                                        onChanged: (value) {
-                                          updateCriteria2(index);
-                                        },
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          label: Text("Testing & Evaluation"),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: (index == 0)
-                                            ? report1
-                                            : (index == 1)
-                                                ? report2
-                                                : (index == 2)
-                                                    ? report3
-                                                    : report4,
-                                        onChanged: (value) {
-                                          updateCriteria2(index);
-                                        },
-                                        enabled: enabled2,
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          label: Text("Report Writing"),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            controller: criteria1[index],
+                            validator: (value) {
+                              double total = double.tryParse(value!) ?? 0;
+                              if (value.trim().isEmpty && absent[index] == false) {
+                                return "Cannot left empty";
+                              }
+                              if (total > 30) {
+                                return "30 marks limit exceeded";
+                              }
+                              return null;
+                            },
+                            readOnly: absent[index],
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                label: Text("Criteria - I"),
+                                helperText: "Problem Definition, Design Complexity, Viva"),
                           ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            controller: criteria2[index],
+                            validator: (value) {
+                              double total = double.tryParse(value!) ?? 0;
+                              if (value.trim().isEmpty && absent[index] == false) {
+                                return "Cannot left empty";
+                              }
+                              if (total > 30) {
+                                return "30 marks limit exceeded";
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.number,
+                            readOnly: absent[index],
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                label: Text("Criteria - 2"),
+                                helperText: "Presentation, Testing, Report"),
+                          ),
+                        )
                       ],
                     );
                   },
@@ -585,14 +206,43 @@ class _EvaluatePageState extends State<EvaluatePage> {
                   minimumSize: const Size(200, 50),
                 ),
                 onPressed: () async {
-                  if(formKey.currentState!.validate()){
-                    print(studentEvaluationData);
-                    await dataBaseMethods.submitEvaluation(studentEvaluationData);
-                    Get.off(const ProjectEvaluation());
-                  }
+                  if (formKey.currentState!.validate()) {
+                    addEvaluationData();
+                    // print(studentEvaluationData);
+                    String status = await dataBaseMethods.submitEvaluation(studentEvaluationData);
 
+                    if (status == 'success') {
+                      await dataBaseMethods.addTeamToTeacherMarked(
+                        teamInfo['Title'],
+                        Get.arguments[1],
+                        teacherInfo['initial'],
+                        int.parse(teamInfo['ID']),
+                      );
+                      Get.showSnackbar(
+                        GetSnackBar(
+                          backgroundColor: Colors.teal.shade800,
+                          message: Get.arguments.length == 3
+                              ? "Mark is updated Successfully"
+                              : "Mark is added successfully",
+                          duration: const Duration(seconds: 3),
+                        ),
+                      );
+                    } else {
+                      Get.showSnackbar(
+                        GetSnackBar(
+                          backgroundColor: Colors.red.shade800,
+                          message: "Something went wrong try again later!",
+                          duration: const Duration(seconds: 3),
+                        ),
+                      );
+                    }
+                    Get.off(const ProjectEvaluation(), arguments: Get.arguments[1]);
+                  }
                 },
-                child: const Text("Evaluate"),
+                child: Text(
+                  Get.arguments.length == 3 ? "Update" : "Evaluate",
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
               )
             ],
           ),

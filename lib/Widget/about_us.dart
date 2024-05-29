@@ -36,13 +36,16 @@ class _AboutUsState extends State<AboutUs> {
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const Text(
-                "Project Manager is used for managing task related with project management. Here"
-                " student can submit project proposal and request for team forming if unable"
-                " to make team for project or thesis. Teacher can assign supervisor to each "
-                "team and evaluate project throughout this app. ",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Project Manager is used for managing task related with project management. Here"
+                  " student can submit project proposal and request for team forming if unable"
+                  " to make team for project or thesis. Teacher can assign supervisor to each "
+                  "team and evaluate project throughout this app. ",
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.justify,
+                ),
               ),
               const Divider(),
               const Text(
@@ -50,20 +53,11 @@ class _AboutUsState extends State<AboutUs> {
                 style: TextStyle(color: Colors.teal, fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const Divider(),
-              Container(
-                height: 160,
-                width: 180,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.teal, width: 2),
-                  // borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Image(
-                  image: AssetImage("images/srk.jpg"),
-                  height: 60,
-                  width: 60,
-                  fit: BoxFit.fill,
-                ),
+              const CircleAvatar(
+                radius: 90,
+                backgroundImage: AssetImage("images/srk.jpg"),
               ),
+
               const Text(
                 "MD. Saidur Rahman Kohinoor",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -136,15 +130,19 @@ class _AboutUsState extends State<AboutUs> {
                 style: TextStyle(color: Colors.teal, fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const Divider(),
-              Container(
-                height: 160,
-                width: 160,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.teal, width: 2),
-                  // borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Image(
-                    image: AssetImage("images/nm.jpg"), width: 50, height: 50, fit: BoxFit.fill),
+              // Container(
+              //   height: 160,
+              //   width: 160,
+              //   decoration: BoxDecoration(
+              //     border: Border.all(color: Colors.teal, width: 2),
+              //     // borderRadius: BorderRadius.circular(50),
+              //   ),
+              //   child: const Image(
+              //       image: , width: 50, height: 50, fit: BoxFit.fill),
+              // ),
+              const CircleAvatar(
+                backgroundImage: AssetImage("images/nayem.jpg"),
+                radius: 90,
               ),
               const Text(
                 "Nayem Ali",
@@ -213,20 +211,24 @@ class _AboutUsState extends State<AboutUs> {
                 ),
               ),
               const SizedBox(height: 10),
-              Container(
-                height: 160,
-                width: 160,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.teal, width: 2),
-                  // borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Image(
-                  image: AssetImage("images/irin.jpg"),
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.fill,
-                ),
+              const CircleAvatar(
+                backgroundImage: AssetImage("images/irin.jpg"),
+                radius: 90,
               ),
+              // Container(
+              //   height: 160,
+              //   width: 160,
+              //   decoration: BoxDecoration(
+              //     border: Border.all(color: Colors.teal, width: 2),
+              //     // borderRadius: BorderRadius.circular(50),
+              //   ),
+              //   child: const Image(
+              //     image: AssetImage("images/irin.jpg"),
+              //     width: 50,
+              //     height: 50,
+              //     fit: BoxFit.fill,
+              //   ),
+              // ),
               const Text(
                 "Irin Shorme",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -294,20 +296,9 @@ class _AboutUsState extends State<AboutUs> {
                 ),
               ),
               const SizedBox(height: 10),
-              Container(
-                height: 160,
-                width: 160,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.teal, width: 2),
-                  // borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Image(
-                  image: AssetImage("images/Hir.jpg"),
-                  // fit: BoxFit.fill,
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.fill,
-                ),
+              const CircleAvatar(
+                backgroundImage: AssetImage("images/Hir.jpg"),
+                radius: 90,
               ),
               const Text(
                 "MD. Mahdi Hossain Hira",
@@ -435,8 +426,8 @@ class _AboutUsState extends State<AboutUs> {
                   ),
                   IconButton(
                     onPressed: () async {
-                      final Uri url = Uri.parse(
-                          'https://www.youtube.com/@InteXLab/'); // or add your URL here
+                      final Uri url =
+                          Uri.parse('https://www.youtube.com/@InteXLab/'); // or add your URL here
                       if (!await launchUrl(url)) {
                       } else {
                         throw 'Could not launch $url';

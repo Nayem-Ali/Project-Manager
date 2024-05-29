@@ -40,13 +40,16 @@ class _SplashScreenState extends State<SplashScreen> {
     return AnimatedSplashScreen(
       splash: Logo(fontSize: 30, figureSize: 200),
       splashIconSize: 400,
-      duration: 2000,
+      duration: 500,
       nextScreen: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
-            Get.snackbar("Something went wrong", snapshot.error.toString(),
-                duration: const Duration(seconds: 15));
+            Get.snackbar(
+              "Something went wrong",
+              snapshot.error.toString(),
+              duration: const Duration(seconds: 5),
+            );
             nextScreen = const LoginScreen();
           }
           if (snapshot.connectionState == ConnectionState.active) {
@@ -56,10 +59,10 @@ class _SplashScreenState extends State<SplashScreen> {
               if (userData == null) {
                 nextScreen = const InfoScreen();
               } else if (userData.containsKey('role')) {
-                print("role: ${userData['role'].toString()}");
+                // print("role: ${userData['role'].toString()}");
                 if (userData['role'].toString() == 'teacher') {
                   nextScreen = const TeacherHomeScreen();
-                } else {
+                } else  {
                   nextScreen = const StudentScreen();
                 }
               }

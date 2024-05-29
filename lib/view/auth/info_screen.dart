@@ -6,8 +6,6 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:teamlead/View/auth/login_screen.dart';
 import 'package:teamlead/View/splash_screen.dart';
-import 'package:teamlead/View/student/student_home.dart';
-import 'package:teamlead/View/teacher/tracher_screen.dart';
 import 'package:teamlead/services/db_service.dart';
 
 class InfoScreen extends StatefulWidget {

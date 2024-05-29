@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:teamlead/View/teacher/evaluate_team.dart';
 import 'package:teamlead/View/teacher/update_evaluation_data.dart';
 import 'package:teamlead/services/db_service.dart';
 
@@ -92,7 +93,7 @@ class _ViewEvaluatedDataState extends State<ViewEvaluatedData> {
                             ),
                             Text(
                               "Total Marks Obtained: "
-                              "${double.parse(evaluatedData['data'][index + 1]['criteria1']) + double.parse(evaluatedData['data'][index + 1]['criteria2'])}",
+                              "${evaluatedData['data'][index + 1]['criteria1'] + evaluatedData['data'][index + 1]['criteria2']}",
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -102,76 +103,19 @@ class _ViewEvaluatedDataState extends State<ViewEvaluatedData> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      "CRITERIA - I: ${evaluatedData['data'][index + 1]['criteria1']}",
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    if (evaluatedData['data'][index + 1]['viva'] != "")
-                                      Text(
-                                        "Viva: ${evaluatedData['data'][index + 1]['viva']}",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    if (evaluatedData['data'][index + 1]['problemDefinition'] !=
-                                        "")
-                                      Text(
-                                        "Problem Definition: ${evaluatedData['data'][index + 1]['problemDefinition']}",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    if (evaluatedData['data'][index + 1]['designComplexity'] != "")
-                                      Text(
-                                        "Design Complexity: ${evaluatedData['data'][index + 1]['designComplexity']}",
-                                        style: const TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                  ],
+                                Text(
+                                  "CRITERIA - I: ${evaluatedData['data'][index + 1]['criteria1']}",
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      "CRITERIA - II: ${evaluatedData['data'][index + 1]['criteria2']}",
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    if (evaluatedData['data'][index + 1]['presentation'] != "")
-                                      Text(
-                                        "Presentation: ${evaluatedData['data'][index + 1]['presentation']}",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    if (evaluatedData['data'][index + 1]['testing'] != "")
-                                      Text(
-                                        "Testing & Evaluation: ${evaluatedData['data'][index + 1]['testing']}",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    if (evaluatedData['data'][index + 1]['report'] != "")
-                                      Text(
-                                        "Report Writing: ${evaluatedData['data'][index + 1]['report']}",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                  ],
+                                Text(
+                                  "CRITERIA - II: ${evaluatedData['data'][index + 1]['criteria2']}",
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             )
@@ -183,9 +127,9 @@ class _ViewEvaluatedDataState extends State<ViewEvaluatedData> {
                 ),
                 ElevatedButton.icon(
                   onPressed: () {
-                    Get.off(const UpdateEvaluationData(), arguments: [
-                      initial,
+                    Get.off(const EvaluatePage(), arguments: [
                       teamInfo,
+                      Get.arguments[2],
                       evaluatedData,
                     ]);
                   },

@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../services/db_service.dart';
-
 class ViewProposal extends StatefulWidget {
   const ViewProposal({Key? key}) : super(key: key);
 
@@ -62,6 +60,7 @@ class _ViewProposalState extends State<ViewProposal> {
                 textAlign: TextAlign.center,
               ),
             ),
+            if(teamInfo['Proposal Drive Link'] !='')
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               padding: const EdgeInsets.all(10),
@@ -100,6 +99,7 @@ class _ViewProposalState extends State<ViewProposal> {
                 ],
               ),
             ),
+            if(teamInfo['Preferred Supervisor'] != '')
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               padding: const EdgeInsets.all(10),
@@ -144,42 +144,31 @@ class _ViewProposalState extends State<ViewProposal> {
                     ),
                     child: Column(
                       children: [
-
-                        Text(
-                          "Name: ${name[index]}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: Get.textScaleFactor * 16,
+                        if (name.length == totalMembers)
+                          Text(
+                            "Name: ${name[index]}",
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                           ),
-                        ),
-                        Text(
-                          "Student ID: ${id[index]}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: Get.textScaleFactor * 16,
+                        if (id.length == totalMembers)
+                          Text(
+                            "Student ID: ${id[index]}",
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                           ),
-                        ),
-                        Text(
-                          "CGPA: ${cgpa[index]}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: Get.textScaleFactor * 16,
+                        if (cgpa.length == totalMembers)
+                          Text(
+                            "CGPA: ${cgpa[index]}",
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                           ),
-                        ),
-                        Text(
-                          "Email: ${email[index]}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: Get.textScaleFactor * 16,
+                        if (email.length == totalMembers)
+                          Text(
+                            "Email: ${email[index]}",
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                           ),
-                        ),
-                        Text(
-                          "Phone: ${phone[index]}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: Get.textScaleFactor * 16,
+                        if (phone.length == totalMembers)
+                          Text(
+                            "Phone: ${phone[index]}",
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                           ),
-                        ),
                       ],
                     ),
                   );

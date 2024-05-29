@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:teamlead/View/admin/view_proposal.dart';
-import 'package:teamlead/services/db_service.dart';
-
 import 'package:teamlead/view/admin/team_statistics.dart';
-
 import '../../services/proposal_sheets_api.dart';
 
 class AssignSupervisor extends StatefulWidget {

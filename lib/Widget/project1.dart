@@ -19,7 +19,7 @@ class _Project1State extends State<Project1> {
   TextEditingController searchController = TextEditingController();
   DataBaseMethods dataBaseMethods = DataBaseMethods();
   dynamic p1 = [];
-  dynamic evaluatedBy = [[]];
+  dynamic evaluatedBy = [];
   dynamic teacherInfo = [];
   List<int> searchResult = [];
   int count = 0;
@@ -39,25 +39,37 @@ class _Project1State extends State<Project1> {
 
     evaluatedBy.clear();
     if (p1 != null) {
+      evaluatedBy =
+          await dataBaseMethods.getTeamToTeacherMarked(teacherInfo['initial'], 'CSE-3300');
+      // for (int i = 0; i < p1.length; i++) {
+      //   if (p1[i]["Title"].isNotEmpty) {
+      //     // print(p1[i]["Title"]);
+      //     evaluatedBy.add(
+      //       await dataBaseMethods.getEvaluationID(
+      //         'CSE-3300',
+      //         p1[i]["Title"],
+      //         "evaluationData",
+      //       ),
+      //     );
+      //     // print("Evaluated by: "+evaluatedBy[i]);
+      //   }
+      // }
     } else {
       status = "No teams found";
-      for (int i = 0; i < p1.length; i++) {
-        if (p1[i]["Title"].isNotEmpty) {
-          // print(p1[i]["Title"]);
-          evaluatedBy.add(
-            await dataBaseMethods.getEvaluationID(
-              'CSE-3300',
-              p1[i]["Title"],
-              "evaluationData",
-            ),
-          );
-          // print("Evaluated by: "+evaluatedBy[i]);
-        }
-      }
     }
     // print(evaluatedBy);
     // evaluatedBy = await dataBaseMethods.getEvaluationData(p1["projectType"], p1["title"], "evaluationData");
-
+    // FirebaseFirestore firestore = FirebaseFirestore.instance;
+    // for (int i = 0; i < evaluatedBy.length; i++) {
+    //   for (int j = 0; j < evaluatedBy[i].length; j++) {
+    //     await dataBaseMethods.addTeamToTeacherMarked(
+    //       p1[i]['Title'],
+    //       'CSE-3300',
+    //       evaluatedBy[i][j],
+    //       i,
+    //     );
+    //   }
+    // }
     setState(() {
       isLoading = false;
     });
@@ -83,6 +95,7 @@ class _Project1State extends State<Project1> {
     if (searchResult.isEmpty) {
       Get.snackbar("Result not found", "Try with right search key");
     }
+
     setState(() {});
   }
 
@@ -111,14 +124,13 @@ class _Project1State extends State<Project1> {
                   ? Expanded(
                       child: searchResult.isEmpty
                           ? ListView.builder(
-                              itemCount: count,
+                              itemCount: p1.length,
                               itemBuilder: (context, index) {
                                 return p1[index]['Title'] != ""
                                     ? GestureDetector(
                                         onTap: () {
                                           // print(evaluatedBy[index]);
-                                          if (evaluatedBy[index]
-                                              .contains(teacherInfo['initial'])) {
+                                          if (evaluatedBy.contains(p1[index]['Title'])) {
                                             Get.to(
                                               const ViewEvaluatedData(),
                                               arguments: [
@@ -135,18 +147,27 @@ class _Project1State extends State<Project1> {
                                         child: Card(
                                           color: Colors.green.shade100,
                                           child: ListTile(
+                                            leading: CircleAvatar(
+                                              backgroundColor: Colors.transparent,
+                                              child: Text(
+                                                p1[index]['ID'],
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                    color: Colors.black),
+                                              ),
+                                            ),
                                             title: Text(p1[index]['Title']),
                                             subtitle:
                                                 Text("Supervisor: ${p1[index]['Supervisor']}"),
-                                            trailing:
-                                                evaluatedBy[index].contains(teacherInfo['initial'])
-                                                    ? const Text(
-                                                        "Evaluated",
-                                                        style: TextStyle(
-                                                            color: Colors.red,
-                                                            fontWeight: FontWeight.bold),
-                                                      )
-                                                    : const SizedBox(),
+                                            trailing: evaluatedBy.contains(p1[index]['Title'])
+                                                ? const Text(
+                                                    "Evaluated",
+                                                    style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontWeight: FontWeight.bold),
+                                                  )
+                                                : const SizedBox(),
                                           ),
                                         ),
                                       )
@@ -155,39 +176,49 @@ class _Project1State extends State<Project1> {
                             )
                           : ListView.builder(
                               itemCount: searchResult.length,
-                              itemBuilder: (context, index) {
+                              itemBuilder: (context, idx) {
                                 return GestureDetector(
                                   onTap: () {
                                     // print(evaluatedBy[searchResult[index]]);
-                                    if (evaluatedBy[searchResult[index]]
-                                        .contains(teacherInfo['initial'])) {
+                                    if (evaluatedBy.contains(p1[searchResult[idx]]['Title'])) {
                                       Get.to(
                                         const ViewEvaluatedData(),
                                         arguments: [
-                                          p1[searchResult[index]],
+                                          p1[searchResult[idx]],
                                           teacherInfo["initial"],
-                                          'CSE-3300',
+                                          'CSE-3300'
                                         ],
                                       );
                                     } else {
                                       Get.to(const EvaluatePage(),
-                                          arguments: [p1[searchResult[index]], 'CSE-3300']);
+                                          arguments: [p1[searchResult[idx]], 'CSE-3300']);
                                     }
                                   },
                                   child: Card(
                                     color: Colors.green.shade100,
                                     child: ListTile(
-                                      title: Text(p1[searchResult[index]]['Title']),
+                                      leading: CircleAvatar(
+                                        backgroundColor: Colors.transparent,
+                                        child: Text(
+                                          p1[searchResult[idx]]['ID'],
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                      title: Text(p1[searchResult[idx]]['Title']),
                                       subtitle: Text(
-                                          "Supervisor: ${p1[searchResult[index]]['Supervisor']}"),
-                                      trailing: evaluatedBy[searchResult[index]]
-                                              .contains(teacherInfo['initial'])
-                                          ? const Text(
-                                              "Evaluated",
-                                              style: TextStyle(
-                                                  color: Colors.red, fontWeight: FontWeight.bold),
-                                            )
-                                          : const SizedBox(),
+                                          "Supervisor: ${p1[searchResult[idx]]['Supervisor']}"),
+                                      trailing:
+                                          evaluatedBy.contains(p1[searchResult[idx]]['Title'])
+                                              ? const Text(
+                                                  "Evaluated",
+                                                  style: TextStyle(
+                                                      color: Colors.red,
+                                                      fontWeight: FontWeight.bold),
+                                                )
+                                              : const SizedBox(),
                                     ),
                                   ),
                                 );

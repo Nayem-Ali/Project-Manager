@@ -19,7 +19,7 @@ class _Project3State extends State<Project3> {
   TextEditingController searchController = TextEditingController();
   DataBaseMethods dataBaseMethods = DataBaseMethods();
   dynamic p1 = [];
-  dynamic evaluatedBy = [[]];
+  dynamic evaluatedBy = [];
   dynamic teacherInfo = [];
   List<int> searchResult = [];
   String status = "Loading...";
@@ -38,16 +38,30 @@ class _Project3State extends State<Project3> {
     // print(p1);
     evaluatedBy.clear();
     if (p1 != null) {
-      for (int i = 0; i < p1.length; i++) {
-        evaluatedBy.add(await dataBaseMethods.getEvaluationID(
-          'CSE-4801',
-          p1[i]["Title"],
-          "evaluationData",
-        ));
-      }
+      evaluatedBy = await dataBaseMethods.getTeamToTeacherMarked(
+        teacherInfo['initial'],
+        'CSE-4801',
+      );
+      // for (int i = 0; i < p1.length; i++) {
+      //   evaluatedBy.add(await dataBaseMethods.getEvaluationID(
+      //     'CSE-4801',
+      //     p1[i]["Title"],
+      //     "evaluationData",
+      //   ));
+      // }
     } else {
       status = "No teams found";
     }
+    // for (int i = 0; i < evaluatedBy.length; i++) {
+    //   for (int j = 0; j < evaluatedBy[i].length; j++) {
+    //     await dataBaseMethods.addTeamToTeacherMarked(
+    //       p1[i]['Title'],
+    //       'CSE-4801',
+    //       evaluatedBy[i][j],
+    //       i,
+    //     );
+    //   }
+    // }
     // evaluatedBy = await dataBaseMethods.getEvaluationData(p1["projectType"], p1["title"], "evaluationData");
 
     setState(() {
@@ -60,16 +74,16 @@ class _Project3State extends State<Project3> {
     for (int i = 0; i < p1.length; i++) {
       if (p1[i]["Title"].toString().toLowerCase().contains(key.toLowerCase())) {
         searchResult.add(i);
-        print(p1[i]['Title']);
+        // print(p1[i]['Title']);
       } else if (p1[i]["Student ID"].toString().toLowerCase().contains(key.toLowerCase())) {
         searchResult.add(i);
-        print(p1[i]["Student ID"]);
+        // print(p1[i]["Student ID"]);
       } else if (p1[i]["Name"].toString().toLowerCase().contains(key.toLowerCase())) {
         searchResult.add(i);
-        print(p1[i]["Name"]);
+        // print(p1[i]["Name"]);
       } else if (p1[i]["Supervisor"].toString().toLowerCase().contains(key.toLowerCase())) {
         searchResult.add(i);
-        print(p1[i]["Supervisor"]);
+        // print(p1[i]["Supervisor"]);
       }
     }
     if (searchResult.isEmpty) {
@@ -104,7 +118,7 @@ class _Project3State extends State<Project3> {
                       label: const Text("Enter title, ID, name, supervisor initial")),
                 ),
               ),
-              if(isLoading) const Spacer(),
+              if (isLoading) const Spacer(),
               isLoading == false
                   ? Expanded(
                       child: searchResult.isEmpty
@@ -115,8 +129,7 @@ class _Project3State extends State<Project3> {
                                     ? GestureDetector(
                                         onTap: () {
                                           // print(evaluatedBy[index]);
-                                          if (evaluatedBy[index]
-                                              .contains(teacherInfo['initial'])) {
+                                          if (evaluatedBy.contains(p1[index]['Title'])) {
                                             Get.to(
                                               const ViewEvaluatedData(),
                                               arguments: [
@@ -133,18 +146,27 @@ class _Project3State extends State<Project3> {
                                         child: Card(
                                           color: Colors.green.shade100,
                                           child: ListTile(
+                                            leading: CircleAvatar(
+                                              backgroundColor: Colors.transparent,
+                                              child: Text(
+                                                p1[index]['ID'],
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                    color: Colors.black),
+                                              ),
+                                            ),
                                             title: Text(p1[index]['Title']),
                                             subtitle:
                                                 Text("Supervisor: ${p1[index]['Supervisor']}"),
-                                            trailing:
-                                                evaluatedBy[index].contains(teacherInfo['initial'])
-                                                    ? const Text(
-                                                        "Evaluated",
-                                                        style: TextStyle(
-                                                            color: Colors.red,
-                                                            fontWeight: FontWeight.bold),
-                                                      )
-                                                    : const SizedBox(),
+                                            trailing: evaluatedBy.contains(p1[index]['Title'])
+                                                ? const Text(
+                                                    "Evaluated",
+                                                    style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontWeight: FontWeight.bold),
+                                                  )
+                                                : const SizedBox(),
                                           ),
                                         ),
                                       )
@@ -153,41 +175,50 @@ class _Project3State extends State<Project3> {
                             )
                           : ListView.builder(
                               itemCount: searchResult.length,
-                              itemBuilder: (context, index) {
+                              itemBuilder: (context, idx) {
                                 return GestureDetector(
                                   onTap: () {
-                                    print(evaluatedBy[searchResult[index]]);
-                                    if (evaluatedBy[searchResult[index]]
-                                        .contains(teacherInfo['initial'])) {
+                                    if (evaluatedBy.contains(p1[searchResult[idx]]['Title'])) {
                                       Get.to(
                                         const ViewEvaluatedData(),
                                         arguments: [
-                                          p1[searchResult[index]],
+                                          p1[searchResult[idx]],
                                           teacherInfo["initial"],
                                           'CSE-4801',
                                         ],
                                       );
                                     } else {
-                                      Get.to(const EvaluatePage(), arguments: [
-                                        p1[searchResult[index]],
-                                        'CSE-4801'
-                                      ]);
+                                      Get.to(
+                                        const EvaluatePage(),
+                                        arguments: [p1[searchResult[idx]], 'CSE-4801'],
+                                      );
                                     }
                                   },
                                   child: Card(
                                     color: Colors.green.shade100,
                                     child: ListTile(
-                                      title: Text(p1[searchResult[index]]['Title']),
+                                      leading: CircleAvatar(
+                                        backgroundColor: Colors.transparent,
+                                        child: Text(
+                                          p1[searchResult[idx]]['ID'],
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                      title: Text(p1[searchResult[idx]]['Title']),
                                       subtitle: Text(
-                                          "Supervisor: ${p1[searchResult[index]]['Supervisor']}"),
-                                      trailing: evaluatedBy[searchResult[index]]
-                                              .contains(teacherInfo['initial'])
-                                          ? const Text(
-                                              "Evaluated",
-                                              style: TextStyle(
-                                                  color: Colors.red, fontWeight: FontWeight.bold),
-                                            )
-                                          : const SizedBox(),
+                                          "Supervisor: ${p1[searchResult[idx]]['Supervisor']}"),
+                                      trailing:
+                                          evaluatedBy.contains(p1[searchResult[idx]]['Title'])
+                                              ? const Text(
+                                                  "Evaluated",
+                                                  style: TextStyle(
+                                                      color: Colors.red,
+                                                      fontWeight: FontWeight.bold),
+                                                )
+                                              : const SizedBox(),
                                     ),
                                   ),
                                 );
@@ -198,7 +229,7 @@ class _Project3State extends State<Project3> {
                       alignment: Alignment.center,
                       child: Text(status),
                     ),
-              if(isLoading) const Spacer(),
+              if (isLoading) const Spacer(),
             ],
           )
         : Center(

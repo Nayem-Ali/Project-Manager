@@ -37,22 +37,45 @@ class _ViewMarkState extends State<ViewMark> {
   }
 
   submitData() async {
-    for (int i = 0; i < totalMembers; i++) {
-      Map<String, dynamic> mark = {};
-      mark["total"] = (double.tryParse(teamWork[i].text.trim()) ?? 0) +
-          (double.tryParse(technical[i].text.trim()) ?? 0);
-      mark["technical"] = double.tryParse(technical[i].text.trim()) ?? 0;
-      mark["teamwork"] = double.tryParse(teamWork[i].text.trim()) ?? 0;
-      marks.add(mark);
+    try{
+      for (int i = 0; i < totalMembers; i++) {
+        Map<String, dynamic> mark = {};
+        mark["total"] = (double.tryParse(teamWork[i].text.trim()) ?? 0) +
+            (double.tryParse(technical[i].text.trim()) ?? 0);
+        mark["technical"] = double.tryParse(technical[i].text.trim()) ?? 0;
+        mark["teamwork"] = double.tryParse(teamWork[i].text.trim()) ?? 0;
+        marks.add(mark);
+      }
+      await dataBaseMethods.addSupervisorMark(Get.arguments[1], teamInfo, marks);
+      marks.clear();
+      Get.back();
+      Get.showSnackbar(
+        GetSnackBar(
+          duration: const Duration(seconds: 2),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.teal.withOpacity(0.7),
+          message: evaluationMarks.isEmpty
+              ? 'Mark is added'
+              : "Mark is updated",
+        ),
+      );
+    } catch(e){
+      Get.showSnackbar(
+        GetSnackBar(
+          duration: const Duration(seconds: 2),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red.withOpacity(0.7),
+          message: e.toString()
+        ),
+      );
     }
-    await dataBaseMethods.addSupervisorMark(Get.arguments[1], teamInfo, marks);
-    marks.clear();
-    print(marks);
+
+    // print(marks);
   }
 
   getData() async {
     evaluationMarks = await dataBaseMethods.getSupervisorMark(Get.arguments[1], teamInfo);
-    print(evaluationMarks);
+    // print(evaluationMarks);
     if (evaluationMarks.isNotEmpty) {
       for (int i = 0; i < totalMembers; i++) {
         teamWork[i].text = evaluationMarks[i]['teamwork'].toString();
@@ -210,6 +233,8 @@ class _ViewMarkState extends State<ViewMark> {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       submitData();
+                      Get.back();
+
                     }
                   },
                   child: evaluationMarks.isEmpty ? const Text("Submit") : const Text("Update"),

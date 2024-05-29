@@ -1,18 +1,12 @@
 
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/View/splash_screen.dart';
-import 'package:teamlead/View/teacher/tracher_screen.dart';
 import 'package:teamlead/services/auth_services.dart';
-import 'package:teamlead/View/auth/info_screen.dart';
-
 import '../../Widget/logo.dart';
-import '../student/student_home.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

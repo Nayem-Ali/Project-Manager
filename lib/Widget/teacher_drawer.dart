@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/services/auth_services.dart';
@@ -8,19 +7,19 @@ import 'package:teamlead/services/db_service.dart';
 
 import 'about_us.dart';
 
-
-class DrawerScreen extends StatefulWidget {
-  const DrawerScreen({Key? key}) : super(key: key);
+class TeacherDrawer extends StatefulWidget {
+  const TeacherDrawer({Key? key}) : super(key: key);
 
   @override
-  State<DrawerScreen> createState() => _DrawerScreenState();
+  State<TeacherDrawer> createState() => _TeacherDrawerState();
 }
 
-class _DrawerScreenState extends State<DrawerScreen> {
+class _TeacherDrawerState extends State<TeacherDrawer> {
   dynamic userData = {};
   DataBaseMethods dataBaseMethods = DataBaseMethods();
   FirebaseAuth auth = FirebaseAuth.instance;
   bool themeMode = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -29,8 +28,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   }
 
   getData() async {
-    userData = await dataBaseMethods.getStudent();
-    print(userData);
+    userData = await dataBaseMethods.getTeacher();
     setState(() {});
   }
 
@@ -53,32 +51,46 @@ class _DrawerScreenState extends State<DrawerScreen> {
             ),
             const SizedBox(height: 10),
             Text(
-              "ID: ${userData['id']}",
+              "Initial: ${userData['initial']}",
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 10),
             Text(
-              "Section: ${userData['section']}",
+              "Designation: ${userData['designation']}",
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10),
-            Text(
-              "Batch: ${userData['batch']}",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
+            // const SizedBox(height: 10),
+            // Text(
+            //   "Batch: ${userData['batch']}",
+            //   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            //   textAlign: TextAlign.center,
+            // ),
+            // const SizedBox(height: 10),
+            // OutlinedButton.icon(
+            //   onPressed: () {
+            //     Get.to(const AboutUs());
+            //   },
+            //   style: OutlinedButton.styleFrom(
+            //       minimumSize: Size(Get.width, 50)
+            //   ),
+            //   label: const Text("About"),
+            //   icon: const Icon(Icons.info),
+            // ),
             SwitchListTile(
                 title: const Text("Dark Mode"),
                 value: themeMode,
                 onChanged: (value) {
                   setState(() {
-
                     themeMode = value;
                     if (themeMode) {
-                      Get.changeTheme(ThemeData.dark());
+                      Get.changeTheme(ThemeData.dark().copyWith(
+                        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+                        // primaryColor: Colors.deepOrangeAccent,
+                        //fontFamily: "Poppins",
+                        textTheme: GoogleFonts.aBeeZeeTextTheme(),
+                      ));
                     }
                     else {
                       Get.changeTheme(ThemeData.light().copyWith(
@@ -91,14 +103,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       ));
                     }
                   });
+                  if (themeMode) {
 
+                  }
                 }),
             const SizedBox(height: 10),
             OutlinedButton.icon(
               onPressed: logOutUser,
-              style: OutlinedButton.styleFrom(
-                  minimumSize: Size(Get.width, 50)
-              ),
+              style: OutlinedButton.styleFrom(minimumSize: Size(Get.width, 50)),
               label: const Text("Logout"),
               icon: const Icon(Icons.logout),
             ),
@@ -107,11 +119,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
               onPressed: () {
                 Get.to(const AboutUs());
               },
-              style: OutlinedButton.styleFrom(
-                  minimumSize: Size(Get.width, 50)
-              ),
+              style: OutlinedButton.styleFrom(minimumSize: Size(Get.width, 50)),
               label: const Text("About Us"),
-              icon: const Icon(Icons.info),
+              icon: const Icon(Icons.info_outline),
             ),
           ],
         ),

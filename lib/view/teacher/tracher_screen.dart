@@ -7,7 +7,7 @@ import 'package:teamlead/View/auth/info_screen.dart';
 import 'package:teamlead/View/teacher/my_teams.dart';
 import 'package:teamlead/View/teacher/project_evaluation.dart';
 import 'package:teamlead/Widget/buttonStyle.dart';
-import 'package:teamlead/Widget/drawer2.dart';
+import 'package:teamlead/Widget/teacher_drawer.dart';
 import 'package:teamlead/services/db_service.dart';
 import 'package:teamlead/view/teacher/annoucement.dart';
 
@@ -138,7 +138,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                         ),
                         label: const Text("Team Evaluation"),
                         onPressed: () {
-                          Get.to(const ProjectEvaluation());
+                          Get.to(const ProjectEvaluation(), arguments: 'CSE-3300');
                         },
                       ),
                     ],

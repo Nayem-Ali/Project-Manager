@@ -43,6 +43,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Secter Files
-proposal_sheet_api.dart
-result_sheet_api.dart
+# Secretr Files
+lib/services/result_sheet_api.dart
+lib/services/proposal_sheets_api.dart

@@ -15,14 +15,12 @@ void main() async {
   await ResultSheetApi.initialize();
 
   /// To interact with flutter engine
-  try{
-    await Firebase.initializeApp(
-      // name: "Project Manager",
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  } on FirebaseException catch(e){
-    print(e.message);
-  }
+
+  await Firebase.initializeApp(
+    // name: "Project Manager",
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 

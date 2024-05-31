@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/View/teacher/view_evaluation_data.dart';
 
 // import 'package:teamlead/services/google_sheets_api.dart';
@@ -41,35 +42,10 @@ class _Project1State extends State<Project1> {
     if (p1 != null) {
       evaluatedBy =
           await dataBaseMethods.getTeamToTeacherMarked(teacherInfo['initial'], 'CSE-3300');
-      // for (int i = 0; i < p1.length; i++) {
-      //   if (p1[i]["Title"].isNotEmpty) {
-      //     // print(p1[i]["Title"]);
-      //     evaluatedBy.add(
-      //       await dataBaseMethods.getEvaluationID(
-      //         'CSE-3300',
-      //         p1[i]["Title"],
-      //         "evaluationData",
-      //       ),
-      //     );
-      //     // print("Evaluated by: "+evaluatedBy[i]);
-      //   }
-      // }
     } else {
       status = "No teams found";
     }
-    // print(evaluatedBy);
-    // evaluatedBy = await dataBaseMethods.getEvaluationData(p1["projectType"], p1["title"], "evaluationData");
-    // FirebaseFirestore firestore = FirebaseFirestore.instance;
-    // for (int i = 0; i < evaluatedBy.length; i++) {
-    //   for (int j = 0; j < evaluatedBy[i].length; j++) {
-    //     await dataBaseMethods.addTeamToTeacherMarked(
-    //       p1[i]['Title'],
-    //       'CSE-3300',
-    //       evaluatedBy[i][j],
-    //       i,
-    //     );
-    //   }
-    // }
+
     setState(() {
       isLoading = false;
     });
@@ -151,13 +127,17 @@ class _Project1State extends State<Project1> {
                                               backgroundColor: Colors.transparent,
                                               child: Text(
                                                 p1[index]['ID'],
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18,
-                                                    color: Colors.black),
+                                                style: GoogleFonts.adamina(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                  color: Colors.black,
+                                                ),
                                               ),
                                             ),
-                                            title: Text(p1[index]['Title']),
+                                            title: Text(
+                                              p1[index]['Title'],
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                             subtitle:
                                                 Text("Supervisor: ${p1[index]['Supervisor']}"),
                                             trailing: evaluatedBy.contains(p1[index]['Title'])
@@ -201,13 +181,17 @@ class _Project1State extends State<Project1> {
                                         backgroundColor: Colors.transparent,
                                         child: Text(
                                           p1[searchResult[idx]]['ID'],
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                              color: Colors.black),
+                                          style: GoogleFonts.adamina(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
-                                      title: Text(p1[searchResult[idx]]['Title']),
+                                      title: Text(
+                                        p1[searchResult[idx]]['Title'],
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                       subtitle: Text(
                                           "Supervisor: ${p1[searchResult[idx]]['Supervisor']}"),
                                       trailing:

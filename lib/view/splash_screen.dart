@@ -30,8 +30,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   getData() async {
     userData = await dataBaseMethods.getStudent() ?? await dataBaseMethods.getTeacher();
-
-    setState(() {});
   }
 
   @override

@@ -133,7 +133,9 @@ class _ViewEvaluatedDataState extends State<ViewEvaluatedData> {
                       evaluatedData,
                     ]);
                   },
-                  label: const Text("Edit"),
+                  label: const Text("Edit Marks", style: TextStyle(fontSize: 18, fontWeight:
+                  FontWeight.bold),),
+                  style: ElevatedButton.styleFrom(minimumSize: Size(Get.width * 0.6, 50)),
                   icon: const Icon(Icons.edit),
                 )
               ],

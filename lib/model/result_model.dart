@@ -4,9 +4,12 @@ class ResultFields {
   static const String members = 'Team Members';
   static const String studentID = 'Student ID';
   static const String name = 'Name';
+  static const String evaluatedBy = 'Evaluated By';
   static const String board = 'Defense Board Mark Average';
   static const String supervisor = 'Supervisor Mark';
   static const String total = 'Total';
+  static const String grade = 'Grade';
+  static const String point = 'Point';
 
 
   static List<String> getFields() => [
@@ -15,8 +18,11 @@ class ResultFields {
     members,
     name,
     studentID,
+    evaluatedBy,
     board,
     supervisor,
-    total
+    total,
+    grade,
+    point,
   ];
 }

@@ -52,8 +52,7 @@ class _ViewMarkState extends State<ViewMark> {
       Get.showSnackbar(
         GetSnackBar(
           duration: const Duration(seconds: 2),
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.teal.withOpacity(0.7),
+          backgroundColor: Colors.teal,
           message: evaluationMarks.isEmpty
               ? 'Mark is added'
               : "Mark is updated",
@@ -63,8 +62,7 @@ class _ViewMarkState extends State<ViewMark> {
       Get.showSnackbar(
         GetSnackBar(
           duration: const Duration(seconds: 2),
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.red.withOpacity(0.7),
+          backgroundColor: Colors.red,
           message: e.toString()
         ),
       );

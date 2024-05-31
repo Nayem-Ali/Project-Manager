@@ -155,8 +155,8 @@ class _ResultPageState extends State<ResultPage> {
         result.add(resultData);
       }
     } catch (e) {
-      print(e.toString());
-      Get.snackbar("Result Generation for CSE-3300 failed", "No teams found");
+      // print(e.toString());
+      Get.snackbar("Result Generation for $type failed", e.toString());
     }
 
     // cse4800 = await ProjectSheetApi.getAllRows("CSE-4800");

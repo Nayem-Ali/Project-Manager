@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:teamlead/View/student/student_home.dart';
+import 'package:teamlead/View/teacher/tracher_screen.dart';
+
+import '../services/db_service.dart';
+import 'auth/info_screen.dart';
+
+class SelectRoute extends StatefulWidget {
+  const SelectRoute({Key? key}) : super(key: key);
+
+  @override
+  State<SelectRoute> createState() => _SelectRouteState();
+}
+
+class _SelectRouteState extends State<SelectRoute> {
+  DataBaseMethods dataBaseMethods = DataBaseMethods();
+  dynamic userData = {};
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    userData = await dataBaseMethods.getStudent() ?? await dataBaseMethods.getTeacher();
+
+    if (userData.containsKey('role')) {
+      // print("role: ${userData['role'].toString()}");
+      if (userData['role'].toString() == 'teacher') {
+        Get.offAll(const TeacherHomeScreen());
+      } else {
+        Get.offAll(const StudentScreen());
+      }
+    } else {
+      Get.offAll(const InfoScreen());
+    }
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: userData == null ? const Center(child: Text("Loading...")) : const SizedBox(),
+    );
+  }
+}

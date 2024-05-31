@@ -7,6 +7,7 @@ import 'package:teamlead/View/auth/login_screen.dart';
 import 'package:teamlead/View/student/student_home.dart';
 import 'package:teamlead/View/teacher/tracher_screen.dart';
 import 'package:teamlead/services/db_service.dart';
+import 'package:teamlead/view/selectRoute.dart';
 
 import '../Widget/logo.dart';
 
@@ -18,19 +19,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  DataBaseMethods dataBaseMethods = DataBaseMethods();
-  dynamic userData = {};
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getData();
-  }
 
-  getData() async {
-    userData = await dataBaseMethods.getStudent() ?? await dataBaseMethods.getTeacher();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,16 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
             if (snapshot.data == null) {
               nextScreen = const LoginScreen();
             } else {
-              if (userData == null) {
-                nextScreen = const InfoScreen();
-              } else if (userData.containsKey('role')) {
-                // print("role: ${userData['role'].toString()}");
-                if (userData['role'].toString() == 'teacher') {
-                  nextScreen = const TeacherHomeScreen();
-                } else  {
-                  nextScreen = const StudentScreen();
-                }
-              }
+              nextScreen = const SelectRoute();
             }
           }
           return nextScreen;

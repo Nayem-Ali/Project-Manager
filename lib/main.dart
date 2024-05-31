@@ -7,6 +7,7 @@ import 'package:teamlead/services/result_sheet_api.dart';
 
 // import 'package:teamlead/services/google_sheets_api.dart';
 import 'View/splash_screen.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,16 +15,14 @@ void main() async {
   await ResultSheetApi.initialize();
 
   /// To interact with flutter engine
-  await Firebase.initializeApp(
-    name: "Project Manager",
-    options: const FirebaseOptions(
-      apiKey: "AIzaSyCLypnwO7g0n084BEWLOdhyNajNbOJxTRU",
-      projectId: "project-manager-4cea3",
-      messagingSenderId: "933388745290",
-      appId: "1:933388745290:web:22a36345fe86cfefbb04b3",
-      authDomain: "project-manager-4cea3.firebaseapp.com",
-    ),
-  );
+  try{
+    await Firebase.initializeApp(
+      // name: "Project Manager",
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } on FirebaseException catch(e){
+    print(e.message);
+  }
   runApp(const MyApp());
 }
 

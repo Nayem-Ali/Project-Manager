@@ -36,7 +36,7 @@ class _TeacherDrawerState extends State<TeacherDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Column(
           children: [
             const SizedBox(height: 10),
@@ -82,30 +82,30 @@ class _TeacherDrawerState extends State<TeacherDrawer> {
                 title: const Text("Dark Mode"),
                 value: themeMode,
                 onChanged: (value) {
-                  setState(() {
-                    themeMode = value;
-                    if (themeMode) {
-                      Get.changeTheme(ThemeData.dark().copyWith(
-                        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
-                        // primaryColor: Colors.deepOrangeAccent,
-                        //fontFamily: "Poppins",
-                        textTheme: GoogleFonts.aBeeZeeTextTheme(),
-                      ));
-                    }
-                    else {
-                      Get.changeTheme(ThemeData.light().copyWith(
-                        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
-                        // primaryColor: Colors.deepOrangeAccent,
-                        //fontFamily: "Poppins",
-                        textTheme: GoogleFonts.aBeeZeeTextTheme(),
-                        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                        // useMaterial3: true,
-                      ));
-                    }
-                  });
-                  if (themeMode) {
-
-                  }
+                  // setState(() {
+                  //   themeMode = value;
+                  //   if (themeMode) {
+                  //     Get.changeTheme(ThemeData.dark().copyWith(
+                  //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+                  //       // primaryColor: Colors.deepOrangeAccent,
+                  //       //fontFamily: "Poppins",
+                  //       textTheme: GoogleFonts.aBeeZeeTextTheme(),
+                  //     ));
+                  //   }
+                  //   else {
+                  //     Get.changeTheme(ThemeData.light().copyWith(
+                  //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+                  //       // primaryColor: Colors.deepOrangeAccent,
+                  //       //fontFamily: "Poppins",
+                  //       textTheme: GoogleFonts.aBeeZeeTextTheme(),
+                  //       // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                  //       // useMaterial3: true,
+                  //     ));
+                  //   }
+                  // });
+                  // if (themeMode) {
+                  //
+                  // }
                 }),
             const SizedBox(height: 10),
             OutlinedButton.icon(

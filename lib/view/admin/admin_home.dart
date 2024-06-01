@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/View/admin/add_admin.dart';
@@ -31,8 +32,8 @@ class _AdminHomeState extends State<AdminHome> {
             children: [
               Image(
                 image: const AssetImage('images/Leading-university-logo.png'),
-                width: Get.size.width * 0.4,
-                height: Get.size.height * 0.2,
+                width: 200.w,
+                height: 150.h,
                 fit: BoxFit.fill,
               ),
               const Spacer(),
@@ -40,10 +41,10 @@ class _AdminHomeState extends State<AdminHome> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton.icon(
-                    style: buttonStyle(),
-                    icon: const Icon(
+                    style: buttonStyle(300, 40),
+                    icon:  Icon(
                       Icons.assignment,
-                      size: 25,
+                      size: 25.w,
                     ),
                     label: const Text(
                       "View Proposals",
@@ -53,14 +54,14 @@ class _AdminHomeState extends State<AdminHome> {
                       Get.to(const AssignSupervisor());
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 20.h,
                   ),
                   ElevatedButton.icon(
-                    style: buttonStyle(),
-                    icon: const Icon(
+                    style: buttonStyle(300, 40),
+                    icon:  Icon(
                       Icons.add,
-                      size: 25,
+                      size: 25.w,
                     ),
                     label: const Text(
                       "Add Admin",
@@ -72,16 +73,16 @@ class _AdminHomeState extends State<AdminHome> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
+               SizedBox(
+                height: 20.h,
               ),
               Column(
                 children: [
                   ElevatedButton.icon(
-                    style: buttonStyle(),
-                    icon: const Icon(
+                    style: buttonStyle(300, 40),
+                    icon:  Icon(
                       Icons.settings,
-                      size: 25,
+                      size: 25.w,
                     ),
                     label: const Text(
                       "Proposal Setting",
@@ -91,14 +92,14 @@ class _AdminHomeState extends State<AdminHome> {
                       Get.to(const ProposalSetting());
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 20.h,
                   ),
                   ElevatedButton.icon(
-                    style: buttonStyle(),
-                    icon: const Icon(
+                    style: buttonStyle(300, 40),
+                    icon:  Icon(
                       Icons.approval,
-                      size: 25,
+                      size: 25.w,
                     ),
                     label: const Text(
                       "Request",
@@ -108,14 +109,14 @@ class _AdminHomeState extends State<AdminHome> {
                       Get.to(const ApproveRequest());
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 20.h,
                   ),
                   ElevatedButton.icon(
-                    style: buttonStyle(),
-                    icon: const Icon(
+                    style: buttonStyle(300, 40),
+                    icon:  Icon(
                       FontAwesomeIcons.file,
-                      size: 25,
+                      size: 25.w,
                     ),
                     label: const Text(
                       "Generate Result",
@@ -130,11 +131,11 @@ class _AdminHomeState extends State<AdminHome> {
               const Spacer(),
               Text(
                 "Project Committee",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: Get.textScaleFactor * 25),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
               ),
               Text(
                 "Department of CSE",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: Get.textScaleFactor * 30),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
               ),
               const Spacer(),
             ],

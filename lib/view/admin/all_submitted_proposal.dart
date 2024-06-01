@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/View/admin/view_proposal.dart';
 import 'package:teamlead/view/admin/team_statistics.dart';
+
 import '../../services/proposal_sheets_api.dart';
 
 class AssignSupervisor extends StatefulWidget {
@@ -38,25 +40,25 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
     for (int i = 0; i < proposalData.length; i++) {
       if (proposalData[i]["Title"].toString().toLowerCase().contains(key.toLowerCase())) {
         searchResult.add(i);
-        print(proposalData[i]['Title']);
+        // print(proposalData[i]['Title']);
       } else if (proposalData[i]["Student ID"]
           .toString()
           .toLowerCase()
           .contains(key.toLowerCase())) {
         searchResult.add(i);
-        print(proposalData[i]["Student ID"]);
+        // print(proposalData[i]["Student ID"]);
       } else if (proposalData[i]["Name"].toString().toLowerCase().contains(key.toLowerCase())) {
         searchResult.add(i);
-        print(proposalData[i]["Name"]);
+        // print(proposalData[i]["Name"]);
       } else if (proposalData[i]["Supervisor"]
           .toString()
           .toLowerCase()
           .contains(key.toLowerCase())) {
         searchResult.add(i);
-        print(proposalData[i]["Supervisor"]);
+        // print(proposalData[i]["Supervisor"]);
       }
     }
-    print(searchResult);
+    // print(searchResult);
     if (searchResult.isEmpty) {
       Get.snackbar("Result not found", "Try with right search key");
     }
@@ -108,11 +110,11 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
                     style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
-                      fontSize: Get.textScaleFactor * 20,
+                      fontSize: 18.sp,
                     ),
                   ),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 OutlinedButton(
                     onPressed: () async {
                       setState(() {
@@ -132,7 +134,7 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
                       style: TextStyle(
                         color: Colors.black87,
                         fontWeight: FontWeight.bold,
-                        fontSize: Get.textScaleFactor * 20,
+                        fontSize: 18.sp,
                       ),
                     )),
               ],
@@ -142,14 +144,18 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
               child: TextFormField(
                 controller: searchController,
                 decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        search(searchController.text.trim());
-                      },
-                      icon: const Icon(Icons.search),
-                    ),
-                    label: const Text("Enter title, ID, name, supervisor initial")),
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      search(searchController.text.trim());
+                    },
+                    icon: const Icon(Icons.search),
+                  ),
+                  label: Text(
+                    "Enter title, ID, name, supervisor initial",
+                    style: GoogleFonts.adamina(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                  ),
+                ),
               ),
             ),
             Expanded(

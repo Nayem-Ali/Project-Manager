@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -48,14 +49,14 @@ class _ViewProposalState extends State<ViewProposal> {
               margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               padding: const EdgeInsets.all(10),
               width: Get.size.width,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  gradient: LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20.r)),
+                  gradient: const LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
               child: Text(
                 teamInfo['Title'],
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: Get.textScaleFactor * 20,
+                  fontSize: 18.sp,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -65,9 +66,9 @@ class _ViewProposalState extends State<ViewProposal> {
               margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               padding: const EdgeInsets.all(10),
               width: Get.size.width,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  gradient: LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
+              decoration:  BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50.r)),
+                  gradient: const LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
               child: Row(
                 children: [
                   Expanded(
@@ -104,16 +105,16 @@ class _ViewProposalState extends State<ViewProposal> {
               margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               padding: const EdgeInsets.all(10),
               width: Get.size.width,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  gradient: LinearGradient(colors: [Colors.greenAccent, Colors.tealAccent])),
+              decoration:  BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50.r)),
+                  gradient: const LinearGradient(colors: [Colors.greenAccent, Colors.tealAccent])),
               child: Column(
                 children: [
                   Text(
                     "Preferred Supervisor",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: Get.textScaleFactor * 20,
+                      fontSize: 18.sp,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -122,7 +123,7 @@ class _ViewProposalState extends State<ViewProposal> {
                     teamInfo['Preferred Supervisor'],
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: Get.textScaleFactor * 15,
+                      fontSize: 12.sp,
                     ),
                     textAlign: TextAlign.center,
                   )
@@ -146,28 +147,28 @@ class _ViewProposalState extends State<ViewProposal> {
                       children: [
                         if (name.length == totalMembers)
                           Text(
-                            "Name: ${name[index]}",
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            "Name: ${name[index].trim()}",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                           ),
                         if (id.length == totalMembers)
                           Text(
-                            "Student ID: ${id[index]}",
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            "Student ID: ${id[index].trim()}",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                           ),
                         if (cgpa.length == totalMembers)
                           Text(
-                            "CGPA: ${cgpa[index]}",
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            "CGPA: ${cgpa[index].trim()}",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                           ),
                         if (email.length == totalMembers)
                           Text(
-                            "Email: ${email[index]}",
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            "Email: ${email[index].trim()}",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                           ),
                         if (phone.length == totalMembers)
                           Text(
-                            "Phone: ${phone[index]}",
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            "Phone: ${phone[index].trim()}",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                           ),
                       ],
                     ),

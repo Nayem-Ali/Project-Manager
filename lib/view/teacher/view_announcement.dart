@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../services/db_service.dart';
@@ -50,12 +51,12 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
             const Spacer(),
             Text(
               "Subject: ${data['subject']}",
-              style: TextStyle(fontSize: Get.textScaleFactor * 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Text(
               data["body"],
-              style: TextStyle(fontSize: Get.textScaleFactor * 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
             const Spacer(),
             // Row(

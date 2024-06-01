@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/View/teacher/project_evaluation.dart';
+import 'package:teamlead/Widget/buttonStyle.dart';
 import 'package:teamlead/services/db_service.dart';
 
 class EvaluatePage extends StatefulWidget {
@@ -116,7 +118,7 @@ class _EvaluatePageState extends State<EvaluatePage> {
                                     "Mark as Absent",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: Get.textScaleFactor * 14,
+                                      fontSize: 12.sp,
                                     ),
                                   ),
                                 ),
@@ -138,16 +140,16 @@ class _EvaluatePageState extends State<EvaluatePage> {
                                 ),
                               ],
                             ),
-                            subtitle: Text(id[index]),
-                            title: Text(name[index]),
+                            subtitle: Text(id[index].trim()),
+                            title: Text(name[index].trim()),
                             subtitleTextStyle: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: Get.textScaleFactor * 16,
+                              fontSize:  14.sp,
                               color: Colors.black,
                             ),
-                            titleTextStyle: const TextStyle(
+                            titleTextStyle: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              fontSize: 14.sp,
                               color: Colors.black,
                             ),
                           ),
@@ -202,9 +204,7 @@ class _EvaluatePageState extends State<EvaluatePage> {
                 ),
               ),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(200, 50),
-                ),
+                style: buttonStyle(300, 40),
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     addEvaluationData();
@@ -241,7 +241,6 @@ class _EvaluatePageState extends State<EvaluatePage> {
                 },
                 child: Text(
                   Get.arguments.length == 3 ? "Update" : "Evaluate",
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
               )
             ],

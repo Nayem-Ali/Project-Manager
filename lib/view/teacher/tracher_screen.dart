@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:teamlead/View/admin/admin_home.dart';
@@ -108,8 +109,8 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                 // ),
                 Image(
                   image: const AssetImage('images/Leading-university-logo.png'),
-                  width: Get.size.width * 0.4,
-                  height: Get.size.height * 0.2,
+                  width: 200.w,
+                  height: 150.h,
                   fit: BoxFit.fill,
                 ),
                 const Spacer(),
@@ -117,24 +118,24 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                   Column(
                     children: [
                       ElevatedButton.icon(
-                        style: buttonStyle(),
+                        style: buttonStyle(300,40),
                         icon: Icon(
                           Icons.people,
-                          size: Get.height * 0.03,
+                          size: 25.h,
                         ),
                         label: const Text("My Teams"),
                         onPressed: () {
                           Get.to(const MyTeams());
                         },
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: 20.h,
                       ),
                       ElevatedButton.icon(
-                        style: buttonStyle(),
+                        style: buttonStyle(300,40),
                         icon: Icon(
                           Icons.pending_actions_sharp,
-                          size: Get.height * 0.03,
+                          size: 25.h,
                         ),
                         label: const Text("Team Evaluation"),
                         onPressed: () {
@@ -143,17 +144,17 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                       ),
                     ],
                   ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: 20.h,
                 ),
                 if (teacherData['status'] == 'approved')
                   Column(
                     children: [
                       ElevatedButton.icon(
-                        style: buttonStyle(),
+                        style: buttonStyle(300, 40),
                         icon: Icon(
                           Icons.announcement_sharp,
-                          size: Get.height * 0.03,
+                          size: 25.h,
                         ),
                         label: const Text("Announcement"),
                         onPressed: () {
@@ -161,15 +162,15 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                         },
                       ),
                       if (admins.contains(auth.currentUser!.email))
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: 20.h,
                         ),
                       if (admins.contains(auth.currentUser!.email))
                         ElevatedButton.icon(
-                          style: buttonStyle(),
+                          style: buttonStyle(300, 40),
                           icon: Icon(
                             Icons.admin_panel_settings_rounded,
-                            size: Get.height * 0.03,
+                            size: 25.h,
                           ),
                           label: const Text(
                             "Admin Dashboard",
@@ -181,14 +182,14 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                     ],
                   ),
                 if (teacherData['status'] == 'pending')
-                  const Center(
+                  Center(
                     child: Text(
                       "Your request is under review. You can get all teacher feature if admin "
                       "approves your request upon given details.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 20.h,
                       ),
                     ),
                   ),
@@ -196,12 +197,12 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                   Center(
                     child: Column(
                       children: [
-                        const Text(
+                        Text(
                           "Your request is rejected by the admin.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 20.h,
                           ),
                         ),
                         ElevatedButton(
@@ -216,12 +217,12 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                 Text(
                   "Project Committee",
                   style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: Get.textScaleFactor * 25),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize:  18.h),
                 ),
                 Text(
                   "Department of CSE",
                   style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: Get.textScaleFactor * 30),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.h),
                 ),
                 const Spacer(),
               ],

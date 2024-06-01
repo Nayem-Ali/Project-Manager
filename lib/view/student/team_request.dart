@@ -612,7 +612,7 @@ class _RequestTeamState extends State<RequestTeam> {
                         Get.off(const StudentScreen());
                       }
                     },
-                    style: buttonStyle(),
+                    style: buttonStyle(300, 40),
                     icon: const Icon(Icons.send_sharp),
                     label: Text(
                       "Submit",

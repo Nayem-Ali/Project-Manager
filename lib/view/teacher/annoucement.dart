@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/services/db_service.dart';
 import 'package:teamlead/view/teacher/view_announcement.dart';
@@ -70,7 +71,7 @@ class _AnnouncementState extends State<Announcement> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 TextFormField(
                   controller: body,
                   minLines: null,

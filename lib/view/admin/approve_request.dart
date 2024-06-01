@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:teamlead/Widget/buttonStyle.dart';
 import 'package:teamlead/services/db_service.dart';
 
 class ApproveRequest extends StatefulWidget {
@@ -44,52 +46,46 @@ class _ApproveRequestState extends State<ApproveRequest> {
             const Spacer(),
             Text(
               "Name: ${teacherData['name']}",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: Get.size.height * 0.02),
+            SizedBox(height: 20.h),
             Text(
               "Email: ${teacherData['email']}",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: Get.size.height * 0.02),
+            SizedBox(height: 20.h),
             Text(
               "Designation: ${teacherData['designation']}",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: Get.size.height * 0.02),
+            SizedBox(height: 20.h),
             Text(
               "Initial: ${teacherData['initial']}",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: Get.size.height * 0.02),
+            SizedBox(height: 20.h),
             Text(
               "Request Status: ${teacherData['status'].toString().capitalizeFirst}",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: Get.size.height * 0.02),
+            SizedBox(height: 20.h),
             ElevatedButton.icon(
               onPressed: () async {
                 await dataBaseMethods.approveTeacher(teacherData['email'].toString(), "approved");
                 Get.back();
               },
-              style: ElevatedButton.styleFrom(minimumSize: Size(Get.size.width * 0.8, 40)),
-              label: const Text(
-                "Approve",
-                style: TextStyle(fontSize: 18),
-              ),
+              style: buttonStyle(300, 40),
+              label: const Text("Approve"),
               icon: const Icon(Icons.done),
             ),
-            SizedBox(height: Get.size.height * 0.02),
+            SizedBox(height: 20.h),
             ElevatedButton.icon(
               onPressed: () async {
                 await dataBaseMethods.approveTeacher(teacherData['email'].toString(), "rejected");
                 Get.back();
               },
-              style: ElevatedButton.styleFrom(minimumSize: Size(Get.size.width * 0.8, 40)),
-              label: Text(
-                "Reject",
-                style: TextStyle(fontSize: Get.textScaleFactor * 20),
-              ),
+              style: buttonStyle(300, 40),
+              label: const Text("Reject"),
               icon: const Icon(Icons.not_interested),
             ),
             const Spacer(),

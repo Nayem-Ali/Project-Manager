@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/services/db_service.dart';
 
@@ -37,7 +38,7 @@ class _ViewMarkState extends State<ViewMark> {
   }
 
   submitData() async {
-    try{
+    try {
       for (int i = 0; i < totalMembers; i++) {
         Map<String, dynamic> mark = {};
         mark["total"] = (double.tryParse(teamWork[i].text.trim()) ?? 0) +
@@ -53,18 +54,15 @@ class _ViewMarkState extends State<ViewMark> {
         GetSnackBar(
           duration: const Duration(seconds: 2),
           backgroundColor: Colors.teal,
-          message: evaluationMarks.isEmpty
-              ? 'Mark is added'
-              : "Mark is updated",
+          message: evaluationMarks.isEmpty ? 'Mark is added' : "Mark is updated",
         ),
       );
-    } catch(e){
+    } catch (e) {
       Get.showSnackbar(
         GetSnackBar(
-          duration: const Duration(seconds: 2),
-          backgroundColor: Colors.red,
-          message: e.toString()
-        ),
+            duration: const Duration(seconds: 2),
+            backgroundColor: Colors.red,
+            message: e.toString()),
       );
     }
 
@@ -117,31 +115,38 @@ class _ViewMarkState extends State<ViewMark> {
                                 ? Colors.tealAccent.shade100
                                 : Colors.limeAccent.shade100,
                             child: ListTile(
-                              subtitle: Text(name[index]),
-                              title: Text(id[index]),
+                              subtitle: Text(name[index].trim()),
+                              title: Text(id[index].trim()),
                               trailing: Stack(
                                 alignment: Alignment.topCenter,
                                 children: [
-                                  const Text(
-                                    "Absent",
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  const Padding(
+                                    padding: EdgeInsets.only(top: 6.0),
+                                    child: Text(
+                                      "Mark as Absent",
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                  Switch(
-                                    value: isAbsent[index],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        total[index].clear();
-                                        technical[index].clear();
-                                        teamWork[index].clear();
-                                        isAbsent[index] = !isAbsent[index];
-                                      });
-                                    },
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 15.0),
+                                    child: Switch(
+                                      value: isAbsent[index],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          total[index].clear();
+                                          technical[index].clear();
+                                          teamWork[index].clear();
+                                          isAbsent[index] = !isAbsent[index];
+                                        });
+                                      },
+                                    ),
                                   )
                                 ],
                               ),
                             ),
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           if (!isAbsent[index])
                             Row(
                               children: [
@@ -192,7 +197,7 @@ class _ViewMarkState extends State<ViewMark> {
                                     },
                                   ),
                                 ),
-                                const SizedBox(width: 15),
+                                SizedBox(width: 15.w),
                                 Expanded(
                                   child: TextFormField(
                                     controller: teamWork[index],
@@ -221,7 +226,7 @@ class _ViewMarkState extends State<ViewMark> {
                                 ),
                               ],
                             ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                         ],
                       );
                     },
@@ -232,7 +237,6 @@ class _ViewMarkState extends State<ViewMark> {
                     if (formKey.currentState!.validate()) {
                       submitData();
                       Get.back();
-
                     }
                   },
                   child: evaluationMarks.isEmpty ? const Text("Submit") : const Text("Update"),

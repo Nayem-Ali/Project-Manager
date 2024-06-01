@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -175,55 +176,57 @@ class _ResultPageState extends State<ResultPage> {
       backgroundColor: Colors.white,
       isDismissible: true,
       isScrollControlled: true,
-      Table(
-        border: TableBorder.all(),
-        children: [
-          TableRow(children: [
-            Text(
-              "Student ID",
-              style: TextStyle(fontSize: Get.textScaleFactor * 15, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              "Total",
-              style: TextStyle(fontSize: Get.textScaleFactor * 15, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              "Grade",
-              style: TextStyle(fontSize: Get.textScaleFactor * 15, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              "CGPA",
-              style: TextStyle(fontSize: Get.textScaleFactor * 15, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ]),
-          for (int i = 0; i < studentID.length; i++)
+      Center(
+        child: Table(
+          border: TableBorder.all(),
+          children: [
             TableRow(children: [
               Text(
-                studentID[i],
-                style: TextStyle(fontSize: Get.textScaleFactor * 15, fontWeight: FontWeight.bold),
+                "Student ID",
+                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               Text(
-                total[i],
-                style: TextStyle(fontSize: Get.textScaleFactor * 15, fontWeight: FontWeight.bold),
+                "Total",
+                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               Text(
-                grade[i],
-                style: TextStyle(fontSize: Get.textScaleFactor * 15, fontWeight: FontWeight.bold),
+                "Grade",
+                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               Text(
-                point[i],
-                style: TextStyle(fontSize: Get.textScaleFactor * 15, fontWeight: FontWeight.bold),
+                "CGPA",
+                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-            ])
-        ],
+            ]),
+            for (int i = 0; i < studentID.length; i++)
+              TableRow(children: [
+                Text(
+                  studentID[i].trim(),
+                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  total[i].trim(),
+                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  grade[i].trim(),
+                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  point[i].trim(),
+                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ])
+          ],
+        ),
       ),
     );
   }
@@ -316,8 +319,8 @@ class _ResultPageState extends State<ResultPage> {
                   children: [
                     LinearProgressIndicator(
                       value: count.value / totalTeams.value,
-                      minHeight: 20,
-                      borderRadius: BorderRadius.circular(10),
+                      minHeight: 20.h,
+                      borderRadius: BorderRadius.circular(10.r),
                       backgroundColor: Colors.grey,
                     ),
                     Text(

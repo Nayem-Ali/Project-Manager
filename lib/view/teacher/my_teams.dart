@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/View/teacher/view_team.dart';
 import 'package:teamlead/services/db_service.dart';
@@ -39,7 +38,6 @@ class _MyTeamsState extends State<MyTeams> {
   }
 
   getData() async {
-
     dynamic myData = await dataBaseMethods.getTeacher();
     if (cse3300) {
       project = await ProjectSheetApi.getMyTeams(myData['initial'], 'CSE-3300');
@@ -48,7 +46,7 @@ class _MyTeamsState extends State<MyTeams> {
     } else {
       project = await ProjectSheetApi.getMyTeams(myData['initial'], 'CSE-4801');
     }
-    if(project.isEmpty){
+    if (project.isEmpty) {
       status = "No teams found";
     }
     setState(() {});
@@ -68,7 +66,6 @@ class _MyTeamsState extends State<MyTeams> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-
                 OutlinedButton(
                   onPressed: () {
                     setState(() {
@@ -81,6 +78,7 @@ class _MyTeamsState extends State<MyTeams> {
                     });
                   },
                   style: OutlinedButton.styleFrom(
+                    minimumSize: Size(100.w, 35.h),
                     backgroundColor: cse3300 ? Colors.greenAccent.shade100 : Colors.transparent,
                     shadowColor: Colors.transparent,
                   ),
@@ -89,11 +87,10 @@ class _MyTeamsState extends State<MyTeams> {
                     style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
-                      fontSize: Get.textScaleFactor * 16,
+                      fontSize: 15.sp,
                     ),
                   ),
                 ),
-
                 OutlinedButton(
                   onPressed: () {
                     setState(() {
@@ -106,6 +103,7 @@ class _MyTeamsState extends State<MyTeams> {
                     });
                   },
                   style: OutlinedButton.styleFrom(
+                    minimumSize: Size(100.w, 35.h),
                     backgroundColor: cse4800 ? Colors.greenAccent.shade100 : Colors.transparent,
                     shadowColor: Colors.transparent,
                   ),
@@ -114,11 +112,10 @@ class _MyTeamsState extends State<MyTeams> {
                     style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
-                      fontSize: Get.textScaleFactor * 16,
+                      fontSize: 15.sp,
                     ),
                   ),
                 ),
-
                 OutlinedButton(
                   onPressed: () {
                     setState(() {
@@ -131,6 +128,7 @@ class _MyTeamsState extends State<MyTeams> {
                     });
                   },
                   style: OutlinedButton.styleFrom(
+                    minimumSize: Size(100.w, 35.h),
                     backgroundColor: cse4801 ? Colors.greenAccent.shade100 : Colors.transparent,
                     shadowColor: Colors.transparent,
                   ),
@@ -139,11 +137,10 @@ class _MyTeamsState extends State<MyTeams> {
                     style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
-                      fontSize: Get.textScaleFactor * 16,
+                      fontSize: 15.sp,
                     ),
                   ),
                 ),
-
               ],
             ),
             Expanded(
@@ -164,9 +161,12 @@ class _MyTeamsState extends State<MyTeams> {
                             Get.to(const ViewTeam(), arguments: [project[index], projectType]);
                           },
                           child: Card(
-                            color: colors[Random().nextInt(colors.length - 1)],
+                            color: colors[index % 5],
                             child: ListTile(
-                              title: Text(project[index]['Title']),
+                              title: Text(
+                                project[index]['Title'],
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ),
                         );

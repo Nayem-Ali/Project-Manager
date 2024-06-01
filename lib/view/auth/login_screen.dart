@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/View/splash_screen.dart';
+import 'package:teamlead/Widget/buttonStyle.dart';
 import 'package:teamlead/services/auth_services.dart';
 import '../../Widget/logo.dart';
 
@@ -71,13 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
               //     )),
               SizedBox(height: MediaQuery.of(context).size.height*0.4,),
               OutlinedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(250, 50),
-                  textStyle: GoogleFonts.aBeeZee(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                style: buttonStyle(250, 40),
                 onPressed: () async {
                   UserCredential credential = await signInWithGoogle();
                   Get.off(const SplashScreen());

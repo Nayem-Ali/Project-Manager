@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/View/teacher/tracher_screen.dart';
 import 'package:teamlead/Widget/project1.dart';
@@ -18,6 +19,7 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
   DataBaseMethods dataBaseMethods = DataBaseMethods();
   bool allow = false;
   String type = "";
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,9 +42,12 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text("Project Evaluation"),
-            leading: IconButton(onPressed: (){
-              Get.off(const TeacherHomeScreen());
-            }, icon: const Icon(Icons.arrow_back),),
+            leading: IconButton(
+              onPressed: () {
+                Get.off(() => const TeacherHomeScreen());
+              },
+              icon: const Icon(Icons.arrow_back),
+            ),
             centerTitle: true,
           ),
           body: allow
@@ -58,6 +63,7 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
                             });
                           },
                           style: OutlinedButton.styleFrom(
+                            minimumSize: Size(100.w, 35.h),
                             backgroundColor: type == 'CSE-3300'
                                 ? Colors.greenAccent.shade100
                                 : Colors.transparent,
@@ -68,7 +74,7 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
                             style: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.bold,
-                              fontSize: Get.textScaleFactor * 16,
+                              fontSize: 15.sp,
                             ),
                           ),
                         ),
@@ -79,6 +85,7 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
                             });
                           },
                           style: OutlinedButton.styleFrom(
+                            minimumSize: Size(100.w, 35.h),
                             backgroundColor: type == 'CSE-4800'
                                 ? Colors.greenAccent.shade100
                                 : Colors.transparent,
@@ -89,7 +96,7 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
                             style: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.bold,
-                              fontSize: Get.textScaleFactor * 16,
+                              fontSize: 15.sp,
                             ),
                           ),
                         ),
@@ -100,6 +107,7 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
                             });
                           },
                           style: OutlinedButton.styleFrom(
+                            minimumSize: Size(100.w, 35.h),
                             backgroundColor: type == 'CSE-4801'
                                 ? Colors.greenAccent.shade100
                                 : Colors.transparent,
@@ -110,15 +118,15 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
                             style: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.bold,
-                              fontSize: Get.textScaleFactor * 16,
+                              fontSize: 15.sp,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    if(type == 'CSE-3300') const Expanded(child: Project1()),
-                    if(type == 'CSE-4800') const Expanded(child: Project2()),
-                    if(type == 'CSE-4801') const Expanded(child: Project3()),
+                    if (type == 'CSE-3300') const Expanded(child: Project1()),
+                    if (type == 'CSE-4800') const Expanded(child: Project2()),
+                    if (type == 'CSE-4801') const Expanded(child: Project3()),
                     // TabBar(
                     //   tabs: [
                     //     Tab(
@@ -169,8 +177,10 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
               : Center(
                   child: Text(
                     "Defence is not started yet",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: Get.textScaleFactor * 18),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.sp,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),

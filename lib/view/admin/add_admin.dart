@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/View/admin/admin_home.dart';
 import 'package:teamlead/services/db_service.dart';
@@ -100,7 +103,7 @@ class _AddAdminState extends State<AddAdmin> {
               Row(
                 children: [
                   Expanded(
-                    flex: 3,
+                    flex: 4,
                     child: DropdownButtonFormField(
                       // alignment: Alignment.bottomCenter,
                       // value: selectedSupervisor,
@@ -129,32 +132,39 @@ class _AddAdminState extends State<AddAdmin> {
                           fontWeight: FontWeight.bold,
                         ),
                         filled: true,
-                        border: OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.zero
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(width: Get.width * 0.01),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        for (var teacher in adminCandidate) {
-                          if (teacher['name'] == selectedAdmin) {
-                            admins.add(teacher['email']);
-                            // adminCandidate.remove(teacher['email']);
-                            break;
-                          }
+                  ElevatedButton(
+                    onPressed: () async {
+                      for (var teacher in adminCandidate) {
+                        if (teacher['name'] == selectedAdmin) {
+                          admins.add(teacher['email']);
+                          // adminCandidate.remove(teacher['email']);
+                          break;
                         }
-                        print(admins);
-                        await dataBaseMethods.addAdmin(admins);
-                        Get.off(const AdminHome());
-                      },
-                      style:
-                          ElevatedButton.styleFrom(minimumSize: Size(30, Get.height * .082)),
-                      child: Text(
-                        "ADD",
-                        style: TextStyle(
-                            fontSize: Get.textScaleFactor * 20, fontWeight: FontWeight.bold),
-                      ),
+                      }
+                      // print(admins);
+                      await dataBaseMethods.addAdmin(admins);
+
+                      Get.off(const AdminHome());
+                      Get.showSnackbar(const GetSnackBar(
+                        duration: Duration(seconds: 3),
+                        backgroundColor: Colors.green,
+                        message: "Admin added successfully",
+                      ));
+                    },
+                    // icon: const Icon(Icons.add),
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(25.w, 62.h),
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero)
+                    ),
+                    child: Text(
+                      "+",
+                      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -162,7 +172,7 @@ class _AddAdminState extends State<AddAdmin> {
               const Divider(thickness: 2),
               Text(
                 "Admin Panel",
-                style: TextStyle(fontSize: Get.textScaleFactor * 30, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold),
               ),
               const Divider(thickness: 2),
               Expanded(
@@ -179,9 +189,9 @@ class _AddAdminState extends State<AddAdmin> {
                                 },
                                 icon: const Icon(Icons.remove))
                             : const SizedBox(),
-                        title: Text('${adminPanel[index]['name']} '),
+                        title: Text('${adminPanel[index]['name']} ',overflow: TextOverflow.ellipsis,),
                         subtitle: Text("${adminPanel[index]['email']} "
-                            "(${adminPanel[index]['designation']})"),
+                            "(${adminPanel[index]['designation']})", overflow: TextOverflow.ellipsis,),
                       ),
                     );
                   },

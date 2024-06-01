@@ -841,14 +841,13 @@ class _ProposalState extends State<Proposal> {
                   const SizedBox(height: 12),
                   ElevatedButton.icon(
                     onPressed: () async {
-
                       if (formKey.currentState!.validate()) {
                         await addProposal();
                         await addToSheet();
                         Get.off(const StudentScreen());
                       }
                     },
-                    style: buttonStyle(),
+                    style: buttonStyle(300, 40),
                     icon: const Icon(Icons.send_sharp),
                     label: const Text("Submit"),
                   )

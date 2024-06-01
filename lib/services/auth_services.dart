@@ -16,7 +16,8 @@ signInWithGoogle() async {
       return userCredential;
     }
     catch (e) {
-      print(e);
+      // print(e);
+      throw e.toString();
     }
   }
   else{

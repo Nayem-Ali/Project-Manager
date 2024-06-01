@@ -1,11 +1,11 @@
-import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:teamlead/View/auth/login_screen.dart';
 import 'package:teamlead/View/splash_screen.dart';
+import 'package:teamlead/Widget/buttonStyle.dart';
 import 'package:teamlead/services/db_service.dart';
 
 class InfoScreen extends StatefulWidget {
@@ -54,18 +54,20 @@ class _InfoScreenState extends State<InfoScreen> {
                     child: Text(
                       "To Continue",
                       style: TextStyle(
-                        fontSize: Get.textScaleFactor * 25,
+                        fontSize: 22.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       "Add your information",
-                      style: TextStyle(fontSize: Get.textScaleFactor * 20, fontWeight: FontWeight
-                          .w600),
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -73,19 +75,19 @@ class _InfoScreenState extends State<InfoScreen> {
                     alignment: Alignment.topLeft,
                     child: Text(
                       "Hello, ${auth.currentUser!.email}",
-                      style: TextStyle(fontSize: Get.textScaleFactor*16, fontWeight:
-                      FontWeight.w700),
+                      style: TextStyle(
+                          fontSize:  14.sp, fontWeight: FontWeight.w700),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  const Align(
+                   SizedBox(height: 20.h),
+                  Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       "Continue as?",
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+                      style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w700),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Row(
                     children: [
                       OutlinedButton(
@@ -100,16 +102,16 @@ class _InfoScreenState extends State<InfoScreen> {
                               isTeacher ? Colors.greenAccent.shade100 : Colors.transparent,
                           shadowColor: Colors.transparent,
                         ),
-                        child: const Text(
+                        child:  Text(
                           "Teacher",
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 14.sp,
                           ),
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10.w),
                       OutlinedButton(
                           onPressed: () {
                             setState(() {
@@ -122,12 +124,12 @@ class _InfoScreenState extends State<InfoScreen> {
                                 isStudent ? Colors.greenAccent.shade100 : Colors.transparent,
                             shadowColor: Colors.transparent,
                           ),
-                          child: const Text(
+                          child: Text(
                             "Student",
                             style: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              fontSize: 14.sp,
                             ),
                           )),
                     ],
@@ -138,11 +140,11 @@ class _InfoScreenState extends State<InfoScreen> {
                         const SizedBox(height: 10),
                         TextFormField(
                           controller: nameController,
-                          decoration: const InputDecoration(
-                            label: Text('Full Name'),
-                            labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          decoration:  InputDecoration(
+                            label: const Text('Full Name'),
+                            labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                             filled: true,
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -157,14 +159,14 @@ class _InfoScreenState extends State<InfoScreen> {
                             }
                             return null;
                           },
-                          decoration: const InputDecoration(
-                            label: Text('Student ID'),
-                            labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          decoration: InputDecoration(
+                            label: const Text('Student ID'),
+                            labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                             filled: true,
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                         Row(
                           children: [
                             Expanded(
@@ -179,15 +181,16 @@ class _InfoScreenState extends State<InfoScreen> {
                                   }
                                   return null;
                                 },
-                                decoration: const InputDecoration(
-                                  label: Text('Batch'),
-                                  labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                decoration: InputDecoration(
+                                  label: const Text('Batch'),
+                                  labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight
+                                      .bold),
                                   filled: true,
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 20),
+                            SizedBox(width: 20.h),
                             Expanded(
                               child: DropdownButtonFormField(
                                 //alignment: Alignment.bottomCenter,
@@ -243,14 +246,14 @@ class _InfoScreenState extends State<InfoScreen> {
                                 onChanged: (value) {
                                   section = value!;
                                 },
-                                decoration: const InputDecoration(
-                                  label: Text('Section'),
+                                decoration:  InputDecoration(
+                                  label: const Text('Section'),
                                   labelStyle: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   filled: true,
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                 ),
                               ),
                             )
@@ -272,14 +275,14 @@ class _InfoScreenState extends State<InfoScreen> {
                   if (isTeacher)
                     Column(
                       children: [
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                         TextFormField(
                           controller: nameController,
-                          decoration: const InputDecoration(
-                            label: Text('Full Name'),
-                            labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          decoration:  InputDecoration(
+                            label: const Text('Full Name'),
+                            labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                             filled: true,
-                            border: OutlineInputBorder(),
+                            border:const OutlineInputBorder(),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -293,12 +296,12 @@ class _InfoScreenState extends State<InfoScreen> {
                             }
                             return null;
                           },
-                          decoration: const InputDecoration(
-                            label: Text('Initial'),
+                          decoration:  InputDecoration(
+                            label: const Text('Initial'),
                             hintText: 'Example: SRK,JIM',
-                            labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                             filled: true,
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                           ),
                         ),
                         // const SizedBox(height: 10),
@@ -312,7 +315,7 @@ class _InfoScreenState extends State<InfoScreen> {
                         //     border: OutlineInputBorder(),
                         //   ),
                         // ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                         DropdownButtonFormField(
                           //alignment: Alignment.bottomCenter,
                           // value: designation,
@@ -353,14 +356,14 @@ class _InfoScreenState extends State<InfoScreen> {
 
                             print(designation);
                           },
-                          decoration: const InputDecoration(
-                            label: Text('Designation'),
+                          decoration: InputDecoration(
+                            label: const Text('Designation'),
                             labelStyle: TextStyle(
-                              fontSize: 16,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
                             filled: true,
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                           ),
                         ),
                       ],
@@ -375,7 +378,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     icon: const Icon(Icons.arrow_back),
                     label: const Text("Back"),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   ElevatedButton.icon(
                     onPressed: () async {
                       DataBaseMethods db = DataBaseMethods();
@@ -402,17 +405,15 @@ class _InfoScreenState extends State<InfoScreen> {
                       }
                       Get.offAll(const SplashScreen());
                     },
-                    label: const Text(
+                    label: Text(
                       "Continue",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     icon: const Icon(Icons.play_arrow),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(250, 50),
-                    ),
+                    style: buttonStyle(250, 40),
                   )
                 ],
               ),

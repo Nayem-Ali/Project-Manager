@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/View/teacher/view_evaluation_data.dart';
@@ -109,14 +110,18 @@ class _Project3State extends State<Project3> {
                 child: TextFormField(
                   controller: searchController,
                   decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          search(searchController.text.trim());
-                        },
-                        icon: const Icon(Icons.search),
-                      ),
-                      label: const Text("Enter title, ID, name, supervisor initial")),
+                    border: const OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        search(searchController.text.trim());
+                      },
+                      icon: const Icon(Icons.search),
+                    ),
+                    label: Text(
+                      "Enter title, ID, name, supervisor initial",
+                      style: GoogleFonts.adamina(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                    ),
+                  ),
                 ),
               ),
               if (isLoading) const Spacer(),

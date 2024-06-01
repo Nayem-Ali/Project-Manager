@@ -44,8 +44,8 @@ class _SelectRouteState extends State<SelectRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: userData == null ? const Center(child: Text("Loading...")) : const SizedBox(),
+    return const Scaffold(
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }

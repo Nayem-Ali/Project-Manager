@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/View/teacher/view_mark.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,10 +37,10 @@ class _ViewTeamState extends State<ViewTeam> {
                 await launchUrl(url);
               },
               child: Text(
-                name[i],
-                style: const TextStyle(
+                name[i].trim(),
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 18.sp,
                 ),
               ),
             ),
@@ -81,9 +82,9 @@ class _ViewTeamState extends State<ViewTeam> {
                 gradient: LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
             child: Text(
               teamInfo['Title'],
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 20.sp,
               ),
               textAlign: TextAlign.center,
             ),
@@ -145,28 +146,28 @@ class _ViewTeamState extends State<ViewTeam> {
                     children: [
                       if (name.length == totalMembers)
                         Text(
-                          "Name: ${name[index]}",
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          "Name: ${name[index].trim()}",
+                          style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                         ),
                       if (id.length == totalMembers)
                         Text(
-                          "Student ID: ${id[index]}",
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          "Student ID: ${id[index].trim()}",
+                          style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                         ),
                       if (cgpa.length == totalMembers)
                         Text(
-                          "CGPA: ${cgpa[index]}",
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          "CGPA: ${cgpa[index].trim()}",
+                          style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                         ),
                       if (email.length == totalMembers)
                         Text(
-                          "Email: ${email[index]}",
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          "Email: ${email[index].trim()}",
+                          style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                         ),
                       if (phone.length == totalMembers)
                         Text(
-                          "Phone: ${phone[index]}",
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          "Phone: ${phone[index].trim()}",
+                          style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                         ),
                     ],
                   ),

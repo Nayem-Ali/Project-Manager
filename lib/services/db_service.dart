@@ -281,7 +281,7 @@ class DataBaseMethods {
       //     .collection('evaluationData')
       //     .doc()
       //     .set({"data": []});
-      print(data);
+      // print(data);
     }
     // querySnapshot.docs.map((document) async {
     //   print(document.data());
@@ -291,14 +291,24 @@ class DataBaseMethods {
   }
 
   deleteProposal(String type) async {
-    final cse4801 = await ProjectSheetApi.getAllRows(type);
-    print(cse4801);
-    if (cse4801 != null) {
-      for (var team in cse4801) {
+    final proposalData = await ProjectSheetApi.getAllRows(type);
+    // print(cse4801);
+    if (proposalData != null) {
+      for (var team in proposalData) {
         await firestore
             .collection(type)
             .doc(team['Title'])
             .collection('evaluationData')
+            .get()
+            .then((snapshot) {
+          for (DocumentSnapshot ds in snapshot.docs) {
+            ds.reference.delete();
+          }
+        });
+        await firestore
+            .collection(type)
+            .doc(team['Title'])
+            .collection('supervisorMark')
             .get()
             .then((snapshot) {
           for (DocumentSnapshot ds in snapshot.docs) {

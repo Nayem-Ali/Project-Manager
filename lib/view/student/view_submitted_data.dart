@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ViewSubmittedData extends StatefulWidget {
@@ -30,9 +31,9 @@ class _ViewSubmittedDataState extends State<ViewSubmittedData> {
                   gradient: LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
               child: Text(
                 teamInfo['title'],
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 20.h,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -41,9 +42,9 @@ class _ViewSubmittedDataState extends State<ViewSubmittedData> {
               margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               padding: const EdgeInsets.all(10),
               width: Get.size.width,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  gradient: LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50.r)),
+                  gradient: const LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
               child: Text(
                 teamInfo['link'],
                 style: const TextStyle(
@@ -56,9 +57,9 @@ class _ViewSubmittedDataState extends State<ViewSubmittedData> {
               margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               padding: const EdgeInsets.all(10),
               width: Get.size.width,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  gradient: LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
+              decoration:  BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50.r)),
+                  gradient: const LinearGradient(colors: [Colors.greenAccent, Colors.grey])),
               child: Text(
                 "Preferred Supervisor: ${teamInfo['preference']}",
                 style: const TextStyle(
@@ -71,12 +72,12 @@ class _ViewSubmittedDataState extends State<ViewSubmittedData> {
               margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               padding: const EdgeInsets.all(10),
               width: Get.size.width,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  gradient: LinearGradient(colors: [Colors.cyan, Colors.tealAccent])),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20.r)),
+                  gradient: const LinearGradient(colors: [Colors.cyan, Colors.tealAccent])),
               child: Text(
                 teamInfo['projectType'],
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -89,36 +90,36 @@ class _ViewSubmittedDataState extends State<ViewSubmittedData> {
                   children: [
                     Text(
                       "Name: ${teamInfo["name1"]}",
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: TextStyle(
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       "Student ID: ${teamInfo["id1"]}",
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: TextStyle(
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       "CGPA: ${teamInfo["cgpa1"]}",
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style:  TextStyle(
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       "Email: ${teamInfo["email1"]}",
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style:  TextStyle(
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       "Phone: ${teamInfo["number1"]}",
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: TextStyle(
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

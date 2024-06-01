@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/View/teacher/evaluate_team.dart';
-import 'package:teamlead/View/teacher/update_evaluation_data.dart';
 import 'package:teamlead/services/db_service.dart';
 
 class ViewEvaluatedData extends StatefulWidget {
@@ -58,89 +58,91 @@ class _ViewEvaluatedDataState extends State<ViewEvaluatedData> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(teamInfo["Title"]),
-      ),
-      body: evaluatedData.length != 0
-          ? Column(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: ListView.builder(
-                    itemCount: totalMembers,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        color: colors[index],
-                        width: Get.size.width,
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        child: Column(
-                          children: [
-                            Text(
-                              name[index],
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              id[index],
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              "Total Marks Obtained: "
-                              "${evaluatedData['data'][index + 1]['criteria1'] + evaluatedData['data'][index + 1]['criteria2']}",
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const Divider(thickness: 2),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "CRITERIA - I: ${evaluatedData['data'][index + 1]['criteria1']}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(teamInfo["Title"]),
+        ),
+        body: evaluatedData.length != 0
+            ? Column(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: ListView.builder(
+                      itemCount: totalMembers,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          color: colors[index],
+                          width: Get.size.width,
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          child: Column(
+                            children: [
+                              Text(
+                                name[index].trim(),
+                                style: TextStyle(
+                                  fontSize: 18.h,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                Text(
-                                  "CRITERIA - II: ${evaluatedData['data'][index + 1]['criteria2']}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              ),
+                              Text(
+                                id[index].trim(),
+                                style: TextStyle(
+                                  fontSize: 18.h,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              ],
-                            )
-                          ],
-                        ),
-                      );
-                    },
+                              ),
+                              Text(
+                                "Total Marks Obtained: "
+                                "${evaluatedData['data'][index + 1]['criteria1'] + evaluatedData['data'][index + 1]['criteria2']}",
+                                style: TextStyle(
+                                  fontSize: 18.h,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Divider(thickness: 2),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "CRITERIA - I: ${evaluatedData['data'][index + 1]['criteria1']}",
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "CRITERIA - II: ${evaluatedData['data'][index + 1]['criteria2']}",
+                                    style:  TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Get.off(const EvaluatePage(), arguments: [
-                      teamInfo,
-                      Get.arguments[2],
-                      evaluatedData,
-                    ]);
-                  },
-                  label: const Text("Edit Marks", style: TextStyle(fontSize: 18, fontWeight:
-                  FontWeight.bold),),
-                  style: ElevatedButton.styleFrom(minimumSize: Size(Get.width * 0.6, 50)),
-                  icon: const Icon(Icons.edit),
-                )
-              ],
-            )
-          : const Center(child: CircularProgressIndicator()),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Get.off(const EvaluatePage(), arguments: [
+                        teamInfo,
+                        Get.arguments[2],
+                        evaluatedData,
+                      ]);
+                    },
+                    label: Text("Edit Marks", style: TextStyle(fontSize: 18.sp, fontWeight:
+                    FontWeight.bold),),
+                    style: ElevatedButton.styleFrom(minimumSize: Size(Get.width * 0.6, 50.h)),
+                    icon: const Icon(Icons.edit),
+                  )
+                ],
+              )
+            : const Center(child: CircularProgressIndicator()),
+      ),
     );
   }
 }

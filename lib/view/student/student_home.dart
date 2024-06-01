@@ -125,7 +125,7 @@ class _StudentScreenState extends State<StudentScreen> {
                               ),
                               const SizedBox(height: 12),
                               ElevatedButton.icon(
-                                style: buttonStyle(),
+                                style: buttonStyle(300,40),
                                 onPressed: () {
                                   Get.to(const Proposal(),
                                       arguments: proposalCredential['isPreference']);
@@ -151,7 +151,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                   Get.to(const RequestTeam(),
                                       arguments: proposalCredential['isPreference']);
                                 },
-                                style: buttonStyle(),
+                                style: buttonStyle(300, 40),
                                 label: const Text(
                                   "Request a team",
                                 ),
@@ -181,7 +181,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                 onPressed: () {
                                   Get.to(const ViewAnnouncement());
                                 },
-                                style: buttonStyle(),
+                                style: buttonStyle(300, 40),
                                 icon: const Icon(Icons.notification_important),
                                 label: const Text("Announcement"),
                               ),

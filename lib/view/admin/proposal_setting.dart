@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
@@ -61,9 +62,7 @@ class _ProposalSettingState extends State<ProposalSetting> {
   }
 
   updateMergedTeam() async {
-    List<String> cse33 = await dataBaseMethods.getAllProposalData("CSE-3300");
-    List<String> cse48 = await dataBaseMethods.getAllProposalData("CSE-4800");
-    List<String> cse481 = await dataBaseMethods.getAllProposalData("CSE-4801");
+
 
     dynamic proposal33 = await ProjectSheetApi.getAllRows("CSE-3300");
     dynamic proposal48 = await ProjectSheetApi.getAllRows("CSE-4800");
@@ -180,12 +179,12 @@ class _ProposalSettingState extends State<ProposalSetting> {
                     readOnly: true,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      label: Text("Pick Deadline of Proposal Submission"),
+                      label: Text("Pick Submission Deadline"),
                       suffixIcon: Icon(Icons.date_range),
                     ),
                   ),
                 ),
-                if (isTriggered) SizedBox(width: Get.size.width * 0.03),
+                if (isTriggered) SizedBox(width: 30.w),
                 if (isTriggered)
                   Expanded(
                     child: ElevatedButton.icon(
@@ -205,13 +204,13 @@ class _ProposalSettingState extends State<ProposalSetting> {
                       icon: const Icon(Icons.update),
                       label: Text(
                         'Update',
-                        style: TextStyle(fontSize: Get.width * 0.045),
+                        style: TextStyle(fontSize: 12.sp),
                       ),
                     ),
                   )
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             SwitchListTile(
               value: preference,
               onChanged: (value) async {
@@ -222,11 +221,11 @@ class _ProposalSettingState extends State<ProposalSetting> {
               },
               title: Text(
                 "Allow Supervisor Preference",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: Get.width * 0.05),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
               ),
               tileColor: Colors.teal.shade100,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.sp),
             isLoading5
                 ? const CircularProgressIndicator()
                 : SwitchListTile(
@@ -248,7 +247,7 @@ class _ProposalSettingState extends State<ProposalSetting> {
                     },
                     title: Text(
                       "Allow Team Evaluation",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: Get.width * 0.05),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
                     ),
                     tileColor: Colors.teal.shade100,
                   ),
@@ -257,13 +256,13 @@ class _ProposalSettingState extends State<ProposalSetting> {
               "To assign supervisor admin need to get the google sheet link. Then open this link"
               " via browser to assign supervisor.",
               style: TextStyle(
-                fontSize: Get.textScaleFactor * 20,
+                fontSize: 12.sp,
                 color: Colors.teal,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             ElevatedButton.icon(
               onPressed: () async {
                 setState(() {
@@ -277,7 +276,7 @@ class _ProposalSettingState extends State<ProposalSetting> {
                   isLoading1 = false;
                 });
               },
-              style: buttonStyle(),
+              style: buttonStyle(300, 40),
               label: isLoading1 == false
                   ? const Text("Get proposal file")
                   : const CircularProgressIndicator(
@@ -285,10 +284,9 @@ class _ProposalSettingState extends State<ProposalSetting> {
                     ),
               icon: const Icon(Icons.file_copy),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             ElevatedButton.icon(
               onPressed: () {
-
                 Get.defaultDialog(
                     title: "Attention",
                     middleText: "When you move student from CSE-4800 to CSE-4801. Please go to the"
@@ -300,7 +298,8 @@ class _ProposalSettingState extends State<ProposalSetting> {
                           Get.back();
                           Get.defaultDialog(
                               title: "Attention",
-                              middleText: 'To move 4800 data to 4801. 4801 current data will be replaced '
+                              middleText:
+                                  'To move 4800 data to 4801. 4801 current data will be replaced '
                                   'with 4800 data.',
                               titleStyle: const TextStyle(color: Colors.red),
                               actions: [
@@ -330,9 +329,8 @@ class _ProposalSettingState extends State<ProposalSetting> {
                         child: const Text("OK"),
                       ),
                     ]);
-
               },
-              style: buttonStyle(),
+              style: buttonStyle(300, 40),
               label: isLoading2 == false
                   ? const Text("Move 4800 to 4801")
                   : const CircularProgressIndicator(
@@ -340,51 +338,12 @@ class _ProposalSettingState extends State<ProposalSetting> {
                     ),
               icon: const Icon(Icons.move_up),
             ),
-            const SizedBox(height: 20),
-            // ElevatedButton.icon(
-            //   onPressed: () {
-            //     Get.defaultDialog(
-            //         title: "Attention",
-            //         middleText: 'Are you sure to remove all previous proposal data',
-            //         actions: [
-            //           TextButton(
-            //             onPressed: () async {
-            //               setState(() {
-            //                 isLoading3 = true;
-            //               });
-            //               await dataBaseMethods.deleteProposal('CSE-3300');
-            //               await ProjectSheetApi.clearProposalData("CSE-3300");
-            //               setState(() {
-            //                 isLoading3 = false;
-            //               });
-            //               Get.back();
-            //             },
-            //             child: const Text("Yes"),
-            //           ),
-            //           TextButton(
-            //             onPressed: () {
-            //               Get.back();
-            //             },
-            //             child: const Text("No"),
-            //           ),
-            //         ]);
-            //   },
-            //   style: buttonStyle(),
-            //   label: isLoading3 == false
-            //       ? const Text(
-            //           "Clear 3300 Proposal Data",
-            //         )
-            //       : const CircularProgressIndicator(
-            //           color: Colors.white,
-            //         ),
-            //   icon: const Icon(Icons.clear),
-            // ),
-            // const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             ElevatedButton.icon(
               onPressed: () {
                 Get.defaultDialog(
                     title: "Attention",
-                    middleText: 'Are you sure to remove all previous proposal data',
+                    middleText: 'Are you sure to remove all previous proposal data and marks',
                     actions: [
                       TextButton(
                         onPressed: () async {
@@ -414,15 +373,16 @@ class _ProposalSettingState extends State<ProposalSetting> {
                       ),
                     ]);
               },
-              style: buttonStyle(),
+              style: buttonStyle(300, 40),
               label: isLoading4 == false
                   ? const Text("Clear All Proposal Data")
                   : const CircularProgressIndicator(
+
                       color: Colors.white,
                     ),
               icon: const Icon(Icons.clear),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
           ],
         ),
       ),

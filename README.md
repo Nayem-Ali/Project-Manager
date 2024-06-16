@@ -6,6 +6,7 @@ This repository contains a Flutter application designed for Android and Web plat
 1. Flutter
 2. Firebase
 3. Google Sheet API
+4. Cloud Function for Real-time Notification
 
 ## Features
 

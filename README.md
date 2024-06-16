@@ -13,7 +13,7 @@ A new Flutter App built for Android and Web.
 2. Request to form a team by the Project Committee, if a student cannot form a team.
 3. Get an announcement regarding the project or thesis.
 
-## Teachers Features
+### Teachers Features
 1. The teacher will get his/her assigned team. Teachers can call, email, or evaluate their teams.
 2. Teachers can also evaluate other teams as defense board members.
 3. Teachers can publish announcements regarding projects.

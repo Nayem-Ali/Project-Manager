@@ -33,11 +33,6 @@ class _SplashScreenState extends State<SplashScreen> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
-            Get.snackbar(
-              "Something went wrong",
-              snapshot.error.toString(),
-              duration: const Duration(seconds: 5),
-            );
             nextScreen = const LoginScreen();
           }
           if (snapshot.connectionState == ConnectionState.active) {

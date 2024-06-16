@@ -27,14 +27,18 @@ class _SelectRouteState extends State<SelectRoute> {
   getData() async {
     userData = await dataBaseMethods.getStudent() ?? await dataBaseMethods.getTeacher();
 
-    if (userData.containsKey('role')) {
-      // print("role: ${userData['role'].toString()}");
-      if (userData['role'].toString() == 'teacher') {
-        Get.offAll(const TeacherHomeScreen());
+    try{
+      if (userData.containsKey('role')) {
+        // print("role: ${userData['role'].toString()}");
+        if (userData['role'].toString() == 'teacher') {
+          Get.offAll(const TeacherHomeScreen());
+        } else {
+          Get.offAll(const StudentScreen());
+        }
       } else {
-        Get.offAll(const StudentScreen());
+        Get.offAll(const InfoScreen());
       }
-    } else {
+    } catch(e){
       Get.offAll(const InfoScreen());
     }
     if (mounted) {

@@ -101,107 +101,105 @@ class _TeamStatisticsState extends State<TeamStatistics> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Charts"),
-          centerTitle: true,
-        ),
-        body: teamAllocated.isNotEmpty
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Total allocated team of each supervisor",
-                    style:
-                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 20.h),
-                  Table(
-                    // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-
-                    border: TableBorder.all(),
-                    children: [
-                      TableRow(
-                        children: [
-                          Text(
-                            "Initial",
-                            style: TextStyle(
-                                fontSize: 12.sp, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            "CSE-3300",
-                            style: TextStyle(
-                                fontSize: 12.sp, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            "CSE-4800",
-                            style: TextStyle(
-                                fontSize: 12.sp, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            "CSE-4801",
-                            style: TextStyle(
-                                fontSize: 12.sp, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            "Total",
-                            style: TextStyle(
-                                fontSize: 12.sp, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                      for (String initial in teamAllocated.keys.toList())
-                        TableRow(children: [
-                          Text(
-                            initial,
-                            style: TextStyle(
-                                fontSize: 12.sp, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            teamAllocated[initial]![0].toString(),
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            teamAllocated[initial]![1].toString(),
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            teamAllocated[initial]![2].toString(),
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            "${teamAllocated[initial]![1] + teamAllocated[initial]![0] + teamAllocated[initial]![2]}",
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ]),
-                    ],
-                  ),
-                ],
-              )
-            : const Center(
-                child: CircularProgressIndicator(),
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Charts"),
+        centerTitle: true,
       ),
+      body: teamAllocated.isNotEmpty
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Total allocated team of each supervisor",
+                  style:
+                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20.h),
+                Table(
+                  // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+
+                  border: TableBorder.all(),
+                  children: [
+                    TableRow(
+                      children: [
+                        Text(
+                          "Initial",
+                          style: TextStyle(
+                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "CSE-3300",
+                          style: TextStyle(
+                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "CSE-4800",
+                          style: TextStyle(
+                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "CSE-4801",
+                          style: TextStyle(
+                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "Total",
+                          style: TextStyle(
+                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                    for (String initial in teamAllocated.keys.toList())
+                      TableRow(children: [
+                        Text(
+                          initial,
+                          style: TextStyle(
+                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          teamAllocated[initial]![0].toString(),
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          teamAllocated[initial]![1].toString(),
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          teamAllocated[initial]![2].toString(),
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "${teamAllocated[initial]![1] + teamAllocated[initial]![0] + teamAllocated[initial]![2]}",
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ]),
+                  ],
+                ),
+              ],
+            )
+          : const Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }

@@ -73,144 +73,142 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Proposals"),
-          centerTitle: true,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Get.to(const TeamStatistics());
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Proposals"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.to(const TeamStatistics());
+              },
+              icon: const Icon(Icons.bar_chart))
+        ],
+      ),
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(
+                onPressed: () async {
+                  setState(() {
+                    searchController.clear();
+                    searchResult.clear();
+                    cse3300 = true;
+                    cse4800 = false;
+                  });
+                  await getData();
                 },
-                icon: const Icon(Icons.bar_chart))
-          ],
-        ),
-        body: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: cse3300 ? Colors.greenAccent.shade100 : Colors.transparent,
+                  shadowColor: Colors.transparent,
+                ),
+                child: Text(
+                  "CSE - 3300",
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.sp,
+                  ),
+                ),
+              ),
+              SizedBox(width: 10.w),
+              OutlinedButton(
                   onPressed: () async {
                     setState(() {
                       searchController.clear();
                       searchResult.clear();
-                      cse3300 = true;
-                      cse4800 = false;
+                      cse3300 = false;
+                      cse4800 = true;
                     });
                     await getData();
                   },
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: cse3300 ? Colors.greenAccent.shade100 : Colors.transparent,
+                    backgroundColor: cse4800 ? Colors.greenAccent.shade100 : Colors.transparent,
                     shadowColor: Colors.transparent,
                   ),
                   child: Text(
-                    "CSE - 3300",
+                    "CSE - 4800",
                     style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
                       fontSize: 18.sp,
                     ),
-                  ),
+                  )),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              controller: searchController,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    search(searchController.text.trim());
+                  },
+                  icon: const Icon(Icons.search),
                 ),
-                SizedBox(width: 10.w),
-                OutlinedButton(
-                    onPressed: () async {
-                      setState(() {
-                        searchController.clear();
-                        searchResult.clear();
-                        cse3300 = false;
-                        cse4800 = true;
-                      });
-                      await getData();
-                    },
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: cse4800 ? Colors.greenAccent.shade100 : Colors.transparent,
-                      shadowColor: Colors.transparent,
-                    ),
-                    child: Text(
-                      "CSE - 4800",
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.sp,
-                      ),
-                    )),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                controller: searchController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      search(searchController.text.trim());
-                    },
-                    icon: const Icon(Icons.search),
-                  ),
-                  label: Text(
-                    "Enter title, ID, name, supervisor initial",
-                    style: GoogleFonts.adamina(fontWeight: FontWeight.bold, fontSize: 12.sp),
-                  ),
+                label: Text(
+                  "Enter title, ID, name, supervisor initial",
+                  style: GoogleFonts.adamina(fontWeight: FontWeight.bold, fontSize: 12.sp),
                 ),
               ),
             ),
-            Expanded(
-              child: searchResult.isEmpty && proposalData != null
-                  ? ListView.builder(
-                      itemCount: proposalData.length,
-                      itemBuilder: (context, index) {
-                        return proposalData[index]["Title"] != ""
-                            ? GestureDetector(
-                                onTap: () {
-                                  Get.to(const ViewProposal(), arguments: proposalData[index]);
-                                },
-                                child: Card(
-                                  color: index % 2 == 0
-                                      ? Colors.limeAccent.shade100
-                                      : Colors.cyanAccent.shade100,
-                                  child: ListTile(
-                                    title: Text(proposalData[index]["Title"]),
-                                    subtitle: proposalData[index]['Supervisor'] != ''
-                                        ? Text("Assigned to: ${proposalData[index]['Supervisor']}")
-                                        : const Text("Not yet assigned"),
-                                  ),
+          ),
+          Expanded(
+            child: searchResult.isEmpty && proposalData != null
+                ? ListView.builder(
+                    itemCount: proposalData.length,
+                    itemBuilder: (context, index) {
+                      return proposalData[index]["Title"] != ""
+                          ? GestureDetector(
+                              onTap: () {
+                                Get.to(const ViewProposal(), arguments: proposalData[index]);
+                              },
+                              child: Card(
+                                color: index % 2 == 0
+                                    ? Colors.limeAccent.shade100
+                                    : Colors.cyanAccent.shade100,
+                                child: ListTile(
+                                  title: Text(proposalData[index]["Title"]),
+                                  subtitle: proposalData[index]['Supervisor'] != ''
+                                      ? Text("Assigned to: ${proposalData[index]['Supervisor']}")
+                                      : const Text("Not yet assigned"),
                                 ),
-                              )
-                            : const SizedBox();
-                      },
-                    )
-                  : ListView.builder(
-                      itemCount: searchResult.length,
-                      itemBuilder: (context, index) {
-                        return proposalData[searchResult[index]]["Title"] != ""
-                            ? GestureDetector(
-                                onTap: () {
-                                  Get.to(const ViewProposal(),
-                                      arguments: proposalData[searchResult[index]]);
-                                },
-                                child: Card(
-                                  color: index % 2 == 0
-                                      ? Colors.limeAccent.shade100
-                                      : Colors.cyanAccent.shade100,
-                                  child: ListTile(
-                                    title: Text(proposalData[searchResult[index]]["Title"]),
-                                    subtitle: proposalData[searchResult[index]]['Supervisor'] != ''
-                                        ? Text(
-                                            "Assigned to: ${proposalData[searchResult[index]]['Supervisor']}")
-                                        : const Text("Not yet assigned"),
-                                  ),
+                              ),
+                            )
+                          : const SizedBox();
+                    },
+                  )
+                : ListView.builder(
+                    itemCount: searchResult.length,
+                    itemBuilder: (context, index) {
+                      return proposalData[searchResult[index]]["Title"] != ""
+                          ? GestureDetector(
+                              onTap: () {
+                                Get.to(const ViewProposal(),
+                                    arguments: proposalData[searchResult[index]]);
+                              },
+                              child: Card(
+                                color: index % 2 == 0
+                                    ? Colors.limeAccent.shade100
+                                    : Colors.cyanAccent.shade100,
+                                child: ListTile(
+                                  title: Text(proposalData[searchResult[index]]["Title"]),
+                                  subtitle: proposalData[searchResult[index]]['Supervisor'] != ''
+                                      ? Text(
+                                          "Assigned to: ${proposalData[searchResult[index]]['Supervisor']}")
+                                      : const Text("Not yet assigned"),
                                 ),
-                              )
-                            : const SizedBox();
-                      },
-                    ),
-            ),
-          ],
-        ),
+                              ),
+                            )
+                          : const SizedBox();
+                    },
+                  ),
+          ),
+        ],
       ),
     );
   }

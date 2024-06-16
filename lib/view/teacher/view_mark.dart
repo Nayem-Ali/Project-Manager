@@ -92,157 +92,155 @@ class _ViewMarkState extends State<ViewMark> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Mark"),
-          centerTitle: true,
-        ),
-        body: Container(
-          margin: const EdgeInsets.all(5),
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: totalMembers,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Card(
-                            color: index % 2 == 1
-                                ? Colors.tealAccent.shade100
-                                : Colors.limeAccent.shade100,
-                            child: ListTile(
-                              subtitle: Text(name[index].trim()),
-                              title: Text(id[index].trim()),
-                              trailing: Stack(
-                                alignment: Alignment.topCenter,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(top: 6.0),
-                                    child: Text(
-                                      "Mark as Absent",
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 15.0),
-                                    child: Switch(
-                                      value: isAbsent[index],
-                                      onChanged: (value) {
-                                        setState(() {
-                                          total[index].clear();
-                                          technical[index].clear();
-                                          teamWork[index].clear();
-                                          isAbsent[index] = !isAbsent[index];
-                                        });
-                                      },
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-                          if (!isAbsent[index])
-                            Row(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Mark"),
+        centerTitle: true,
+      ),
+      body: Container(
+        margin: const EdgeInsets.all(5),
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: totalMembers,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Card(
+                          color: index % 2 == 1
+                              ? Colors.tealAccent.shade100
+                              : Colors.limeAccent.shade100,
+                          child: ListTile(
+                            subtitle: Text(name[index].trim()),
+                            title: Text(id[index].trim()),
+                            trailing: Stack(
+                              alignment: Alignment.topCenter,
                               children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: total[index],
-                                    readOnly: true,
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      double tmp = double.tryParse(value!) ?? 0;
-                                      if (tmp > 40.0) {
-                                        return "40 marks exceeded.";
-                                      } else if (value.trim().isEmpty && isAbsent[index] == true) {
-                                        return "Enter marks.";
-                                      }
-                                      return null;
-                                    },
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      label: Text("Total"),
-                                    ),
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 6.0),
+                                  child: Text(
+                                    "Mark as Absent",
+                                    style: TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                const SizedBox(width: 15),
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: technical[index],
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      double tmp = double.tryParse(value!) ?? 0;
-                                      if (tmp > 20.0) {
-                                        return "20 marks exceeded.";
-                                      } else if (value.trim().isEmpty && isAbsent[index] == true) {
-                                        return "Enter marks.";
-                                      }
-                                      return null;
-                                    },
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      label: Text("Technical"),
-                                    ),
+
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15.0),
+                                  child: Switch(
+                                    value: isAbsent[index],
                                     onChanged: (value) {
-                                      double k = (double.tryParse(value.trim()) ?? 0) +
-                                          (double.tryParse(teamWork[index].text.trim()) ?? 0);
                                       setState(() {
-                                        total[index].text = k.toString();
+                                        total[index].clear();
+                                        technical[index].clear();
+                                        teamWork[index].clear();
+                                        isAbsent[index] = !isAbsent[index];
                                       });
                                     },
                                   ),
-                                ),
-                                SizedBox(width: 15.w),
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: teamWork[index],
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      double tmp = double.tryParse(value!) ?? 0;
-                                      if (tmp > 20.0) {
-                                        return "20 marks exceeded.";
-                                      } else if (value.trim().isEmpty && isAbsent[index] == true) {
-                                        return "Enter marks.";
-                                      }
-                                      return null;
-                                    },
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      label: Text("Teamwork"),
-                                    ),
-                                    onChanged: (value) {
-                                      double k = (double.tryParse(value.trim()) ?? 0) +
-                                          (double.tryParse(technical[index].text.trim()) ?? 0);
-                                      setState(() {
-                                        total[index].text = k.toString();
-                                      });
-                                    },
-                                  ),
-                                ),
+                                )
                               ],
                             ),
-                          SizedBox(height: 10.h),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      submitData();
-                      Get.back();
-                    }
+                          ),
+                        ),
+                        SizedBox(height: 10.h),
+                        if (!isAbsent[index])
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: total[index],
+                                  readOnly: true,
+                                  keyboardType: TextInputType.number,
+                                  validator: (value) {
+                                    double tmp = double.tryParse(value!) ?? 0;
+                                    if (tmp > 40.0) {
+                                      return "40 marks exceeded.";
+                                    } else if (value.trim().isEmpty && isAbsent[index] == true) {
+                                      return "Enter marks.";
+                                    }
+                                    return null;
+                                  },
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    label: Text("Total"),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 15),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: technical[index],
+                                  keyboardType: TextInputType.number,
+                                  validator: (value) {
+                                    double tmp = double.tryParse(value!) ?? 0;
+                                    if (tmp > 20.0) {
+                                      return "20 marks exceeded.";
+                                    } else if (value.trim().isEmpty && isAbsent[index] == true) {
+                                      return "Enter marks.";
+                                    }
+                                    return null;
+                                  },
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    label: Text("Technical"),
+                                  ),
+                                  onChanged: (value) {
+                                    double k = (double.tryParse(value.trim()) ?? 0) +
+                                        (double.tryParse(teamWork[index].text.trim()) ?? 0);
+                                    setState(() {
+                                      total[index].text = k.toString();
+                                    });
+                                  },
+                                ),
+                              ),
+                              SizedBox(width: 15.w),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: teamWork[index],
+                                  keyboardType: TextInputType.number,
+                                  validator: (value) {
+                                    double tmp = double.tryParse(value!) ?? 0;
+                                    if (tmp > 20.0) {
+                                      return "20 marks exceeded.";
+                                    } else if (value.trim().isEmpty && isAbsent[index] == true) {
+                                      return "Enter marks.";
+                                    }
+                                    return null;
+                                  },
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    label: Text("Teamwork"),
+                                  ),
+                                  onChanged: (value) {
+                                    double k = (double.tryParse(value.trim()) ?? 0) +
+                                        (double.tryParse(technical[index].text.trim()) ?? 0);
+                                    setState(() {
+                                      total[index].text = k.toString();
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        SizedBox(height: 10.h),
+                      ],
+                    );
                   },
-                  child: evaluationMarks.isEmpty ? const Text("Submit") : const Text("Update"),
-                )
-              ],
-            ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    submitData();
+                    Get.back();
+                  }
+                },
+                child: evaluationMarks.isEmpty ? const Text("Submit") : const Text("Update"),
+              )
+            ],
           ),
         ),
       ),

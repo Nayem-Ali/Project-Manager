@@ -31,7 +31,6 @@ class DataBaseMethods {
       });
       return getTeamData;
     } catch (e) {
-      print("Backend: $e");
       return getTeamData;
     }
   }
@@ -53,31 +52,24 @@ class DataBaseMethods {
     }
   }
 
-  addProposal(Map<String, String> teamInfo) async {
-    await firestore.collection(teamInfo["projectType"]!).doc(teamInfo["title"]).set(teamInfo);
+  // addProposal(String title, String projectType, int proposalID) async {
+  //   await firestore.collection("student").doc(auth.currentUser!.email).update(
+  //       {"title": title, "projectType": projectType, "PID": proposalID});
+  // }
 
-    // firestore
-    //     .collection(teamInfo["projectType"]!)
-    //     .doc(teamInfo["title"])
-    //     .collection("evaluationData")
-    //     .doc("pointBlank");
-    await firestore.collection("student").doc(auth.currentUser!.email).update(
-        {"title": teamInfo["title"], "projectType": teamInfo["projectType"], "submitted": "yes"});
-  }
-
-  wipeProposal(Map<String, dynamic> teamInfo) async {
-    QuerySnapshot querySnapshot = await firestore
-        .collection(teamInfo["projectType"]!)
-        .doc(teamInfo["title"])
-        .collection("evaluatedData")
-        .get();
-    querySnapshot.docs.clear();
-    await firestore.collection(teamInfo["projectType"]!).doc(teamInfo["title"]).delete();
-    await firestore
-        .collection("student")
-        .doc(auth.currentUser!.email)
-        .update({"title": "", "submitted": "no"});
-  }
+  // wipeProposal(Map<String, dynamic> teamInfo) async {
+  //   QuerySnapshot querySnapshot = await firestore
+  //       .collection(teamInfo["projectType"]!)
+  //       .doc(teamInfo["title"])
+  //       .collection("evaluatedData")
+  //       .get();
+  //   querySnapshot.docs.clear();
+  //   await firestore.collection(teamInfo["projectType"]!).doc(teamInfo["title"]).delete();
+  //   await firestore
+  //       .collection("student")
+  //       .doc(auth.currentUser!.email)
+  //       .update({"title": "", "submitted": "no"});
+  // }
 
   // updateDataAfterProposalSubmission(String id, String type) async {
   //   await firestore.collection("student").doc(auth.currentUser!.email).update({
@@ -87,18 +79,18 @@ class DataBaseMethods {
   //   });
   // }
 
-  addTeamRequest(Map<String, String> teamInfo) async {
-    await firestore
-        .collection("${teamInfo["projectType"]!}-request")
-        .doc(teamInfo["title"])
-        .set(teamInfo);
-
-    await firestore.collection("student").doc(auth.currentUser!.email).update({
-      "title": teamInfo["title"],
-      "projectType": "${teamInfo["projectType"]!}-request",
-      "submitted": "yes"
-    });
-  }
+  // addTeamRequest(Map<String, String> teamInfo) async {
+  //   await firestore
+  //       .collection("${teamInfo["projectType"]!}-request")
+  //       .doc(teamInfo["title"])
+  //       .set(teamInfo);
+  //
+  //   await firestore.collection("student").doc(auth.currentUser!.email).update({
+  //     "title": teamInfo["title"],
+  //     "projectType": "${teamInfo["projectType"]!}-request",
+  //     "submitted": "yes"
+  //   });
+  // }
 
   // getProject1() async {
   //   dynamic project1 = [];
@@ -137,26 +129,26 @@ class DataBaseMethods {
     }
   }
 
-  getEvaluationID(String collectionName1, String documentName, String collectionName2) async {
-    dynamic teachersID = [];
-    try {
-      QuerySnapshot querySnapshot = await firestore
-          .collection(collectionName1)
-          .doc(documentName)
-          .collection(collectionName2)
-          .get();
-
-      // Get data from docs and convert map to List
-      // project1=
-      // print(querySnapshot.docs.map((doc) => doc.id).toList());
-      teachersID = querySnapshot.docs.map((doc) => doc.id).toList();
-      return teachersID;
-    } catch (e) {
-      return teachersID;
-    }
+  // getEvaluationID(String collectionName1, String documentName, String collectionName2) async {
+  //   dynamic teachersID = [];
+  //   try {
+  //     QuerySnapshot querySnapshot = await firestore
+  //         .collection(collectionName1)
+  //         .doc(documentName)
+  //         .collection(collectionName2)
+  //         .get();
+  //
+  //     // Get data from docs and convert map to List
+  //     // project1=
+  //     // print(querySnapshot.docs.map((doc) => doc.id).toList());
+  //     teachersID = querySnapshot.docs.map((doc) => doc.id).toList();
+  //     return teachersID;
+  //   } catch (e) {
+  //     return teachersID;
+  //   }
     //  print(project1);
     // return project1;
-  }
+  // }
 
   getIndividualEvaluationData(String collectionName1, String documentName, String collectionName2,
       String documentName2) async {
@@ -200,29 +192,29 @@ class DataBaseMethods {
     return initials;
   }
 
-  assignSupervisor(String collectionName, String documentName, String supervisor) async {
-    await firestore
-        .collection(collectionName)
-        .doc(documentName)
-        .update({"isAssigned": supervisor});
-    // dynamic teacherList = [];
-    //
-    //
-    // QuerySnapshot querySnapshot = await firestore.collection('teacher').get();
-    //
-    // // Get data from docs and convert map to List
-    // // project1=
-    // teacherList = querySnapshot.docs.map((doc) => doc.data()).toList();
-    //
-    // for(var teacher in teacherList){
-    //   if(teacher['initial'] == supervisor){
-    //     await firestore.collection('teacher').doc(teacher['email']).collection(collectionName)
-    //         .doc(documentName).update({
-    //
-    //     });
-    //   }
-    // }
-  }
+  // assignSupervisor(String collectionName, String documentName, String supervisor) async {
+  //   await firestore
+  //       .collection(collectionName)
+  //       .doc(documentName)
+  //       .update({"isAssigned": supervisor});
+  //   // dynamic teacherList = [];
+  //   //
+  //   //
+  //   // QuerySnapshot querySnapshot = await firestore.collection('teacher').get();
+  //   //
+  //   // // Get data from docs and convert map to List
+  //   // // project1=
+  //   // teacherList = querySnapshot.docs.map((doc) => doc.data()).toList();
+  //   //
+  //   // for(var teacher in teacherList){
+  //   //   if(teacher['initial'] == supervisor){
+  //   //     await firestore.collection('teacher').doc(teacher['email']).collection(collectionName)
+  //   //         .doc(documentName).update({
+  //   //
+  //   //     });
+  //   //   }
+  //   // }
+  // }
 
   // getMyTeams(String collectionName) async {
   //   dynamic myData = await getTeacher();
@@ -267,28 +259,28 @@ class DataBaseMethods {
     return emails;
   }
 
-  moveData() async {
-    dynamic all4800data = [];
-    QuerySnapshot querySnapshot = await firestore.collection('CSE-4800').get();
-    await deleteProposal('CSE-4801');
-    all4800data = querySnapshot.docs.map((e) => e.data()).toList();
-
-    for (var data in all4800data) {
-      await firestore.collection('CSE-4801').doc(data['title']).set(data);
-      // await firestore
-      //     .collection('CSE-4801')
-      //     .doc(data['title'])
-      //     .collection('evaluationData')
-      //     .doc()
-      //     .set({"data": []});
-      // print(data);
-    }
-    // querySnapshot.docs.map((document) async {
-    //   print(document.data());
-    //   // final temp = docoument.data();
-    //   // await firestore.collection('CSE-4801').doc(docoument.id).set(temp[0]);
-    // });
-  }
+  // moveData() async {
+  //   dynamic all4800data = [];
+  //   QuerySnapshot querySnapshot = await firestore.collection('CSE-4800').get();
+  //   await deleteProposal('CSE-4801');
+  //   all4800data = querySnapshot.docs.map((e) => e.data()).toList();
+  //
+  //   for (var data in all4800data) {
+  //     await firestore.collection('CSE-4801').doc(data['title']).set(data);
+  //     // await firestore
+  //     //     .collection('CSE-4801')
+  //     //     .doc(data['title'])
+  //     //     .collection('evaluationData')
+  //     //     .doc()
+  //     //     .set({"data": []});
+  //     // print(data);
+  //   }
+  //   // querySnapshot.docs.map((document) async {
+  //   //   print(document.data());
+  //   //   // final temp = docoument.data();
+  //   //   // await firestore.collection('CSE-4801').doc(docoument.id).set(temp[0]);
+  //   // });
+  // }
 
   deleteProposal(String type) async {
     final proposalData = await ProjectSheetApi.getAllRows(type);
@@ -341,19 +333,19 @@ class DataBaseMethods {
     return querySnapshot.docs.map((e) => e.id).toList();
   }
 
-  addMergedTeamData(String collectionName, String docName, Map<String, dynamic> teamInfo) async {
-    await firestore.collection(collectionName).doc(docName).set(teamInfo);
-  }
+  // addMergedTeamData(String collectionName, String docName, Map<String, dynamic> teamInfo) async {
+  //   await firestore.collection(collectionName).doc(docName).set(teamInfo);
+  // }
 
-  publishAnnouncement(Map<String, String> announcement) async {
+  publishAnnouncement(Map<String, dynamic> announcement) async {
     await firestore.collection("Announcement").doc(announcement['subject']).set(announcement);
   }
 
   getAnnouncement() async {
-    dynamic announcement = [];
+    List<Map<String, dynamic>>? announcement = [];
     try {
       QuerySnapshot querySnapshot = await firestore.collection("Announcement").get();
-      announcement = querySnapshot.docs.map((doc) => doc.data()).toList();
+      announcement = querySnapshot.docs.map((doc) => doc.data()).cast<Map<String, dynamic>>().toList();
       return announcement;
     } catch (e) {
       return announcement;

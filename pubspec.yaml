@@ -26,7 +26,7 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   flutter_email_sender: ^6.0.2
 
-  firebase_core: ^2.20.0
+  firebase_core:
   google_sign_in: ^6.1.5
   firebase_auth: ^4.12.0
   cloud_firestore: ^4.12.2
@@ -34,6 +34,7 @@ dependencies:
   share_plus: ^7.2.1
   flutter_screenutil: ^5.9.1
   device_preview: ^1.1.0
+  firebase_messaging:
 
 dev_dependencies:
   flutter_test:

@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/View/splash_screen.dart';
 import 'package:teamlead/Widget/buttonStyle.dart';
 import 'package:teamlead/services/auth_services.dart';
+import 'package:teamlead/view/selectRoute.dart';
 import '../../Widget/logo.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -75,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: buttonStyle(250, 40),
                 onPressed: () async {
                   UserCredential credential = await signInWithGoogle();
-                  Get.off(const SplashScreen());
+                  Get.off(const SelectRoute());
                 },
                 icon: const FaIcon(FontAwesomeIcons.google,color: Colors.deepOrange,),
                 label: const Text(

@@ -20,126 +20,124 @@ class AdminHome extends StatefulWidget {
 class _AdminHomeState extends State<AdminHome> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Admin Dashboard"),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image(
-                image: const AssetImage('images/Leading-university-logo.png'),
-                width: 200.w,
-                height: 150.h,
-                fit: BoxFit.fill,
-              ),
-              const Spacer(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton.icon(
-                    style: buttonStyle(300, 40),
-                    icon:  Icon(
-                      Icons.assignment,
-                      size: 25.w,
-                    ),
-                    label: const Text(
-                      "View Proposals",
-                      // textAlign: TextAlign.center,
-                    ),
-                    onPressed: () {
-                      Get.to(const AssignSupervisor());
-                    },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Admin Dashboard"),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(
+              image: const AssetImage('images/Leading-university-logo.png'),
+              width: 200.w,
+              height: 150.h,
+              fit: BoxFit.fill,
+            ),
+            const Spacer(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                  style: buttonStyle(300, 40),
+                  icon:  Icon(
+                    Icons.assignment,
+                    size: 25.w,
                   ),
-                   SizedBox(
-                    height: 20.h,
+                  label: const Text(
+                    "View Proposals",
+                    // textAlign: TextAlign.center,
                   ),
-                  ElevatedButton.icon(
-                    style: buttonStyle(300, 40),
-                    icon:  Icon(
-                      Icons.add,
-                      size: 25.w,
-                    ),
-                    label: const Text(
-                      "Add Admin",
-                      // textAlign: TextAlign.center,
-                    ),
-                    onPressed: () {
-                      Get.to(const AddAdmin());
-                    },
+                  onPressed: () {
+                    Get.to(const AssignSupervisor());
+                  },
+                ),
+                 SizedBox(
+                  height: 20.h,
+                ),
+                ElevatedButton.icon(
+                  style: buttonStyle(300, 40),
+                  icon:  Icon(
+                    Icons.add,
+                    size: 25.w,
                   ),
-                ],
-              ),
-               SizedBox(
-                height: 20.h,
-              ),
-              Column(
-                children: [
-                  ElevatedButton.icon(
-                    style: buttonStyle(300, 40),
-                    icon:  Icon(
-                      Icons.settings,
-                      size: 25.w,
-                    ),
-                    label: const Text(
-                      "Proposal Setting",
-                      // textAlign: TextAlign.center,
-                    ),
-                    onPressed: () {
-                      Get.to(const ProposalSetting());
-                    },
+                  label: const Text(
+                    "Add Admin",
+                    // textAlign: TextAlign.center,
                   ),
-                   SizedBox(
-                    height: 20.h,
+                  onPressed: () {
+                    Get.to(const AddAdmin());
+                  },
+                ),
+              ],
+            ),
+             SizedBox(
+              height: 20.h,
+            ),
+            Column(
+              children: [
+                ElevatedButton.icon(
+                  style: buttonStyle(300, 40),
+                  icon:  Icon(
+                    Icons.settings,
+                    size: 25.w,
                   ),
-                  ElevatedButton.icon(
-                    style: buttonStyle(300, 40),
-                    icon:  Icon(
-                      Icons.approval,
-                      size: 25.w,
-                    ),
-                    label: const Text(
-                      "Request",
-                      // textAlign: TextAlign.center,
-                    ),
-                    onPressed: () {
-                      Get.to(const ApproveRequest());
-                    },
+                  label: const Text(
+                    "Proposal Setting",
+                    // textAlign: TextAlign.center,
                   ),
-                   SizedBox(
-                    height: 20.h,
+                  onPressed: () {
+                    Get.to(const ProposalSetting());
+                  },
+                ),
+                 SizedBox(
+                  height: 20.h,
+                ),
+                ElevatedButton.icon(
+                  style: buttonStyle(300, 40),
+                  icon:  Icon(
+                    Icons.approval,
+                    size: 25.w,
                   ),
-                  ElevatedButton.icon(
-                    style: buttonStyle(300, 40),
-                    icon:  Icon(
-                      FontAwesomeIcons.file,
-                      size: 25.w,
-                    ),
-                    label: const Text(
-                      "Generate Result",
-                      // textAlign: TextAlign.center,
-                    ),
-                    onPressed: () {
-                      Get.to(const ResultPage());
-                    },
+                  label: const Text(
+                    "Request",
+                    // textAlign: TextAlign.center,
                   ),
-                ],
-              ),
-              const Spacer(),
-              Text(
-                "Project Committee",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
-              ),
-              Text(
-                "Department of CSE",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
-              ),
-              const Spacer(),
-            ],
-          ),
+                  onPressed: () {
+                    Get.to(const ApproveRequest());
+                  },
+                ),
+                 SizedBox(
+                  height: 20.h,
+                ),
+                ElevatedButton.icon(
+                  style: buttonStyle(300, 40),
+                  icon:  Icon(
+                    FontAwesomeIcons.file,
+                    size: 25.w,
+                  ),
+                  label: const Text(
+                    "Generate Result",
+                    // textAlign: TextAlign.center,
+                  ),
+                  onPressed: () {
+                    Get.to(const ResultPage());
+                  },
+                ),
+              ],
+            ),
+            const Spacer(),
+            Text(
+              "Project Committee",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+            ),
+            Text(
+              "Department of CSE",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
+            ),
+            const Spacer(),
+          ],
         ),
       ),
     );

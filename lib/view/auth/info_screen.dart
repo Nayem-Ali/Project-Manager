@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:teamlead/View/auth/login_screen.dart';
-import 'package:teamlead/View/splash_screen.dart';
 import 'package:teamlead/Widget/buttonStyle.dart';
 import 'package:teamlead/services/db_service.dart';
+import 'package:teamlead/view/selectRoute.dart';
 
 class InfoScreen extends StatefulWidget {
   const InfoScreen({Key? key}) : super(key: key);
@@ -19,6 +19,14 @@ class _InfoScreenState extends State<InfoScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   bool isTeacher = false;
   bool isStudent = true;
+  List<String> sections = ['A', "B", "C", "D", 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
+  List<String> designations = [
+    'Professor',
+    'Associate Professor',
+    'Assistant Professor',
+    'Lecturer',
+    'Adjunct Lecturer'
+  ];
 
   String designation = "";
   String section = "";
@@ -75,11 +83,10 @@ class _InfoScreenState extends State<InfoScreen> {
                     alignment: Alignment.topLeft,
                     child: Text(
                       "Hello, ${auth.currentUser!.email}",
-                      style: TextStyle(
-                          fontSize:  14.sp, fontWeight: FontWeight.w700),
+                      style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
                     ),
                   ),
-                   SizedBox(height: 20.h),
+                  SizedBox(height: 20.h),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
@@ -102,7 +109,7 @@ class _InfoScreenState extends State<InfoScreen> {
                               isTeacher ? Colors.greenAccent.shade100 : Colors.transparent,
                           shadowColor: Colors.transparent,
                         ),
-                        child:  Text(
+                        child: Text(
                           "Teacher",
                           style: TextStyle(
                             color: Colors.black87,
@@ -140,7 +147,7 @@ class _InfoScreenState extends State<InfoScreen> {
                         const SizedBox(height: 10),
                         TextFormField(
                           controller: nameController,
-                          decoration:  InputDecoration(
+                          decoration: InputDecoration(
                             label: const Text('Full Name'),
                             labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                             filled: true,
@@ -183,8 +190,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                 },
                                 decoration: InputDecoration(
                                   label: const Text('Batch'),
-                                  labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight
-                                      .bold),
+                                  labelStyle:
+                                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                                   filled: true,
                                   border: const OutlineInputBorder(),
                                 ),
@@ -201,52 +208,18 @@ class _InfoScreenState extends State<InfoScreen> {
                                   }
                                   return null;
                                 },
-                                items: const [
-                                  DropdownMenuItem(
-                                    value: "A",
-                                    child: Text("A"),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: "B",
-                                    child: Text("B"),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: "C",
-                                    child: Text("C"),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: "D",
-                                    child: Text("D"),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: "E",
-                                    child: Text("E"),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: "F",
-                                    child: Text("F"),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: "G",
-                                    child: Text("G"),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: "H",
-                                    child: Text("H"),
-                                  ), //
-                                  DropdownMenuItem(
-                                    value: "I",
-                                    child: Text("I"),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: "J",
-                                    child: Text("J"),
-                                  ),
-                                ],
+                                items: sections
+                                    .map(
+                                      (value) => DropdownMenuItem(
+                                        value: value,
+                                        child: Text(value),
+                                      ),
+                                    )
+                                    .toList(),
                                 onChanged: (value) {
                                   section = value!;
                                 },
-                                decoration:  InputDecoration(
+                                decoration: InputDecoration(
                                   label: const Text('Section'),
                                   labelStyle: TextStyle(
                                     fontSize: 14.sp,
@@ -278,11 +251,11 @@ class _InfoScreenState extends State<InfoScreen> {
                         SizedBox(height: 10.h),
                         TextFormField(
                           controller: nameController,
-                          decoration:  InputDecoration(
+                          decoration: InputDecoration(
                             label: const Text('Full Name'),
                             labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                             filled: true,
-                            border:const OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -296,7 +269,7 @@ class _InfoScreenState extends State<InfoScreen> {
                             }
                             return null;
                           },
-                          decoration:  InputDecoration(
+                          decoration: InputDecoration(
                             label: const Text('Initial'),
                             hintText: 'Example: SRK,JIM',
                             labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
@@ -325,36 +298,18 @@ class _InfoScreenState extends State<InfoScreen> {
                             }
                             return null;
                           },
-                          items: const [
-                            DropdownMenuItem(
-                              value: "Professor",
-                              child: Text("Professor"),
+                          items: designations
+                              .map(
+                                (value) => DropdownMenuItem(
+                              value: value,
+                              child: Text(value),
                             ),
-                            DropdownMenuItem(
-                              value: "Associate Professor",
-                              child: Text("Associate Professor"),
-                            ),
-                            DropdownMenuItem(
-                              value: "Assistant Professor",
-                              child: Text("Assistant Professor"),
-                            ),
-                            DropdownMenuItem(
-                              value: "Lecturer",
-                              child: Text("Lecturer"),
-                            ),
-                            // DropdownMenuItem(
-                            //   value: "A",
-                            //   child: Text("A"),
-                            // ),
-                            // DropdownMenuItem(
-                            //   value: "A",
-                            //   child: Text("A"),
-                            // ),
-                          ],
+                          )
+                              .toList(),
                           onChanged: (value) {
                             designation = value!;
 
-                            print(designation);
+                            // print(designation);
                           },
                           decoration: InputDecoration(
                             label: const Text('Designation'),
@@ -396,14 +351,14 @@ class _InfoScreenState extends State<InfoScreen> {
                           info["id"] = idController.text.trim();
                           info["batch"] = batchController.text.trim();
                           info['section'] = section;
-                          info["submitted"] = "no";
                           info["title"] = "";
                           info["projectType"] = "";
                           info['role'] = 'student';
+                          info['PID'] = 0;
                           await db.addStudent(info);
                         }
                       }
-                      Get.offAll(const SplashScreen());
+                      Get.offAll(const SelectRoute());
                     },
                     label: Text(
                       "Continue",

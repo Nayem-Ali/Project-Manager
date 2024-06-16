@@ -61,100 +61,100 @@ class _ProposalSettingState extends State<ProposalSetting> {
     setState(() {});
   }
 
-  updateMergedTeam() async {
-
-
-    dynamic proposal33 = await ProjectSheetApi.getAllRows("CSE-3300");
-    dynamic proposal48 = await ProjectSheetApi.getAllRows("CSE-4800");
-    dynamic proposal481 = await ProjectSheetApi.getAllRows("CSE-4801");
-
-    if (proposal33 != null) {
-      for (var proposal in proposal33) {
-        // print(cse33);
-        // if (cse33.contains(proposal['Title']) == false) {
-        List<String> names = proposal['Name'].split('\n');
-        List<String> id = proposal['Student ID'].split('\n');
-        List<String> emails = proposal['Email'].split('\n');
-        List<String> numbers = proposal['Phone'].split('\n');
-        List<String> cgpa = proposal['CGPA'].split('\n');
-
-        Map<String, dynamic> teamInfo = {
-          "projectType": "CSE-3300",
-          "title": proposal['Title'],
-          "link": proposal['Proposal Drive Link'],
-          "preference": proposal["Preferred Supervisor"],
-          for (int i = 0; i < names.length; i++) "name${i + 1}": names[i],
-          for (int i = 0; i < id.length; i++) "id${i + 1}": id[i],
-          for (int i = 0; i < emails.length; i++) "email${i + 1}": emails[i],
-          for (int i = 0; i < numbers.length; i++) "number${i + 1}": numbers[i],
-          for (int i = 0; i < cgpa.length; i++) "cgpa${i + 1}": cgpa[i],
-          "isAssigned": "",
-          "proposalID": "",
-          "submitted": "yes",
-        };
-
-        await dataBaseMethods.addMergedTeamData("CSE-3300", proposal['Title'], teamInfo);
-        // }
-      }
-    }
-    if (proposal48 != null) {
-      for (var proposal in proposal48) {
-        // if (cse48.contains(proposal['Title']) == false) {
-        List<String> names = proposal['Name'].split('\n');
-        List<String> id = proposal['Student ID'].split('\n');
-        List<String> emails = proposal['Email'].split('\n');
-        List<String> numbers = proposal['Phone'].split('\n');
-        List<String> cgpa = proposal['CGPA'].split('\n');
-
-        Map<String, dynamic> teamInfo = {
-          "projectType": "CSE-4800",
-          "title": proposal['Title'],
-          "link": proposal['Proposal Drive Link'],
-          "preference": proposal["Preferred Supervisor"],
-          for (int i = 0; i < names.length; i++) "name${i + 1}": names[i],
-          for (int i = 0; i < id.length; i++) "id${i + 1}": id[i],
-          for (int i = 0; i < emails.length; i++) "email${i + 1}": emails[i],
-          for (int i = 0; i < numbers.length; i++) "number${i + 1}": numbers[i],
-          for (int i = 0; i < cgpa.length; i++) "cgpa${i + 1}": cgpa[i],
-          "isAssigned": "",
-          "proposalID": "",
-          "submitted": "yes",
-        };
-
-        await dataBaseMethods.addMergedTeamData("CSE-4800", proposal['Title'], teamInfo);
-        // }
-      }
-    }
-
-    if (proposal481 != null) {
-      for (var proposal in proposal481) {
-        // if (cse481.contains(proposal['Title']) == false) {
-        List<String> names = proposal['Name'].split('\n');
-        List<String> id = proposal['Student ID'].split('\n');
-        List<String> emails = proposal['Email'].split('\n');
-        List<String> numbers = proposal['Phone'].split('\n');
-        List<String> cgpa = proposal['CGPA'].split('\n');
-
-        Map<String, dynamic> teamInfo = {
-          "projectType": "CSE-4801",
-          "title": proposal['Title'],
-          "link": proposal['Proposal Drive Link'],
-          "preference": proposal["Preferred Supervisor"],
-          for (int i = 0; i < names.length; i++) "name${i + 1}": names[i],
-          for (int i = 0; i < id.length; i++) "id${i + 1}": id[i],
-          for (int i = 0; i < emails.length; i++) "email${i + 1}": emails[i],
-          for (int i = 0; i < numbers.length; i++) "number${i + 1}": numbers[i],
-          for (int i = 0; i < cgpa.length; i++) "cgpa${i + 1}": cgpa[i],
-          "isAssigned": "",
-          "proposalID": "",
-          "submitted": "yes",
-        };
-
-        await dataBaseMethods.addMergedTeamData("CSE-4801", proposal['Title'], teamInfo);
-        // }
-      }
-    }
-  }
+  // updateMergedTeam() async {
+  //
+  //
+  //   dynamic proposal33 = await ProjectSheetApi.getAllRows("CSE-3300");
+  //   dynamic proposal48 = await ProjectSheetApi.getAllRows("CSE-4800");
+  //   dynamic proposal481 = await ProjectSheetApi.getAllRows("CSE-4801");
+  //
+  //   if (proposal33 != null) {
+  //     for (var proposal in proposal33) {
+  //       // print(cse33);
+  //       // if (cse33.contains(proposal['Title']) == false) {
+  //       List<String> names = proposal['Name'].split('\n');
+  //       List<String> id = proposal['Student ID'].split('\n');
+  //       List<String> emails = proposal['Email'].split('\n');
+  //       List<String> numbers = proposal['Phone'].split('\n');
+  //       List<String> cgpa = proposal['CGPA'].split('\n');
+  //
+  //       Map<String, dynamic> teamInfo = {
+  //         "projectType": "CSE-3300",
+  //         "title": proposal['Title'],
+  //         "link": proposal['Proposal Drive Link'],
+  //         "preference": proposal["Preferred Supervisor"],
+  //         for (int i = 0; i < names.length; i++) "name${i + 1}": names[i],
+  //         for (int i = 0; i < id.length; i++) "id${i + 1}": id[i],
+  //         for (int i = 0; i < emails.length; i++) "email${i + 1}": emails[i],
+  //         for (int i = 0; i < numbers.length; i++) "number${i + 1}": numbers[i],
+  //         for (int i = 0; i < cgpa.length; i++) "cgpa${i + 1}": cgpa[i],
+  //         "isAssigned": "",
+  //         "proposalID": "",
+  //         "submitted": "yes",
+  //       };
+  //
+  //       // await dataBaseMethods.addMergedTeamData("CSE-3300", proposal['Title'], teamInfo);
+  //       // }
+  //     }
+  //   }
+  //   if (proposal48 != null) {
+  //     for (var proposal in proposal48) {
+  //       // if (cse48.contains(proposal['Title']) == false) {
+  //       List<String> names = proposal['Name'].split('\n');
+  //       List<String> id = proposal['Student ID'].split('\n');
+  //       List<String> emails = proposal['Email'].split('\n');
+  //       List<String> numbers = proposal['Phone'].split('\n');
+  //       List<String> cgpa = proposal['CGPA'].split('\n');
+  //
+  //       Map<String, dynamic> teamInfo = {
+  //         "projectType": "CSE-4800",
+  //         "title": proposal['Title'],
+  //         "link": proposal['Proposal Drive Link'],
+  //         "preference": proposal["Preferred Supervisor"],
+  //         for (int i = 0; i < names.length; i++) "name${i + 1}": names[i],
+  //         for (int i = 0; i < id.length; i++) "id${i + 1}": id[i],
+  //         for (int i = 0; i < emails.length; i++) "email${i + 1}": emails[i],
+  //         for (int i = 0; i < numbers.length; i++) "number${i + 1}": numbers[i],
+  //         for (int i = 0; i < cgpa.length; i++) "cgpa${i + 1}": cgpa[i],
+  //         "isAssigned": "",
+  //         "proposalID": "",
+  //         "submitted": "yes",
+  //       };
+  //
+  //       // await dataBaseMethods.addMergedTeamData("CSE-4800", proposal['Title'], teamInfo);
+  //       // }
+  //     }
+  //   }
+  //
+  //   if (proposal481 != null) {
+  //     for (var proposal in proposal481) {
+  //       // if (cse481.contains(proposal['Title']) == false) {
+  //       List<String> names = proposal['Name'].split('\n');
+  //       List<String> id = proposal['Student ID'].split('\n');
+  //       List<String> emails = proposal['Email'].split('\n');
+  //       List<String> numbers = proposal['Phone'].split('\n');
+  //       List<String> cgpa = proposal['CGPA'].split('\n');
+  //
+  //       Map<String, dynamic> teamInfo = {
+  //         "projectType": "CSE-4801",
+  //         "title": proposal['Title'],
+  //         "link": proposal['Proposal Drive Link'],
+  //         "preference": proposal["Preferred Supervisor"],
+  //         for (int i = 0; i < names.length; i++) "name${i + 1}": names[i],
+  //         for (int i = 0; i < id.length; i++) "id${i + 1}": id[i],
+  //         for (int i = 0; i < emails.length; i++) "email${i + 1}": emails[i],
+  //         for (int i = 0; i < numbers.length; i++) "number${i + 1}": numbers[i],
+  //         for (int i = 0; i < cgpa.length; i++) "cgpa${i + 1}": cgpa[i],
+  //         "isAssigned": "",
+  //         "proposalID": "",
+  //         "submitted": "yes",
+  //       };
+  //
+  //       // await dataBaseMethods.addMergedTeamData("CSE-4801", proposal['Title'], teamInfo);
+  //       // }
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -238,9 +238,9 @@ class _ProposalSettingState extends State<ProposalSetting> {
 
                       await dataBaseMethods
                           .updateProposalCredential({"allowEvaluation": allowEvaluation});
-                      if (allowEvaluation) {
-                        await updateMergedTeam();
-                      }
+                      // if (allowEvaluation) {
+                      //   // await updateMergedTeam();
+                      // }
                       setState(() {
                         isLoading5 = false;
                       });
@@ -310,7 +310,7 @@ class _ProposalSettingState extends State<ProposalSetting> {
                                     });
                                     // await dataBaseMethods.deleteProposal('CSE-4801');
                                     await ProjectSheetApi.shift4800();
-                                    await dataBaseMethods.moveData();
+                                    // await dataBaseMethods.moveData();
                                     setState(() {
                                       isLoading2 = false;
                                     });

@@ -7,6 +7,6 @@ buttonStyle(int width, int height) => ElevatedButton.styleFrom(
       minimumSize: Size(width.w, 10+height.h),
       textStyle: GoogleFonts.adamina(
         fontWeight: FontWeight.bold,
-        fontSize: 14.sp,
+        fontSize: 16.h,
       ),
     );

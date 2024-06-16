@@ -54,130 +54,128 @@ class _MyTeamsState extends State<MyTeams> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("My Teams"),
-          centerTitle: true,
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                OutlinedButton(
-                  onPressed: () {
-                    setState(() {
-                      status = 'Loading ....';
-                      cse3300 = true;
-                      cse4800 = false;
-                      cse4801 = false;
-                      project.clear();
-                      getData();
-                    });
-                  },
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: Size(100.w, 35.h),
-                    backgroundColor: cse3300 ? Colors.greenAccent.shade100 : Colors.transparent,
-                    shadowColor: Colors.transparent,
-                  ),
-                  child: Text(
-                    "CSE - 3300",
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.sp,
-                    ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("My Teams"),
+        centerTitle: true,
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  setState(() {
+                    status = 'Loading ....';
+                    cse3300 = true;
+                    cse4800 = false;
+                    cse4801 = false;
+                    project.clear();
+                    getData();
+                  });
+                },
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(100.w, 35.h),
+                  backgroundColor: cse3300 ? Colors.greenAccent.shade100 : Colors.transparent,
+                  shadowColor: Colors.transparent,
+                ),
+                child: Text(
+                  "CSE - 3300",
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.sp,
                   ),
                 ),
-                OutlinedButton(
-                  onPressed: () {
-                    setState(() {
-                      status = 'Loading ....';
-                      cse3300 = false;
-                      cse4800 = true;
-                      cse4801 = false;
-                      project.clear();
-                      getData();
-                    });
-                  },
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: Size(100.w, 35.h),
-                    backgroundColor: cse4800 ? Colors.greenAccent.shade100 : Colors.transparent,
-                    shadowColor: Colors.transparent,
-                  ),
-                  child: Text(
-                    "CSE - 4800",
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.sp,
-                    ),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  setState(() {
+                    status = 'Loading ....';
+                    cse3300 = false;
+                    cse4800 = true;
+                    cse4801 = false;
+                    project.clear();
+                    getData();
+                  });
+                },
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(100.w, 35.h),
+                  backgroundColor: cse4800 ? Colors.greenAccent.shade100 : Colors.transparent,
+                  shadowColor: Colors.transparent,
+                ),
+                child: Text(
+                  "CSE - 4800",
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.sp,
                   ),
                 ),
-                OutlinedButton(
-                  onPressed: () {
-                    setState(() {
-                      status = 'Loading ....';
-                      cse3300 = false;
-                      cse4800 = false;
-                      cse4801 = true;
-                      project.clear();
-                      getData();
-                    });
-                  },
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: Size(100.w, 35.h),
-                    backgroundColor: cse4801 ? Colors.greenAccent.shade100 : Colors.transparent,
-                    shadowColor: Colors.transparent,
-                  ),
-                  child: Text(
-                    "CSE - 4801",
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.sp,
-                    ),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  setState(() {
+                    status = 'Loading ....';
+                    cse3300 = false;
+                    cse4800 = false;
+                    cse4801 = true;
+                    project.clear();
+                    getData();
+                  });
+                },
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(100.w, 35.h),
+                  backgroundColor: cse4801 ? Colors.greenAccent.shade100 : Colors.transparent,
+                  shadowColor: Colors.transparent,
+                ),
+                child: Text(
+                  "CSE - 4801",
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.sp,
                   ),
                 ),
-              ],
-            ),
-            Expanded(
-              child: project.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: project.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            final String projectType;
-                            if (cse4801) {
-                              projectType = 'CSE-4801';
-                            } else if (cse4800) {
-                              projectType = 'CSE-4800';
-                            } else {
-                              projectType = 'CSE-3300';
-                            }
-                            Get.to(const ViewTeam(), arguments: [project[index], projectType]);
-                          },
-                          child: Card(
-                            color: colors[index % 5],
-                            child: ListTile(
-                              title: Text(
-                                project[index]['Title'],
-                                overflow: TextOverflow.ellipsis,
-                              ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: project.isNotEmpty
+                ? ListView.builder(
+                    itemCount: project.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          final String projectType;
+                          if (cse4801) {
+                            projectType = 'CSE-4801';
+                          } else if (cse4800) {
+                            projectType = 'CSE-4800';
+                          } else {
+                            projectType = 'CSE-3300';
+                          }
+                          Get.to(const ViewTeam(), arguments: [project[index], projectType]);
+                        },
+                        child: Card(
+                          color: colors[index % 5],
+                          child: ListTile(
+                            title: Text(
+                              project[index]['Title'],
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                        );
-                      },
-                    )
-                  : Center(
-                      child: Text(status),
-                    ),
-            ),
-          ],
-        ),
+                        ),
+                      );
+                    },
+                  )
+                : Center(
+                    child: Text(status),
+                  ),
+          ),
+        ],
       ),
     );
   }

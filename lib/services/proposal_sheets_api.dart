@@ -76,30 +76,38 @@ class ProjectSheetApi {
 
   static addProposal(Map<String, dynamic> proposalData, String type) async {
     // DataBaseMethods dataBaseMethods = DataBaseMethods();
+    int proposalID = 0;
     if (cse3300 == null || cse4800 == null) return null;
     if (type == 'CSE-3300') {
       final lastRow = await cse3300!.values.lastRow();
-      proposalData['ID'] = ((int.tryParse(lastRow!.first) ?? 0) + 1).toString();
+      proposalID = (int.tryParse(lastRow!.first) ?? 0) + 1;
+      proposalData['ID'] = proposalID.toString();
       cse3300!.values.map.appendRow(proposalData);
     } else {
       final lastRow = await cse4800!.values.lastRow();
-      proposalData['ID'] = ((int.tryParse(lastRow!.first) ?? 0) + 1).toString();
+      proposalID = (int.tryParse(lastRow!.first) ?? 0) + 1;
+      proposalData['ID'] = proposalID.toString();
       cse4800!.values.map.appendRow(proposalData);
     }
+    return proposalID;
     // dataBaseMethods.updateDataAfterProposalSubmission(proposalData['ID'], type);
   }
 
   static addTeamRequest(Map<String, dynamic> proposalData, String type) async {
+    int proposalID = 0;
     if (teamRequest3300 == null || teamRequest4800 == null) return null;
-    if (type == 'CSE-3300-request') {
+    if (type == 'CSE-3300-team-request') {
       final lastRow = await teamRequest3300!.values.lastRow();
-      proposalData['ID'] = ((int.tryParse(lastRow!.first) ?? 0) + 1).toString();
+      proposalID = (int.tryParse(lastRow!.first) ?? 0) + 1;
+      proposalData['ID'] = proposalID.toString();
       teamRequest3300!.values.map.appendRow(proposalData);
     } else {
       final lastRow = await teamRequest4800!.values.lastRow();
-      proposalData['ID'] = ((int.tryParse(lastRow!.first) ?? 0) + 1).toString();
+      proposalID = (int.tryParse(lastRow!.first) ?? 0) + 1;
+      proposalData['ID'] = proposalID.toString();
       teamRequest4800!.values.map.appendRow(proposalData);
     }
+    return proposalID;
   }
 
   static getAllRows(String type) async {
@@ -186,15 +194,35 @@ class ProjectSheetApi {
     await teamDistribution!.deleteRow(2, count: teamDistribution!.rowCount);
   }
 
-  static getAllTitles(String type) async {
-    List<String>? titles = [];
+  static getColumn(String type, String columnName) async {
+    List<String>? column = [];
     if (type == 'CSE-3300') {
-      titles = await cse3300!.values.columnByKey("Title");
+      column = await cse3300!.values.columnByKey(columnName);
     } else if (type == 'CSE-4800') {
-      titles = await cse4800!.values.columnByKey("Title");
-    } else {
-      titles = await cse4801!.values.columnByKey("Title");
+      column = await cse4800!.values.columnByKey(columnName);
+    } else if (type == 'CSE-3300-team-request') {
+      column = await teamRequest3300!.values.columnByKey(columnName);
+    }else if (type == 'CSE-4800-team-request') {
+      column = await teamRequest4800!.values.columnByKey(columnName);
+    }else {
+      column = await cse4801!.values.columnByKey(columnName);
     }
-    return titles;
+    return column;
+  }
+
+  static getRow(String type, int index)async{
+    List<String>? row = [];
+    if (type == 'CSE-3300') {
+      row = await cse3300!.values.row(index);
+    } else if (type == 'CSE-4800') {
+      row = await cse4800!.values.row(index);
+    } else if (type == 'CSE-3300-team-request') {
+      row = await teamRequest3300!.values.row(index);
+    }else if (type == 'CSE-4800-team-request') {
+      row = await teamRequest4800!.values.row(index);
+    }else {
+      row = await cse4801!.values.row(index);
+    }
+    return row;
   }
 }

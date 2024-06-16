@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/services/proposal_sheets_api.dart';
+import 'package:teamlead/services/push_notification.dart';
 import 'package:teamlead/services/result_sheet_api.dart';
 
 // import 'package:teamlead/services/google_sheets_api.dart';
@@ -23,12 +24,13 @@ void main() async {
     name: "Project Manager",
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  await PushNotifications.sendNotification();
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => const MyApp(), // Wrap your app
-    ),
+      const MyApp()
+    // DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) => const MyApp(), // Wrap your app
+    // ),
   );
 }
 
@@ -48,9 +50,9 @@ class _MyAppState extends State<MyApp> {
       splitScreenMode: true,
       builder: (_, child) {
         return GetMaterialApp(
-          useInheritedMediaQuery: true,
-          locale: DevicePreview.locale(context),
-          builder: DevicePreview.appBuilder,
+          // useInheritedMediaQuery: true,
+          // locale: DevicePreview.locale(context),
+          // builder: DevicePreview.appBuilder,
           home: const SplashScreen(),
           theme: ThemeData.light(useMaterial3: false).copyWith(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),

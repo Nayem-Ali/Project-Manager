@@ -72,23 +72,23 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 title: const Text("Dark Mode"),
                 value: themeMode,
                 onChanged: (value) {
-                  setState(() {
-
-                    themeMode = value;
-                    if (themeMode) {
-                      Get.changeTheme(ThemeData.dark());
-                    }
-                    else {
-                      Get.changeTheme(ThemeData.light().copyWith(
-                        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
-                        // primaryColor: Colors.deepOrangeAccent,
-                        //fontFamily: "Poppins",
-                        textTheme: GoogleFonts.aBeeZeeTextTheme(),
-                        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                        // useMaterial3: true,
-                      ));
-                    }
-                  });
+                  // setState(() {
+                  //
+                  //   themeMode = value;
+                  //   if (themeMode) {
+                  //     Get.changeTheme(ThemeData.dark());
+                  //   }
+                  //   else {
+                  //     Get.changeTheme(ThemeData.light().copyWith(
+                  //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+                  //       // primaryColor: Colors.deepOrangeAccent,
+                  //       //fontFamily: "Poppins",
+                  //       textTheme: GoogleFonts.aBeeZeeTextTheme(),
+                  //       // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                  //       // useMaterial3: true,
+                  //     ));
+                  //   }
+                  // });
 
                 }),
             const SizedBox(height: 10),
@@ -109,7 +109,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   minimumSize: Size(Get.width, 50)
               ),
               label: const Text("About Us"),
-              icon: const Icon(Icons.info),
+              icon: const Icon(Icons.info_outline),
             ),
           ],
         ),

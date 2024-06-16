@@ -38,153 +38,151 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
-      child: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text("Project Evaluation"),
-            leading: IconButton(
-              onPressed: () {
-                Get.off(() => const TeacherHomeScreen());
-              },
-              icon: const Icon(Icons.arrow_back),
-            ),
-            centerTitle: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Project Evaluation"),
+          leading: IconButton(
+            onPressed: () {
+              Get.off(() => const TeacherHomeScreen());
+            },
+            icon: const Icon(Icons.arrow_back),
           ),
-          body: allow
-              ? Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        OutlinedButton(
-                          onPressed: () {
-                            setState(() {
-                              type = 'CSE-3300';
-                            });
-                          },
-                          style: OutlinedButton.styleFrom(
-                            minimumSize: Size(100.w, 35.h),
-                            backgroundColor: type == 'CSE-3300'
-                                ? Colors.greenAccent.shade100
-                                : Colors.transparent,
-                            shadowColor: Colors.transparent,
-                          ),
-                          child: Text(
-                            "CSE - 3300",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.sp,
-                            ),
-                          ),
-                        ),
-                        OutlinedButton(
-                          onPressed: () {
-                            setState(() {
-                              type = 'CSE-4800';
-                            });
-                          },
-                          style: OutlinedButton.styleFrom(
-                            minimumSize: Size(100.w, 35.h),
-                            backgroundColor: type == 'CSE-4800'
-                                ? Colors.greenAccent.shade100
-                                : Colors.transparent,
-                            shadowColor: Colors.transparent,
-                          ),
-                          child: Text(
-                            "CSE - 4800",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.sp,
-                            ),
-                          ),
-                        ),
-                        OutlinedButton(
-                          onPressed: () {
-                            setState(() {
-                              type = 'CSE-4801';
-                            });
-                          },
-                          style: OutlinedButton.styleFrom(
-                            minimumSize: Size(100.w, 35.h),
-                            backgroundColor: type == 'CSE-4801'
-                                ? Colors.greenAccent.shade100
-                                : Colors.transparent,
-                            shadowColor: Colors.transparent,
-                          ),
-                          child: Text(
-                            "CSE - 4801",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.sp,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (type == 'CSE-3300') const Expanded(child: Project1()),
-                    if (type == 'CSE-4800') const Expanded(child: Project2()),
-                    if (type == 'CSE-4801') const Expanded(child: Project3()),
-                    // TabBar(
-                    //   tabs: [
-                    //     Tab(
-                    //       icon: Text(
-                    //         "CSE - 3300",
-                    //         style: TextStyle(
-                    //           color: Colors.teal,
-                    //           fontSize: Get.textScaleFactor * 16,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     Tab(
-                    //       icon: Text(
-                    //         "CSE - 4800",
-                    //         style: TextStyle(
-                    //           color: Colors.teal,
-                    //           fontSize: Get.textScaleFactor * 16,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     Tab(
-                    //       icon: Text(
-                    //         "CSE - 4801",
-                    //         style: TextStyle(
-                    //           color: Colors.teal,
-                    //           fontSize: Get.textScaleFactor * 16,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    //
-                    // ),
-                    // const Expanded(
-                    //   child: TabBarView(
-                    //
-                    //     children: [
-                    //       Project1(),
-                    //       Project2(),
-                    //       Project3(),
-                    //     ],
-                    //   ),
-                    // ),
-                  ],
-                )
-              : Center(
-                  child: Text(
-                    "Defence is not started yet",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.sp,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+          centerTitle: true,
         ),
+        body: allow
+            ? Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () {
+                          setState(() {
+                            type = 'CSE-3300';
+                          });
+                        },
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: Size(100.w, 35.h),
+                          backgroundColor: type == 'CSE-3300'
+                              ? Colors.greenAccent.shade100
+                              : Colors.transparent,
+                          shadowColor: Colors.transparent,
+                        ),
+                        child: Text(
+                          "CSE - 3300",
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                      ),
+                      OutlinedButton(
+                        onPressed: () {
+                          setState(() {
+                            type = 'CSE-4800';
+                          });
+                        },
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: Size(100.w, 35.h),
+                          backgroundColor: type == 'CSE-4800'
+                              ? Colors.greenAccent.shade100
+                              : Colors.transparent,
+                          shadowColor: Colors.transparent,
+                        ),
+                        child: Text(
+                          "CSE - 4800",
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                      ),
+                      OutlinedButton(
+                        onPressed: () {
+                          setState(() {
+                            type = 'CSE-4801';
+                          });
+                        },
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: Size(100.w, 35.h),
+                          backgroundColor: type == 'CSE-4801'
+                              ? Colors.greenAccent.shade100
+                              : Colors.transparent,
+                          shadowColor: Colors.transparent,
+                        ),
+                        child: Text(
+                          "CSE - 4801",
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (type == 'CSE-3300') const Expanded(child: Project1()),
+                  if (type == 'CSE-4800') const Expanded(child: Project2()),
+                  if (type == 'CSE-4801') const Expanded(child: Project3()),
+                  // TabBar(
+                  //   tabs: [
+                  //     Tab(
+                  //       icon: Text(
+                  //         "CSE - 3300",
+                  //         style: TextStyle(
+                  //           color: Colors.teal,
+                  //           fontSize: Get.textScaleFactor * 16,
+                  //           fontWeight: FontWeight.bold,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     Tab(
+                  //       icon: Text(
+                  //         "CSE - 4800",
+                  //         style: TextStyle(
+                  //           color: Colors.teal,
+                  //           fontSize: Get.textScaleFactor * 16,
+                  //           fontWeight: FontWeight.bold,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     Tab(
+                  //       icon: Text(
+                  //         "CSE - 4801",
+                  //         style: TextStyle(
+                  //           color: Colors.teal,
+                  //           fontSize: Get.textScaleFactor * 16,
+                  //           fontWeight: FontWeight.bold,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  //
+                  // ),
+                  // const Expanded(
+                  //   child: TabBarView(
+                  //
+                  //     children: [
+                  //       Project1(),
+                  //       Project2(),
+                  //       Project3(),
+                  //     ],
+                  //   ),
+                  // ),
+                ],
+              )
+            : Center(
+                child: Text(
+                  "Defence is not started yet",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.sp,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
       ),
     );
   }

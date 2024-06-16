@@ -159,7 +159,7 @@ class _AddAdminState extends State<AddAdmin> {
                     },
                     // icon: const Icon(Icons.add),
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(25.w, 62.h),
+                      minimumSize: Size(25.w, 55.h),
                       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero)
                     ),
                     child: Text(

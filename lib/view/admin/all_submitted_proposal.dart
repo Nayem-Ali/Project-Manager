@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/View/admin/view_proposal.dart';
+import 'package:teamlead/Widget/graidentContainer.dart';
 import 'package:teamlead/view/admin/team_statistics.dart';
 
 import '../../services/proposal_sheets_api.dart';
@@ -101,6 +102,7 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
                   await getData();
                 },
                 style: OutlinedButton.styleFrom(
+                  minimumSize: Size(100.w, 35.h),
                   backgroundColor: cse3300 ? Colors.greenAccent.shade100 : Colors.transparent,
                   shadowColor: Colors.transparent,
                 ),
@@ -109,7 +111,7 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
                   style: TextStyle(
                     color: Colors.black87,
                     fontWeight: FontWeight.bold,
-                    fontSize: 18.sp,
+                    fontSize: 18.h,
                   ),
                 ),
               ),
@@ -125,6 +127,7 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
                     await getData();
                   },
                   style: OutlinedButton.styleFrom(
+                    minimumSize: Size(100.w, 35.h),
                     backgroundColor: cse4800 ? Colors.greenAccent.shade100 : Colors.transparent,
                     shadowColor: Colors.transparent,
                   ),
@@ -133,7 +136,7 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
                     style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
+                      fontSize: 18.h,
                     ),
                   )),
             ],
@@ -152,7 +155,7 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
                 ),
                 label: Text(
                   "Enter title, ID, name, supervisor initial",
-                  style: GoogleFonts.adamina(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                  style: GoogleFonts.adamina(fontWeight: FontWeight.bold, fontSize: 12.h),
                 ),
               ),
             ),
@@ -168,15 +171,12 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
                                 Get.to(const ViewProposal(), arguments: proposalData[index]);
                               },
                               child: Card(
-                                color: index % 2 == 0
-                                    ? Colors.limeAccent.shade100
-                                    : Colors.cyanAccent.shade100,
-                                child: ListTile(
+                                child:customContainer( ListTile(
                                   title: Text(proposalData[index]["Title"]),
                                   subtitle: proposalData[index]['Supervisor'] != ''
                                       ? Text("Assigned to: ${proposalData[index]['Supervisor']}")
                                       : const Text("Not yet assigned"),
-                                ),
+                                )),
                               ),
                             )
                           : const SizedBox();
@@ -192,16 +192,14 @@ class _AssignSupervisorState extends State<AssignSupervisor> {
                                     arguments: proposalData[searchResult[index]]);
                               },
                               child: Card(
-                                color: index % 2 == 0
-                                    ? Colors.limeAccent.shade100
-                                    : Colors.cyanAccent.shade100,
-                                child: ListTile(
+                               
+                                child: customContainer(ListTile(
                                   title: Text(proposalData[searchResult[index]]["Title"]),
                                   subtitle: proposalData[searchResult[index]]['Supervisor'] != ''
                                       ? Text(
-                                          "Assigned to: ${proposalData[searchResult[index]]['Supervisor']}")
+                                      "Assigned to: ${proposalData[searchResult[index]]['Supervisor']}")
                                       : const Text("Not yet assigned"),
-                                ),
+                                )),
                               ),
                             )
                           : const SizedBox();

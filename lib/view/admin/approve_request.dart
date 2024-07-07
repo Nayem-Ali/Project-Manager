@@ -46,27 +46,27 @@ class _ApproveRequestState extends State<ApproveRequest> {
             const Spacer(),
             Text(
               "Name: ${teacherData['name']}",
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.h, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20.h),
             Text(
               "Email: ${teacherData['email']}",
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.h, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20.h),
             Text(
               "Designation: ${teacherData['designation']}",
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.h, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20.h),
             Text(
               "Initial: ${teacherData['initial']}",
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.h, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20.h),
             Text(
               "Request Status: ${teacherData['status'].toString().capitalizeFirst}",
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.h, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20.h),
             ElevatedButton.icon(

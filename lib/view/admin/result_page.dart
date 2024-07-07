@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:teamlead/Widget/graidentContainer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../services/db_service.dart';
@@ -167,64 +168,107 @@ class _ResultPageState extends State<ResultPage> {
   }
 
   showResultData(int index) {
-    if (result[index]['Total'] == "Not Evaluated") return;
+    if (result[index]['Total'] == "Not Evaluated") {
+      Get.showSnackbar(const  GetSnackBar(
+        duration: Duration(seconds: 3),
+        backgroundColor: Colors.redAccent,
+        message: "Not Evaluated by Board, Supervisor or both",
+      ));
+      return;
+    }
+
+    List<String> name = result[index]['Name'].split('\n');
     List<String> studentID = result[index]['Student ID'].split('\n');
     List<String> total = result[index]['Total'].split('\n');
     List<String> grade = result[index]['Grade'].split('\n');
     List<String> point = result[index]['Point'].split('\n');
     Get.bottomSheet(
       backgroundColor: Colors.white,
-      isDismissible: true,
-      isScrollControlled: true,
+      // isDismissible: true,
+      // isScrollControlled: true,
       Center(
-        child: Table(
-          border: TableBorder.all(),
+        child: Column(
           children: [
-            TableRow(children: [
-              Text(
-                "Student ID",
-                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+            const Spacer(),
+            Text(
+              result[index]['Title'],
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.adamina(
+                fontSize: 15.h,
+                fontWeight: FontWeight.bold,
               ),
-              Text(
-                "Total",
-                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 14.h),
+            Text(
+              'Evaluated By: ${result[index]['Evaluated By'].split('\n').join(" ")}',
+              style: GoogleFonts.adamina(
+                fontSize: 12.h,
+                fontWeight: FontWeight.bold,
               ),
+            ),
+            SizedBox(height: 14.h),
+            for (int i = 0; i < name.length; i++)
               Text(
-                "Grade",
-                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+                name[i],
+                style: GoogleFonts.adamina(
+                  fontSize: 12.h,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              Text(
-                "CGPA",
-                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+            SizedBox(height: 14.h),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Table(
+                // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                border: TableBorder.all(),
+                defaultColumnWidth: FlexColumnWidth(),
+                children: [
+                  TableRow(
+
+                    children: [
+                      Text(
+                        "Student ID",
+                        style: TextStyle(fontSize: 12.h, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "Name",
+                        style: TextStyle(fontSize: 12.h, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "Total - Grade - CG",
+                        style: TextStyle(fontSize: 12.h, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+
+                    ],
+                  ),
+                  for (int i = 0; i < studentID.length; i++)
+                    TableRow(children: [
+
+                      Text(
+                        studentID[i].trim(),
+                        style: TextStyle(fontSize: 12.h, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        name[i].trim(),
+                        style: TextStyle(fontSize: 12.h, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        "${total[i].trim()} - ${grade[i].trim()} - ${point[i].trim()}",
+                        style: TextStyle(fontSize: 12.h, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ])
+                ],
               ),
-            ]),
-            for (int i = 0; i < studentID.length; i++)
-              TableRow(children: [
-                Text(
-                  studentID[i].trim(),
-                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  total[i].trim(),
-                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  grade[i].trim(),
-                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  point[i].trim(),
-                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              ])
+            ),
+            const Spacer()
           ],
         ),
       ),
@@ -265,6 +309,7 @@ class _ResultPageState extends State<ResultPage> {
                   }
                 },
                 style: OutlinedButton.styleFrom(
+                  minimumSize: Size(100.w, 35.h),
                   backgroundColor: cse3300 ? Colors.greenAccent.shade100 : Colors.transparent,
                 ),
                 child: const Text("CSE-3300"),
@@ -284,6 +329,7 @@ class _ResultPageState extends State<ResultPage> {
                   }
                 },
                 style: OutlinedButton.styleFrom(
+                  minimumSize: Size(100.w, 35.h),
                   backgroundColor: cse4800 ? Colors.greenAccent.shade100 : Colors.transparent,
                 ),
                 child: const Text("CSE-4800"),
@@ -303,12 +349,14 @@ class _ResultPageState extends State<ResultPage> {
                   }
                 },
                 style: OutlinedButton.styleFrom(
+                  minimumSize: Size(100.w, 35.h),
                   backgroundColor: cse4801 ? Colors.greenAccent.shade100 : Colors.transparent,
                 ),
                 child: const Text("CSE-4801"),
               ),
             ],
           ),
+          if (totalTeams.value == 0) const Spacer(),
 
           if (totalTeams.value != 0)
             Obx(
@@ -338,8 +386,8 @@ class _ResultPageState extends State<ResultPage> {
                   itemCount: result.length,
                   itemBuilder: (context, index) {
                     return Card(
-                      color: index % 2 == 0 ? Colors.blueGrey.shade100 : Colors.green.shade100,
-                      child: ListTile(
+                      // color: index % 2 == 0 ? Colors.blueGrey.shade100 : Colors.green.shade100,
+                      child: customContainer(ListTile(
                         onTap: () => showResultData(index),
                         leading: CircleAvatar(
                           backgroundColor: Colors.transparent,
@@ -370,7 +418,7 @@ class _ResultPageState extends State<ResultPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                      ),
+                      )),
                     );
                   },
                 ),
@@ -411,3 +459,87 @@ class _ResultPageState extends State<ResultPage> {
     );
   }
 }
+
+// DataTable(
+//
+// dataRowMinHeight: 10.h,
+// border: TableBorder.all(),
+// columnSpacing: 0.w,
+// horizontalMargin: 0,
+// decoration: BoxDecoration(
+// gradient: LinearGradient(
+// colors: [Colors.green.shade100, Colors.teal.shade100],
+// ),
+// ),
+// columns: const [
+// DataColumn(
+// label: Text(
+// "Name",
+// textAlign: TextAlign.center,
+// overflow: TextOverflow.ellipsis,
+// ),
+// ),
+// DataColumn(
+// label: Text(
+// "Student ID",
+// textAlign: TextAlign.center,
+// ),
+// ),
+// DataColumn(
+// label: Text(
+// "Total",
+// textAlign: TextAlign.center,
+// ),
+// ),
+// DataColumn(
+// label: Text(
+// "Grade",
+// textAlign: TextAlign.center,
+// ),
+// ),
+// DataColumn(
+// label: Text(
+// "CGPA",
+// textAlign: TextAlign.center,
+// ),
+// ),
+// ],
+// rows: [
+// for (int i = 0; i < studentID.length; i++)
+// DataRow(
+// cells: [
+// DataCell(
+// Text(
+// name[i].trim(),
+// textAlign: TextAlign.center,
+// overflow: TextOverflow.ellipsis,
+// ),
+// ),
+// DataCell(
+// Text(
+// studentID[i].trim(),
+// textAlign: TextAlign.center,
+// ),
+// ),
+// DataCell(
+// Text(
+// total[i].trim(),
+// textAlign: TextAlign.center,
+// ),
+// ),
+// DataCell(
+// Text(
+// grade[i].trim(),
+// textAlign: TextAlign.center,
+// ),
+// ),
+// DataCell(
+// Text(
+// point[i].trim(),
+// textAlign: TextAlign.center,
+// ),
+// ),
+// ],
+// )
+// ],
+// ),

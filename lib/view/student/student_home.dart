@@ -27,11 +27,11 @@ class _StudentScreenState extends State<StudentScreen> {
   DateTime currentTime = DateTime.now();
   late DateTime deadline;
   Map<String, dynamic> getStudentData = {};
-  List<String> proposalData = [];
+  List<List<String>> proposalData = [];
   Map<String, dynamic> proposalCredential = {};
   bool isLoading = true;
-  bool isFound = false;
-  String courseCode = "";
+  //bool isFound = false;
+  List<String> courseCode = [];
 
   String formatTime() => DateFormat.yMd().format(currentTime);
 
@@ -55,42 +55,39 @@ class _StudentScreenState extends State<StudentScreen> {
       List<String> student4800R =
       await ProjectSheetApi.getColumn("CSE-4800-team-request", "Student ID");
       // print(student3300.join(" ").contains(studentID));
-      if (student3300.isNotEmpty && !isFound) {
+      if (student3300.isNotEmpty) {
         for (int i = 0; i < student3300.length; i++) {
           if (student3300[i].contains(studentID)) {
-            proposalData = await ProjectSheetApi.getRow('CSE-3300', i + 2);
-            isFound = true;
-            courseCode = 'CSE-3300';
+            proposalData.add(await ProjectSheetApi.getRow('CSE-3300', i + 2));
+
+            courseCode.add('CSE-3300');
             break;
           }
         }
       }
-      if (student4800.isNotEmpty && !isFound) {
+      if (student4800.isNotEmpty) {
         for (int i = 0; i < student4800.length; i++) {
           if (student4800[i].contains(studentID)) {
-            proposalData = await ProjectSheetApi.getRow('CSE-4800', i + 2);
-            isFound = true;
-            courseCode = 'CSE-4800';
+            proposalData.add(await ProjectSheetApi.getRow('CSE-4800', i + 2));
+            courseCode.add('CSE-4800');
             break;
           }
         }
       }
-      if (student3300R.isNotEmpty && !isFound) {
+      if (student3300R.isNotEmpty && !courseCode.contains('CSE-3300')) {
         for (int i = 0; i < student3300R.length; i++) {
           if (student3300R[i].contains(studentID)) {
-            proposalData = await ProjectSheetApi.getRow('CSE-3300-team-request', i + 2);
-            isFound = true;
-            courseCode = 'CSE-3300-team-request';
+            proposalData.add( await ProjectSheetApi.getRow('CSE-3300-team-request', i + 2));
+            courseCode.add('CSE-3300');
             break;
           }
         }
       }
-      if (student4800R.isNotEmpty && !isFound) {
+      if (student4800R.isNotEmpty && !courseCode.contains('CSE-4800')) {
         for (int i = 0; i < student4800R.length; i++) {
           if (student4800R[i].contains(studentID)) {
-            proposalData = await ProjectSheetApi.getRow('CSE-4800-team-request', i + 2);
-            isFound = true;
-            courseCode = 'CSE-4800-team-request';
+            proposalData.add(await ProjectSheetApi.getRow('CSE-4800-team-request', i + 2));
+            courseCode.add('CSE-4800');
             break;
           }
         }
@@ -135,7 +132,7 @@ class _StudentScreenState extends State<StudentScreen> {
               const Divider(thickness: 1),
               SizedBox(height: 10.h),
               if (proposalData.isNotEmpty)
-                Text("Proposal Submitted for ${courseCode.substring(0, 8)}", style: GoogleFonts
+                Text("Proposal Submitted for ${courseCode.join(', ')}", style: GoogleFonts
                     .adamina(
                   fontSize: 14.h,
                   color: Colors.teal,
@@ -145,7 +142,7 @@ class _StudentScreenState extends State<StudentScreen> {
               if (proposalData.isNotEmpty)
                 ElevatedButton.icon(
                   onPressed: () {
-                    Get.to(() => const ViewSubmittedData(), arguments: proposalData);
+                    Get.to(() => const ViewSubmittedData(), arguments: [proposalData, courseCode]);
                   },
                   style: buttonStyle(300, 40),
                   icon: const Icon(Icons.remove_red_eye_outlined),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -117,7 +115,10 @@ class _AddAdminState extends State<AddAdmin> {
                         for (var teacher in adminCandidate)
                           DropdownMenuItem(
                             value: teacher['name'].toString(),
-                            child: Text(teacher["name"]),
+                            child: Text(
+                              teacher["name"],
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                       ],
                       onChanged: (value) {
@@ -132,13 +133,11 @@ class _AddAdminState extends State<AddAdmin> {
                           fontWeight: FontWeight.bold,
                         ),
                         filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.zero
-                        ),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.zero),
                       ),
                     ),
                   ),
-                  ElevatedButton(
+                  TextButton(
                     onPressed: () async {
                       for (var teacher in adminCandidate) {
                         if (teacher['name'] == selectedAdmin) {
@@ -158,21 +157,14 @@ class _AddAdminState extends State<AddAdmin> {
                       ));
                     },
                     // icon: const Icon(Icons.add),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(25.w, 55.h),
-                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero)
-                    ),
-                    child: Text(
-                      "+",
-                      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-                    ),
+                    child: Text("ADD"),
                   ),
                 ],
               ),
               const Divider(thickness: 2),
               Text(
                 "Admin Panel",
-                style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 28.h, fontWeight: FontWeight.bold),
               ),
               const Divider(thickness: 2),
               Expanded(
@@ -189,9 +181,15 @@ class _AddAdminState extends State<AddAdmin> {
                                 },
                                 icon: const Icon(Icons.remove))
                             : const SizedBox(),
-                        title: Text('${adminPanel[index]['name']} ',overflow: TextOverflow.ellipsis,),
-                        subtitle: Text("${adminPanel[index]['email']} "
-                            "(${adminPanel[index]['designation']})", overflow: TextOverflow.ellipsis,),
+                        title: Text(
+                          '${adminPanel[index]['name']} ',
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitle: Text(
+                          "${adminPanel[index]['email']} "
+                          "(${adminPanel[index]['designation']})",
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     );
                   },

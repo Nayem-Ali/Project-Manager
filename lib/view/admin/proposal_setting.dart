@@ -72,11 +72,11 @@ class _ProposalSettingState extends State<ProposalSetting> {
   //     for (var proposal in proposal33) {
   //       // print(cse33);
   //       // if (cse33.contains(proposal['Title']) == false) {
-  //       List<String> names = proposal['Name'].split('\n');
-  //       List<String> id = proposal['Student ID'].split('\n');
-  //       List<String> emails = proposal['Email'].split('\n');
-  //       List<String> numbers = proposal['Phone'].split('\n');
-  //       List<String> cgpa = proposal['CGPA'].split('\n');
+  //       List<String> names = proposal['Name'].hlit('\n');
+  //       List<String> id = proposal['Student ID'].hlit('\n');
+  //       List<String> emails = proposal['Email'].hlit('\n');
+  //       List<String> numbers = proposal['Phone'].hlit('\n');
+  //       List<String> cgpa = proposal['CGPA'].hlit('\n');
   //
   //       Map<String, dynamic> teamInfo = {
   //         "projectType": "CSE-3300",
@@ -100,11 +100,11 @@ class _ProposalSettingState extends State<ProposalSetting> {
   //   if (proposal48 != null) {
   //     for (var proposal in proposal48) {
   //       // if (cse48.contains(proposal['Title']) == false) {
-  //       List<String> names = proposal['Name'].split('\n');
-  //       List<String> id = proposal['Student ID'].split('\n');
-  //       List<String> emails = proposal['Email'].split('\n');
-  //       List<String> numbers = proposal['Phone'].split('\n');
-  //       List<String> cgpa = proposal['CGPA'].split('\n');
+  //       List<String> names = proposal['Name'].hlit('\n');
+  //       List<String> id = proposal['Student ID'].hlit('\n');
+  //       List<String> emails = proposal['Email'].hlit('\n');
+  //       List<String> numbers = proposal['Phone'].hlit('\n');
+  //       List<String> cgpa = proposal['CGPA'].hlit('\n');
   //
   //       Map<String, dynamic> teamInfo = {
   //         "projectType": "CSE-4800",
@@ -129,11 +129,11 @@ class _ProposalSettingState extends State<ProposalSetting> {
   //   if (proposal481 != null) {
   //     for (var proposal in proposal481) {
   //       // if (cse481.contains(proposal['Title']) == false) {
-  //       List<String> names = proposal['Name'].split('\n');
-  //       List<String> id = proposal['Student ID'].split('\n');
-  //       List<String> emails = proposal['Email'].split('\n');
-  //       List<String> numbers = proposal['Phone'].split('\n');
-  //       List<String> cgpa = proposal['CGPA'].split('\n');
+  //       List<String> names = proposal['Name'].hlit('\n');
+  //       List<String> id = proposal['Student ID'].hlit('\n');
+  //       List<String> emails = proposal['Email'].hlit('\n');
+  //       List<String> numbers = proposal['Phone'].hlit('\n');
+  //       List<String> cgpa = proposal['CGPA'].hlit('\n');
   //
   //       Map<String, dynamic> teamInfo = {
   //         "projectType": "CSE-4801",
@@ -204,7 +204,7 @@ class _ProposalSettingState extends State<ProposalSetting> {
                       icon: const Icon(Icons.update),
                       label: Text(
                         'Update',
-                        style: TextStyle(fontSize: 12.sp),
+                        style: TextStyle(fontSize: 12.h),
                       ),
                     ),
                   )
@@ -221,11 +221,11 @@ class _ProposalSettingState extends State<ProposalSetting> {
               },
               title: Text(
                 "Allow Supervisor Preference",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.h),
               ),
               tileColor: Colors.teal.shade100,
             ),
-            SizedBox(height: 20.sp),
+            SizedBox(height: 20.h),
             isLoading5
                 ? const CircularProgressIndicator()
                 : SwitchListTile(
@@ -247,16 +247,16 @@ class _ProposalSettingState extends State<ProposalSetting> {
                     },
                     title: Text(
                       "Allow Team Evaluation",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.h),
                     ),
                     tileColor: Colors.teal.shade100,
                   ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Text(
               "To assign supervisor admin need to get the google sheet link. Then open this link"
               " via browser to assign supervisor.",
               style: TextStyle(
-                fontSize: 12.sp,
+                fontSize: 14.h,
                 color: Colors.teal,
                 fontWeight: FontWeight.bold,
               ),
@@ -308,7 +308,7 @@ class _ProposalSettingState extends State<ProposalSetting> {
                                     setState(() {
                                       isLoading2 = true;
                                     });
-                                    // await dataBaseMethods.deleteProposal('CSE-4801');
+                                    await dataBaseMethods.deleteProposal('CSE-4801');
                                     await ProjectSheetApi.shift4800();
                                     // await dataBaseMethods.moveData();
                                     setState(() {
@@ -343,7 +343,8 @@ class _ProposalSettingState extends State<ProposalSetting> {
               onPressed: () {
                 Get.defaultDialog(
                     title: "Attention",
-                    middleText: 'Are you sure to remove all previous proposal data and marks',
+                    middleText: 'Are you sure to remove all previous proposal data and marks. '
+                        'This process takes time so please do not exit until process will finish',
                     actions: [
                       TextButton(
                         onPressed: () async {
@@ -354,10 +355,12 @@ class _ProposalSettingState extends State<ProposalSetting> {
                           await ProjectSheetApi.clearProposalData("CSE-3300");
                           await dataBaseMethods.deleteProposal('CSE-4800');
                           await ProjectSheetApi.clearProposalData("CSE-4800");
-                          await dataBaseMethods.deleteProposal('CSE-3300-request');
+                          // await dataBaseMethods.deleteProposal('CSE-3300-request');
                           await ProjectSheetApi.clearProposalData("CSE-3300-team-request");
-                          await dataBaseMethods.deleteProposal('CSE-4800-request');
+                          // await dataBaseMethods.deleteProposal('CSE-4800-request');
                           await ProjectSheetApi.clearProposalData("CSE-4800-team-request");
+
+                          await dataBaseMethods.deleteMarkedList();
                           setState(() {
                             isLoading4 = false;
                           });

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/View/teacher/project_evaluation.dart';
 import 'package:teamlead/Widget/buttonStyle.dart';
+import 'package:teamlead/Widget/graidentContainer.dart';
 import 'package:teamlead/services/db_service.dart';
 
 class EvaluatePage extends StatefulWidget {
@@ -105,24 +107,23 @@ class _EvaluatePageState extends State<EvaluatePage> {
                   return Column(
                     children: [
                       Card(
-                        color:
-                            index % 2 == 1 ? Colors.blue.shade100 : Colors.greenAccent.shade100,
-                        child: ListTile(
+
+                        child: customContainer(ListTile(
                           trailing: Stack(
                             alignment: Alignment.topCenter,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
+                                padding: const EdgeInsets.only(top: 8.0),
                                 child: Text(
                                   "Mark as Absent",
-                                  style: TextStyle(
+                                  style: GoogleFonts.adamina(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 12.sp,
+                                    fontSize: 12.h,
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 15.0),
+                                padding: const EdgeInsets.only(top: 18.0),
                                 child: Switch(
                                   value: absent[index],
                                   activeColor: Colors.teal,
@@ -141,17 +142,17 @@ class _EvaluatePageState extends State<EvaluatePage> {
                           ),
                           subtitle: Text(id[index].trim()),
                           title: Text(name[index].trim()),
-                          subtitleTextStyle: TextStyle(
+                          subtitleTextStyle: GoogleFonts.adamina(
                             fontWeight: FontWeight.bold,
-                            fontSize:  14.sp,
+                            fontSize:  14.h,
                             color: Colors.black,
                           ),
-                          titleTextStyle: TextStyle(
+                          titleTextStyle: GoogleFonts.adamina(
                             fontWeight: FontWeight.bold,
-                            fontSize: 14.sp,
+                            fontSize: 14.h,
                             color: Colors.black,
                           ),
-                        ),
+                        )),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),

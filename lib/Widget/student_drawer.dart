@@ -36,82 +36,84 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        margin: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            Image.network(
-              auth.currentUser!.photoURL!,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              userData['name'] ?? "",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "ID: ${userData['id']}",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Section: ${userData['section']}",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Batch: ${userData['batch']}",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            SwitchListTile(
-                title: const Text("Dark Mode"),
-                value: themeMode,
-                onChanged: (value) {
-                  // setState(() {
-                  //
-                  //   themeMode = value;
-                  //   if (themeMode) {
-                  //     Get.changeTheme(ThemeData.dark());
-                  //   }
-                  //   else {
-                  //     Get.changeTheme(ThemeData.light().copyWith(
-                  //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
-                  //       // primaryColor: Colors.deepOrangeAccent,
-                  //       //fontFamily: "Poppins",
-                  //       textTheme: GoogleFonts.aBeeZeeTextTheme(),
-                  //       // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                  //       // useMaterial3: true,
-                  //     ));
-                  //   }
-                  // });
+        margin: const EdgeInsets.all(10),
+        child: SafeArea(
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Image.network(
+                auth.currentUser!.photoURL!,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                userData['name'] ?? "",
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "ID: ${userData['id']}",
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Section: ${userData['section']}",
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Batch: ${userData['batch']}",
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
+              SwitchListTile(
+                  title: const Text("Dark Mode"),
+                  value: themeMode,
+                  onChanged: (value) {
+                    // setState(() {
+                    //
+                    //   themeMode = value;
+                    //   if (themeMode) {
+                    //     Get.changeTheme(ThemeData.dark());
+                    //   }
+                    //   else {
+                    //     Get.changeTheme(ThemeData.light().copyWith(
+                    //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+                    //       // primaryColor: Colors.deepOrangeAccent,
+                    //       //fontFamily: "Poppins",
+                    //       textTheme: GoogleFonts.aBeeZeeTextTheme(),
+                    //       // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                    //       // useMaterial3: true,
+                    //     ));
+                    //   }
+                    // });
 
-                }),
-            const SizedBox(height: 10),
-            OutlinedButton.icon(
-              onPressed: logOutUser,
-              style: OutlinedButton.styleFrom(
-                  minimumSize: Size(Get.width, 50)
+                  }),
+              const SizedBox(height: 10),
+              OutlinedButton.icon(
+                onPressed: logOutUser,
+                style: OutlinedButton.styleFrom(
+                    minimumSize: Size(Get.width, 50)
+                ),
+                label: const Text("Logout"),
+                icon: const Icon(Icons.logout),
               ),
-              label: const Text("Logout"),
-              icon: const Icon(Icons.logout),
-            ),
-            const Spacer(),
-            OutlinedButton.icon(
-              onPressed: () {
-                Get.to(const AboutUs());
-              },
-              style: OutlinedButton.styleFrom(
-                  minimumSize: Size(Get.width, 50)
+              const Spacer(),
+              OutlinedButton.icon(
+                onPressed: () {
+                  Get.to(const AboutUs());
+                },
+                style: OutlinedButton.styleFrom(
+                    minimumSize: Size(Get.width, 50)
+                ),
+                label: const Text("About Us"),
+                icon: const Icon(Icons.info_outline),
               ),
-              label: const Text("About Us"),
-              icon: const Icon(Icons.info_outline),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

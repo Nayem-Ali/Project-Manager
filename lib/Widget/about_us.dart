@@ -149,6 +149,10 @@ class _AboutUsState extends State<AboutUs> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const Text(
+                "Contribution: Frontend & Backend",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              const Text(
                 "ID: 2012020023",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
@@ -234,6 +238,10 @@ class _AboutUsState extends State<AboutUs> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const Text(
+                "Contribution: UI Design & Frontend",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              const Text(
                 "ID: 2012020039",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
@@ -303,6 +311,10 @@ class _AboutUsState extends State<AboutUs> {
               const Text(
                 "MD. Mahdi Hossain Hira",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                "Contribution: Frontend",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
               const Text(
                 "ID: 2012020106",

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/View/teacher/view_team.dart';
+import 'package:teamlead/Widget/graidentContainer.dart';
 import 'package:teamlead/services/db_service.dart';
 
 // import 'package:teamlead/services/google_sheets_api.dart';
@@ -86,7 +87,7 @@ class _MyTeamsState extends State<MyTeams> {
                   style: TextStyle(
                     color: Colors.black87,
                     fontWeight: FontWeight.bold,
-                    fontSize: 15.sp,
+                    fontSize: 15.h,
                   ),
                 ),
               ),
@@ -111,7 +112,7 @@ class _MyTeamsState extends State<MyTeams> {
                   style: TextStyle(
                     color: Colors.black87,
                     fontWeight: FontWeight.bold,
-                    fontSize: 15.sp,
+                    fontSize: 15.h,
                   ),
                 ),
               ),
@@ -136,7 +137,7 @@ class _MyTeamsState extends State<MyTeams> {
                   style: TextStyle(
                     color: Colors.black87,
                     fontWeight: FontWeight.bold,
-                    fontSize: 15.sp,
+                    fontSize: 15.h,
                   ),
                 ),
               ),
@@ -160,11 +161,13 @@ class _MyTeamsState extends State<MyTeams> {
                           Get.to(const ViewTeam(), arguments: [project[index], projectType]);
                         },
                         child: Card(
-                          color: colors[index % 5],
-                          child: ListTile(
-                            title: Text(
-                              project[index]['Title'],
-                              overflow: TextOverflow.ellipsis,
+                          // color: colors[index % 5],
+                          child: customContainer(
+                            ListTile(
+                              title: Text(
+                                project[index]['Title'],
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ),
                         ),

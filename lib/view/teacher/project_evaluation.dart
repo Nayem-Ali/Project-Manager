@@ -73,7 +73,7 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
-                            fontSize: 15.sp,
+                            fontSize: 15.h,
                           ),
                         ),
                       ),
@@ -95,7 +95,7 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
-                            fontSize: 15.sp,
+                            fontSize: 15.h,
                           ),
                         ),
                       ),
@@ -117,7 +117,7 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
-                            fontSize: 15.sp,
+                            fontSize: 15.h,
                           ),
                         ),
                       ),
@@ -178,7 +178,7 @@ class _ProjectEvaluationState extends State<ProjectEvaluation> {
                   "Defence is not started yet",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15.sp,
+                    fontSize: 15.h,
                   ),
                   textAlign: TextAlign.center,
                 ),

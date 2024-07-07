@@ -37,93 +37,95 @@ class _TeacherDrawerState extends State<TeacherDrawer> {
     return Drawer(
       child: Container(
         margin: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            Image.network(
-              auth.currentUser!.photoURL!,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              userData['name'] ?? "",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Initial: ${userData['initial']}",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Designation: ${userData['designation']}",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              textAlign: TextAlign.center,
-            ),
-            // const SizedBox(height: 10),
-            // Text(
-            //   "Batch: ${userData['batch']}",
-            //   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            //   textAlign: TextAlign.center,
-            // ),
-            // const SizedBox(height: 10),
-            // OutlinedButton.icon(
-            //   onPressed: () {
-            //     Get.to(const AboutUs());
-            //   },
-            //   style: OutlinedButton.styleFrom(
-            //       minimumSize: Size(Get.width, 50)
-            //   ),
-            //   label: const Text("About"),
-            //   icon: const Icon(Icons.info),
-            // ),
-            SwitchListTile(
-                title: const Text("Dark Mode"),
-                value: themeMode,
-                onChanged: (value) {
-                  // setState(() {
-                  //   themeMode = value;
-                  //   if (themeMode) {
-                  //     Get.changeTheme(ThemeData.dark().copyWith(
-                  //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
-                  //       // primaryColor: Colors.deepOrangeAccent,
-                  //       //fontFamily: "Poppins",
-                  //       textTheme: GoogleFonts.aBeeZeeTextTheme(),
-                  //     ));
-                  //   }
-                  //   else {
-                  //     Get.changeTheme(ThemeData.light().copyWith(
-                  //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
-                  //       // primaryColor: Colors.deepOrangeAccent,
-                  //       //fontFamily: "Poppins",
-                  //       textTheme: GoogleFonts.aBeeZeeTextTheme(),
-                  //       // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                  //       // useMaterial3: true,
-                  //     ));
-                  //   }
-                  // });
-                  // if (themeMode) {
-                  //
-                  // }
-                }),
-            const SizedBox(height: 10),
-            OutlinedButton.icon(
-              onPressed: logOutUser,
-              style: OutlinedButton.styleFrom(minimumSize: Size(Get.width, 50)),
-              label: const Text("Logout"),
-              icon: const Icon(Icons.logout),
-            ),
-            const Spacer(),
-            OutlinedButton.icon(
-              onPressed: () {
-                Get.to(const AboutUs());
-              },
-              style: OutlinedButton.styleFrom(minimumSize: Size(Get.width, 50)),
-              label: const Text("About Us"),
-              icon: const Icon(Icons.info_outline),
-            ),
-          ],
+        child: SafeArea(
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Image.network(
+                auth.currentUser!.photoURL!,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                userData['name'] ?? "",
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Initial: ${userData['initial']}",
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Designation: ${userData['designation']}",
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              // const SizedBox(height: 10),
+              // Text(
+              //   "Batch: ${userData['batch']}",
+              //   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              //   textAlign: TextAlign.center,
+              // ),
+              // const SizedBox(height: 10),
+              // OutlinedButton.icon(
+              //   onPressed: () {
+              //     Get.to(const AboutUs());
+              //   },
+              //   style: OutlinedButton.styleFrom(
+              //       minimumSize: Size(Get.width, 50)
+              //   ),
+              //   label: const Text("About"),
+              //   icon: const Icon(Icons.info),
+              // ),
+              SwitchListTile(
+                  title: const Text("Dark Mode"),
+                  value: themeMode,
+                  onChanged: (value) {
+                    // setState(() {
+                    //   themeMode = value;
+                    //   if (themeMode) {
+                    //     Get.changeTheme(ThemeData.dark().copyWith(
+                    //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+                    //       // primaryColor: Colors.deepOrangeAccent,
+                    //       //fontFamily: "Poppins",
+                    //       textTheme: GoogleFonts.aBeeZeeTextTheme(),
+                    //     ));
+                    //   }
+                    //   else {
+                    //     Get.changeTheme(ThemeData.light().copyWith(
+                    //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+                    //       // primaryColor: Colors.deepOrangeAccent,
+                    //       //fontFamily: "Poppins",
+                    //       textTheme: GoogleFonts.aBeeZeeTextTheme(),
+                    //       // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                    //       // useMaterial3: true,
+                    //     ));
+                    //   }
+                    // });
+                    // if (themeMode) {
+                    //
+                    // }
+                  }),
+              const SizedBox(height: 10),
+              OutlinedButton.icon(
+                onPressed: logOutUser,
+                style: OutlinedButton.styleFrom(minimumSize: Size(Get.width, 50)),
+                label: const Text("Logout"),
+                icon: const Icon(Icons.logout),
+              ),
+              const Spacer(),
+              OutlinedButton.icon(
+                onPressed: () {
+                  Get.to(const AboutUs());
+                },
+                style: OutlinedButton.styleFrom(minimumSize: Size(Get.width, 50)),
+                label: const Text("About Us"),
+                icon: const Icon(Icons.info_outline),
+              ),
+            ],
+          ),
         ),
       ),
     );

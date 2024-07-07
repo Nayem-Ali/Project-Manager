@@ -106,14 +106,14 @@ class _ViewEvaluatedDataState extends State<ViewEvaluatedData> {
                                 Text(
                                   "CRITERIA - I: ${evaluatedData['data'][index + 1]['criteria1']}",
                                   style: TextStyle(
-                                    fontSize: 16.sp,
+                                    fontSize: 16.h,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 Text(
                                   "CRITERIA - II: ${evaluatedData['data'][index + 1]['criteria2']}",
                                   style:  TextStyle(
-                                    fontSize: 16.sp,
+                                    fontSize: 16.h,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -133,7 +133,7 @@ class _ViewEvaluatedDataState extends State<ViewEvaluatedData> {
                       evaluatedData,
                     ]);
                   },
-                  label: Text("Edit Marks", style: TextStyle(fontSize: 18.sp, fontWeight:
+                  label: Text("Edit Marks", style: TextStyle(fontSize: 18.h, fontWeight:
                   FontWeight.bold),),
                   style: ElevatedButton.styleFrom(minimumSize: Size(Get.width * 0.6, 50.h)),
                   icon: const Icon(Icons.edit),

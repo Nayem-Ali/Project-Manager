@@ -113,7 +113,7 @@ class _TeamStatisticsState extends State<TeamStatistics> {
                 Text(
                   "Total allocated team of each supervisor",
                   style:
-                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 20.h),
@@ -127,31 +127,31 @@ class _TeamStatisticsState extends State<TeamStatistics> {
                         Text(
                           "Initial",
                           style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                              fontSize: 12.h, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           "CSE-3300",
                           style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                              fontSize: 12.h, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           "CSE-4800",
                           style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                              fontSize: 12.h, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           "CSE-4801",
                           style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                              fontSize: 12.h, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           "Total",
                           style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                              fontSize: 12.h, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -161,34 +161,34 @@ class _TeamStatisticsState extends State<TeamStatistics> {
                         Text(
                           initial,
                           style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
+                              fontSize: 12.h, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           teamAllocated[initial]![0].toString(),
                           style: TextStyle(
-                            fontSize: 12.sp,
+                            fontSize: 12.h,
                           ),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           teamAllocated[initial]![1].toString(),
                           style: TextStyle(
-                            fontSize: 12.sp,
+                            fontSize: 12.h,
                           ),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           teamAllocated[initial]![2].toString(),
                           style: TextStyle(
-                            fontSize: 12.sp,
+                            fontSize: 12.h,
                           ),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           "${teamAllocated[initial]![1] + teamAllocated[initial]![0] + teamAllocated[initial]![2]}",
                           style: TextStyle(
-                            fontSize: 12.sp,
+                            fontSize: 12.h,
                           ),
                           textAlign: TextAlign.center,
                         ),

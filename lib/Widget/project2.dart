@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/View/teacher/view_evaluation_data.dart';
+import 'package:teamlead/Widget/graidentContainer.dart';
 
 // import 'package:teamlead/services/google_sheets_api.dart';
 
@@ -116,7 +117,7 @@ class _Project1State extends State<Project2> {
                     ),
                     label: Text(
                       "Enter title, ID, name, supervisor initial",
-                      style: GoogleFonts.adamina(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                      style: GoogleFonts.adamina(fontWeight: FontWeight.bold, fontSize: 12.h),
                     ),
                   ),
                 ),
@@ -147,8 +148,8 @@ class _Project1State extends State<Project2> {
                                           }
                                         },
                                         child: Card(
-                                          color: Colors.green.shade100,
-                                          child: ListTile(
+                                          // color: Colors.green.shade100,
+                                          child: customContainer(ListTile(
                                             leading: CircleAvatar(
                                               backgroundColor: Colors.transparent,
                                               child: Text(
@@ -165,20 +166,20 @@ class _Project1State extends State<Project2> {
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             subtitle:
-                                                Text("Supervisor: ${p1[index]['Supervisor']}"),
+                                            Text("Supervisor: ${p1[index]['Supervisor']}"),
                                             trailing: evaluatedBy.contains(p1[index]['Title'])
                                                 ? const Text(
-                                                    "Evaluated",
-                                                    style: TextStyle(
-                                                        color: Colors.red,
-                                                        fontWeight: FontWeight.bold),
-                                                  )
+                                              "Evaluated",
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontWeight: FontWeight.bold),
+                                            )
                                                 : const SizedBox(),
-                                          ),
+                                          )),
                                         ),
                                       )
                                     : const SizedBox();
-                              },
+                              }, 
                             )
                           : ListView.builder(
                               itemCount: searchResult.length,
@@ -201,8 +202,8 @@ class _Project1State extends State<Project2> {
                                     }
                                   },
                                   child: Card(
-                                    color: Colors.green.shade100,
-                                    child: ListTile(
+                                    // color: Colors.green.shade100,
+                                    child: customContainer( ListTile(
                                       leading: CircleAvatar(
                                         backgroundColor: Colors.transparent,
                                         child: Text(
@@ -221,15 +222,15 @@ class _Project1State extends State<Project2> {
                                       subtitle: Text(
                                           "Supervisor: ${p1[searchResult[idx]]['Supervisor']}"),
                                       trailing:
-                                          evaluatedBy.contains(p1[searchResult[idx]]['Title'])
-                                              ? const Text(
-                                                  "Evaluated",
-                                                  style: TextStyle(
-                                                      color: Colors.red,
-                                                      fontWeight: FontWeight.bold),
-                                                )
-                                              : const SizedBox(),
-                                    ),
+                                      evaluatedBy.contains(p1[searchResult[idx]]['Title'])
+                                          ? const Text(
+                                        "Evaluated",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                          : const SizedBox(),
+                                    )),
                                   ),
                                 );
                               },

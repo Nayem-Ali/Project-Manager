@@ -55,7 +55,7 @@ class _ViewProposalState extends State<ViewProposal> {
               teamInfo['Title'],
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.sp,
+                fontSize: 18.h,
               ),
               textAlign: TextAlign.center,
             ),
@@ -113,7 +113,7 @@ class _ViewProposalState extends State<ViewProposal> {
                   "Preferred Supervisor",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18.sp,
+                    fontSize: 18.h,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -122,7 +122,7 @@ class _ViewProposalState extends State<ViewProposal> {
                   teamInfo['Preferred Supervisor'],
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 12.sp,
+                    fontSize: 12.h,
                   ),
                   textAlign: TextAlign.center,
                 )
@@ -147,27 +147,27 @@ class _ViewProposalState extends State<ViewProposal> {
                       if (name.length == totalMembers)
                         Text(
                           "Name: ${name[index].trim()}",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.h),
                         ),
                       if (id.length == totalMembers)
                         Text(
                           "Student ID: ${id[index].trim()}",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.h),
                         ),
                       if (cgpa.length == totalMembers)
                         Text(
                           "CGPA: ${cgpa[index].trim()}",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.h),
                         ),
                       if (email.length == totalMembers)
                         Text(
                           "Email: ${email[index].trim()}",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.h),
                         ),
                       if (phone.length == totalMembers)
                         Text(
                           "Phone: ${phone[index].trim()}",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.h),
                         ),
                     ],
                   ),

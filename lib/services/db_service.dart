@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:teamlead/services/proposal_sheets_api.dart';
 
 class DataBaseMethods {
@@ -108,11 +109,15 @@ class DataBaseMethods {
   }
 
   getAdmin() async {
-    List<dynamic> admins = [];
-    await firestore.collection("adminPanel").doc("admins").get().then((teacherData) {
-      admins = teacherData.data()?["emails"];
-    });
-    return admins;
+    try{
+      List<dynamic> admins = [];
+      await firestore.collection("adminPanel").doc("admins").get().then((teacherData) {
+        admins = teacherData.data()?["emails"];
+      });
+      return admins;
+    } catch(e){
+      return [];
+    }
   }
 
   submitEvaluation(List<Map<String, dynamic>> studentEvaluationData) async {
@@ -146,8 +151,8 @@ class DataBaseMethods {
   //   } catch (e) {
   //     return teachersID;
   //   }
-    //  print(project1);
-    // return project1;
+  //  print(project1);
+  // return project1;
   // }
 
   getIndividualEvaluationData(String collectionName1, String documentName, String collectionName2,
@@ -169,7 +174,7 @@ class DataBaseMethods {
   getEvaluationData(String collection1, String document1, String collection2) async {
     try {
       QuerySnapshot querySnapshot =
-          await firestore.collection(collection1).doc(document1).collection(collection2).get();
+      await firestore.collection(collection1).doc(document1).collection(collection2).get();
       return querySnapshot.docs.map((doc) => doc.data()).toList();
     } catch (e) {
       return [];
@@ -177,19 +182,24 @@ class DataBaseMethods {
   }
 
   getAllSupervisorInitial() async {
-    dynamic teacherList = [];
-    List<String> initials = [];
+    try{
+      dynamic teacherList = [];
+      List<String> initials = [];
 
-    QuerySnapshot querySnapshot = await firestore.collection('teacher').get();
+      QuerySnapshot querySnapshot = await firestore.collection('teacher').get();
 
-    // Get data from docs and convert map to List
-    // project1=
-    teacherList = querySnapshot.docs.map((doc) => doc.data()).toList();
+      // Get data from docs and convert map to List
+      // project1=
+      teacherList = querySnapshot.docs.map((doc) => doc.data()).toList();
 
-    for (var teacher in teacherList) {
-      if (teacher['status'] == 'approved') initials.add(teacher['initial']);
+      for (var teacher in teacherList) {
+        if (teacher['status'] == 'approved') initials.add(teacher['initial']);
+      }
+      return initials;
     }
-    return initials;
+    catch(e){
+      return [];
+    }
   }
 
   // assignSupervisor(String collectionName, String documentName, String supervisor) async {
@@ -233,30 +243,52 @@ class DataBaseMethods {
   // }
 
   getTeamMark(String collectionName, String docName) async {
-    dynamic allMarks = [];
+    try{
+      dynamic allMarks = [];
 
-    QuerySnapshot querySnapshot =
-        await firestore.collection(collectionName).doc(docName).collection("evaluationData").get();
-    allMarks = querySnapshot.docs.map((doc) => doc.data()).toList();
-    return allMarks;
+      QuerySnapshot querySnapshot =
+      await firestore.collection(collectionName).doc(docName).collection("evaluationData").get();
+      allMarks = querySnapshot.docs.map((doc) => doc.data()).toList();
+      return allMarks;
+    }
+    catch(e){
+      return [];
+    }
   }
 
   getAllTeacherData() async {
-    dynamic allTeacherData = [];
+    try{dynamic allTeacherData = [];
     QuerySnapshot querySnapshot = await firestore.collection("teacher").get();
     allTeacherData = querySnapshot.docs.map((doc) => doc.data()).toList();
     return allTeacherData;
+
+    } catch(e){
+      return [];
+    }
   }
 
   approveTeacher(String docName, String updatedData) async {
-    await firestore.collection('teacher').doc(docName).update({"status": updatedData});
+    try {
+      await firestore.collection('teacher').doc(docName).update({"status": updatedData});
+    } catch(e){
+      Get.showSnackbar(
+        GetSnackBar(
+          message: e.toString(),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
   }
 
   getAllTeacherEmail() async {
-    dynamic emails = [];
-    QuerySnapshot querySnapshot = await firestore.collection('teacher').get();
-    emails = querySnapshot.docs.map((doc) => doc.id).toList();
-    return emails;
+    try {
+      dynamic emails = [];
+      QuerySnapshot querySnapshot = await firestore.collection('teacher').get();
+      emails = querySnapshot.docs.map((doc) => doc.id).toList();
+      return emails;
+    } catch (e) {
+      return [];
+    }
   }
 
   // moveData() async {
@@ -283,32 +315,58 @@ class DataBaseMethods {
   // }
 
   deleteProposal(String type) async {
-    final proposalData = await ProjectSheetApi.getAllRows(type);
-    // print(cse4801);
-    if (proposalData != null) {
-      for (var team in proposalData) {
-        await firestore
-            .collection(type)
-            .doc(team['Title'])
-            .collection('evaluationData')
-            .get()
-            .then((snapshot) {
-          for (DocumentSnapshot ds in snapshot.docs) {
-            ds.reference.delete();
-          }
-        });
-        await firestore
-            .collection(type)
-            .doc(team['Title'])
-            .collection('supervisorMark')
-            .get()
-            .then((snapshot) {
-          for (DocumentSnapshot ds in snapshot.docs) {
-            ds.reference.delete();
-          }
-        });
-        await firestore.collection(type).doc(team['Title']).delete();
+    try {
+      final proposalData = await ProjectSheetApi.getAllRows(type);
+      // print(cse4801);
+      if (proposalData != null) {
+        for (var team in proposalData) {
+          await firestore
+              .collection(type)
+              .doc(team['Title'])
+              .collection('evaluationData')
+              .get()
+              .then((snapshot) {
+            for (DocumentSnapshot ds in snapshot.docs) {
+              ds.reference.delete();
+            }
+          });
+          await firestore
+              .collection(type)
+              .doc(team['Title'])
+              .collection('supervisorMark')
+              .get()
+              .then((snapshot) {
+            for (DocumentSnapshot ds in snapshot.docs) {
+              ds.reference.delete();
+            }
+          });
+          await firestore.collection(type).doc(team['Title']).delete();
+        }
       }
+    } catch (e) {
+      Get.showSnackbar(
+        GetSnackBar(
+          message: e.toString(),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
+  }
+
+  deleteMarkedList() async {
+    try {
+      await firestore.collection("marked").get().then((value) {
+        for (DocumentSnapshot ds in value.docs) {
+          ds.reference.delete();
+        }
+      });
+    } catch (e) {
+      Get.showSnackbar(
+        GetSnackBar(
+          message: e.toString(),
+          duration: const Duration(seconds: 3),
+        ),
+      );
     }
   }
 
@@ -345,7 +403,8 @@ class DataBaseMethods {
     List<Map<String, dynamic>>? announcement = [];
     try {
       QuerySnapshot querySnapshot = await firestore.collection("Announcement").get();
-      announcement = querySnapshot.docs.map((doc) => doc.data()).cast<Map<String, dynamic>>().toList();
+      announcement =
+          querySnapshot.docs.map((doc) => doc.data()).cast<Map<String, dynamic>>().toList();
       return announcement;
     } catch (e) {
       return announcement;
@@ -394,7 +453,7 @@ class DataBaseMethods {
     dynamic marks = [];
     try {
       QuerySnapshot querySnapshot =
-          await firestore.collection(projectType).doc(title).collection('supervisorMark').get();
+      await firestore.collection(projectType).doc(title).collection('supervisorMark').get();
       marks = querySnapshot.docs[0].get('data');
       return marks;
     } catch (e) {
@@ -409,7 +468,7 @@ class DataBaseMethods {
   getTeamToTeacherMarked(String initial, String type) async {
     try {
       QuerySnapshot querySnapshot =
-          await firestore.collection("marked").doc(initial).collection(type).get();
+      await firestore.collection("marked").doc(initial).collection(type).get();
       return querySnapshot.docs.map((doc) => doc.id).toList();
     } catch (e) {
       return [];

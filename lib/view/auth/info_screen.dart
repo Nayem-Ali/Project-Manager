@@ -62,7 +62,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     child: Text(
                       "To Continue",
                       style: TextStyle(
-                        fontSize: 22.sp,
+                        fontSize: 22.h,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -73,7 +73,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     child: Text(
                       "Add your information",
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        fontSize: 18.h,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -83,7 +83,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     alignment: Alignment.topLeft,
                     child: Text(
                       "Hello, ${auth.currentUser!.email}",
-                      style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
+                      style: TextStyle(fontSize: 14.h, fontWeight: FontWeight.w700),
                     ),
                   ),
                   SizedBox(height: 20.h),
@@ -91,7 +91,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     alignment: Alignment.topLeft,
                     child: Text(
                       "Continue as?",
-                      style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w700),
+                      style: TextStyle(fontSize: 22.h, fontWeight: FontWeight.w700),
                     ),
                   ),
                   SizedBox(height: 10.h),
@@ -114,7 +114,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
-                            fontSize: 14.sp,
+                            fontSize: 14.h,
                           ),
                         ),
                       ),
@@ -136,7 +136,7 @@ class _InfoScreenState extends State<InfoScreen> {
                             style: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.bold,
-                              fontSize: 14.sp,
+                              fontSize: 14.h,
                             ),
                           )),
                     ],
@@ -149,7 +149,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           controller: nameController,
                           decoration: InputDecoration(
                             label: const Text('Full Name'),
-                            labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                            labelStyle: TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold),
                             filled: true,
                             border: const OutlineInputBorder(),
                           ),
@@ -168,7 +168,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           },
                           decoration: InputDecoration(
                             label: const Text('Student ID'),
-                            labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                            labelStyle: TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold),
                             filled: true,
                             border: const OutlineInputBorder(),
                           ),
@@ -191,7 +191,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                 decoration: InputDecoration(
                                   label: const Text('Batch'),
                                   labelStyle:
-                                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                                      TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold),
                                   filled: true,
                                   border: const OutlineInputBorder(),
                                 ),
@@ -222,7 +222,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                 decoration: InputDecoration(
                                   label: const Text('Section'),
                                   labelStyle: TextStyle(
-                                    fontSize: 14.sp,
+                                    fontSize: 14.h,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   filled: true,
@@ -253,7 +253,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           controller: nameController,
                           decoration: InputDecoration(
                             label: const Text('Full Name'),
-                            labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                            labelStyle: TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold),
                             filled: true,
                             border: const OutlineInputBorder(),
                           ),
@@ -272,7 +272,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           decoration: InputDecoration(
                             label: const Text('Initial'),
                             hintText: 'Example: SRK,JIM',
-                            labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                            labelStyle: TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold),
                             filled: true,
                             border: const OutlineInputBorder(),
                           ),
@@ -314,7 +314,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           decoration: InputDecoration(
                             label: const Text('Designation'),
                             labelStyle: TextStyle(
-                              fontSize: 14.sp,
+                              fontSize: 14.h,
                               fontWeight: FontWeight.bold,
                             ),
                             filled: true,
@@ -363,7 +363,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     label: Text(
                       "Continue",
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 16.h,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

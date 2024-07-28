@@ -15,6 +15,15 @@ This repository contains a Flutter application designed for Android and Web plat
 2. **Request to Form a Team:** Students who cannot form a team can request assistance from the Project Committee through the app.
 3. **Receive Announcements:** Students receive notifications and announcements related to projects or thesis updates.
 
+## Screenshots
+<img src="https://github.com/user-attachments/assets/2365560d-8f6b-4497-bd0d-05688b4f2403" alt="Proposal" width="400"/>
+
+<img src="https://github.com/user-attachments/assets/df5c32ff-8463-4368-a634-a81358aea45b" alt="Home" width="400"/>
+<img src="https://github.com/user-attachments/assets/35ad6589-e1b8-4bed-ae3c-a43590ed2dd6" alt="View Proposals" width="400"/>
+<img src="https://github.com/user-attachments/assets/3bc0cec8-7aeb-41a2-8a42-bd3b50b06d58" alt="Announcement" width="400"/>
+
+
+
 ### Teacher Features
 1. **Manage Assigned Teams:** Teachers can view and manage the teams assigned to them. They can contact team members via call or email, and evaluate team progress.
 2. **Evaluate Teams:** Teachers can serve as defense board members to evaluate other teams during project defenses.

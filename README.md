@@ -1,4 +1,4 @@
-![Teacher Request](https://github.com/user-attachments/assets/b0743bc9-f9bd-432d-ac85-b2f263c086e6)# Project Manager
+# Project Manager
 
 This repository contains a Flutter application designed for Android and Web platforms, integrated with Firebase and Google Sheet API for data management.
 
@@ -28,6 +28,21 @@ This repository contains a Flutter application designed for Android and Web plat
 2. **Evaluate Teams:** Teachers can serve as defense board members to evaluate other teams during project defenses.
 3. **Publish Announcements:** Teachers can publish announcements relevant to projects or thesis topics.
 
+### Screenshots
+<img src="https://github.com/user-attachments/assets/4d64f3d8-9722-4aff-983d-aadbcd590ad9" alt="Teacher Home" width="200"/>
+<img src="https://github.com/user-attachments/assets/023cdeb4-5ec4-4d17-bd0e-0bb18d13c190" alt="My Teams" width="200"/>
+<img src="https://github.com/user-attachments/assets/6ad01418-7252-4269-bb93-5e5277a33e0f" alt="View Teams" width="200"/>
+<img src="https://github.com/user-attachments/assets/5fe5dbbe-b169-4bba-ab3d-2411fe503cc1" alt="Team Marking" width="200"/>
+
+<br>
+
+<img src="https://github.com/user-attachments/assets/81c55f0f-8ab9-4bbd-b53b-b412a697038f" alt="Team Evaluation" width="200"/>
+<img src="https://github.com/user-attachments/assets/a80a5091-291e-4fd3-bcca-671d3ed4a588" alt="Evaluation Form" width="200"/>
+<img src="https://github.com/user-attachments/assets/504fd3a0-8ac5-4b2d-b914-80e2559de61e" alt="View Evaluation Data" width="200"/>
+
+<br>
+
+<img src="https://github.com/user-attachments/assets/d325b79d-f150-492c-a356-1e2b8fb23891" alt="Publish Announcement" width="200"/>
 
 
 

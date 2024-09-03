@@ -161,7 +161,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "This field is required";
-                            } else if (RegExp(r'^(\d){10,15}$').hasMatch(value) == false) {
+                            } else if (RegExp(r'^(\d){10,20}$').hasMatch(value) == false) {
                               return "Follow format: 53 or 59";
                             }
                             return null;

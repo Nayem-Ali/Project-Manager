@@ -24,15 +24,15 @@ class _ProposalState extends State<Proposal> {
   bool isMember4 = false;
   bool isMember3 = false;
   bool isPreference = Get.arguments[0];
-  String courseCode = Get.arguments[1];
+  List<String> courseCode = Get.arguments[1];
 
   final formKey = GlobalKey<FormState>();
 
-  RegExp cgpaValidator = RegExp(r"^(\d){1}\.(\d){1,2}$");
+  RegExp cgpaValidator = RegExp(r"^(4(\.00)?|[0-3](\.\d{1,2})?)$");
+  RegExp emailValidator = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
   RegExp nameValidator = RegExp(
       r"(^[A-Za-z\.]{2,16})([ ]{0,1})([A-Za-z]{2,16})?([ ]{0,1})?([A-Za-z]{2,16})?([ ]{0,1})?([A-Za-z]{2,16})$");
-  RegExp idValidator = RegExp(r"[\d]{10,15}");
-  RegExp emailValidator = RegExp(r"^[A-Za-z0-9_]{14,25}@lus\.ac\.bd$");
+  RegExp idValidator = RegExp(r"[\d]{10,20}");
   RegExp cellValidator = RegExp(r"(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$");
   RegExp linkValidator = RegExp(
       r'^https:\/\/drive\.google\.com\/(?:file\/d\/|open\?id=|drive\/folders\/)([a-zA-Z0-9_-]+)(?:\/view)?(?:\?[^&]+)?$');
@@ -154,11 +154,11 @@ class _ProposalState extends State<Proposal> {
                         shadowColor: Colors.transparent,
                       ),
                       child: const Text(
-                        "CSE - 3300",
+                        "CSE-3300",
                         style: TextStyle(
                           color: Colors.black87,
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontSize: 15,
                         ),
                       ),
                     ),
@@ -183,11 +183,11 @@ class _ProposalState extends State<Proposal> {
                           shadowColor: Colors.transparent,
                         ),
                         child: const Text(
-                          "CSE - 4800",
+                          "CSE-4800",
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 15,
                           ),
                         )),
                   ],
@@ -343,7 +343,7 @@ class _ProposalState extends State<Proposal> {
                               controller: name[index],
                               validator: (value) {
                                 if (nameValidator.hasMatch(value!.trim()) == false) {
-                                  return "Invalid name format";
+                                  return "Valid name format: Mr. Person, Md Nayem Ali";
                                 } else if (value.trim().isEmpty) {
                                   return "Please provide name";
                                 }
@@ -389,7 +389,7 @@ class _ProposalState extends State<Proposal> {
                                     keyboardType: TextInputType.number,
                                     validator: (value) {
                                       if (cgpaValidator.hasMatch(value!) == false) {
-                                        return "Invalid format. Try format like 3.00 or 3.78";
+                                        return "3, 3.5 or 3.78";
                                       } else if (value.isEmpty) {
                                         return "Provide CGPA";
                                       }
@@ -401,6 +401,8 @@ class _ProposalState extends State<Proposal> {
                                           TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold),
                                       filled: true,
                                       border: const OutlineInputBorder(),
+                                      errorStyle: TextStyle(fontSize:10.h,overflow: TextOverflow
+                                          .visible),
                                     ),
                                   ),
                                 ),
@@ -411,9 +413,9 @@ class _ProposalState extends State<Proposal> {
                               controller: email[index],
                               validator: (value) {
                                 if (emailValidator.hasMatch(value!.trim()) == false) {
-                                  return "Please provide academic (g-suit) email.";
+                                  return "Please provide a valid email.";
                                 } else if (value.trim().isEmpty) {
-                                  return "Please provide academic (g-suit) email";
+                                  return "Please provide an email";
                                 }
                                 return null;
                               },
@@ -448,21 +450,21 @@ class _ProposalState extends State<Proposal> {
                               ElevatedButton.icon(
                                 onPressed: () async {
                                   if (formKey.currentState!.validate()) {
-                                    if (courseCode.substring(0,8) == "CSE-3300" && cse3300) {
+                                    if (courseCode.contains("CSE-3300") && cse3300) {
                                       Get.showSnackbar(
-                                        GetSnackBar(
+                                        const GetSnackBar(
                                           message: "You have already submitted proposal for "
-                                              "$courseCode",
-                                          duration: const Duration(seconds: 3),
+                                              "CSE-3300",
+                                          duration: Duration(seconds: 3),
                                           backgroundColor: Colors.redAccent,
                                         ),
                                       );
-                                    } else if (courseCode.substring(0,8) == 'CSE-4800' && cse4800) {
+                                    } else if (courseCode.contains("CSE-4800") && cse4800) {
                                       Get.showSnackbar(
-                                        GetSnackBar(
+                                        const GetSnackBar(
                                           message: "You have already submitted proposal for "
-                                              "$courseCode",
-                                          duration: const Duration(seconds: 3),
+                                              "CSE-4800",
+                                          duration: Duration(seconds: 3),
                                           backgroundColor: Colors.redAccent,
                                         ),
                                       );
@@ -479,7 +481,7 @@ class _ProposalState extends State<Proposal> {
                                     }
                                   }
                                 },
-                                style: buttonStyle(300, 40),
+                                style: buttonStyle(200, 40),
                                 icon: const Icon(Icons.send_sharp),
                                 label: const Text("Submit"),
                               )
@@ -489,56 +491,62 @@ class _ProposalState extends State<Proposal> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          if (name.length < 4) {
-                            name.add(TextEditingController());
-                            id.add(TextEditingController());
-                            cgpa.add(TextEditingController());
-                            email.add(TextEditingController());
-                            number.add(TextEditingController());
-                            setState(() {});
-                          } else {
-                            Get.showSnackbar(
-                              const GetSnackBar(
-                                message: "One team can contain maximum 4 members",
-                                duration: Duration(seconds: 3),
-                                backgroundColor: Colors.redAccent,
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text("Add Member")),
-                    TextButton(
-                        onPressed: () {
-                          if (name.length > 2) {
-                            name.removeLast();
-                            id.removeLast();
-                            cgpa.removeLast();
-                            email.removeLast();
-                            number.removeLast();
-                            setState(() {});
-                          } else {
-                            Get.showSnackbar(
-                              const GetSnackBar(
-                                message: "Minimum 2 members required to submit proposal",
-                                duration: Duration(seconds: 3),
-                                backgroundColor: Colors.redAccent,
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text("Remove Member")),
-                  ],
-                ),
-                const SizedBox(height: 12),
+
+                // const SizedBox(height: 12),
               ],
             ),
           ),
         ),
+      ),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+              onPressed: () {
+                if (name.length < 4) {
+                  name.add(TextEditingController());
+                  id.add(TextEditingController());
+                  cgpa.add(TextEditingController());
+                  email.add(TextEditingController());
+                  number.add(TextEditingController());
+                  setState(() {});
+                } else {
+                  Get.showSnackbar(
+                    const GetSnackBar(
+                      message: "One team can contain maximum 4 members",
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.redAccent,
+                    ),
+                  );
+                }
+              },
+              heroTag: 'Add',
+              backgroundColor: Colors.green,
+              child: const Icon(Icons.add)),
+          FloatingActionButton(
+            onPressed: () {
+              if (name.length > 2) {
+                name.removeLast();
+                id.removeLast();
+                cgpa.removeLast();
+                email.removeLast();
+                number.removeLast();
+                setState(() {});
+              } else {
+                Get.showSnackbar(
+                  const GetSnackBar(
+                    message: "Minimum 2 members required to submit proposal",
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.redAccent,
+                  ),
+                );
+              }
+            },
+            backgroundColor: Colors.redAccent.shade400,
+            heroTag:"Remove",
+            child: const Icon(Icons.remove),
+          ),
+        ],
       ),
     );
   }

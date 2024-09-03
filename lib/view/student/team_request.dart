@@ -22,15 +22,15 @@ class _RequestTeamState extends State<RequestTeam> {
   bool cse3300 = true;
   bool cse4800 = false;
   bool isPreference = Get.arguments[0];
-  String courseCode = Get.arguments[1];
+  List<String> courseCode = Get.arguments[1];
 
   final formKey = GlobalKey<FormState>();
 
-  RegExp cgpaValidator = RegExp(r"^(\d){1}\.(\d){1,2}$");
+  RegExp cgpaValidator = RegExp(r"^(4(\.00)?|[0-3](\.\d{1,2})?)$");
+  RegExp emailValidator = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
   RegExp nameValidator = RegExp(
       r"(^[A-Za-z\.]{2,16})([ ]{0,1})([A-Za-z]{2,16})?([ ]{0,1})?([A-Za-z]{2,16})?([ ]{0,1})?([A-Za-z]{2,16})$");
-  RegExp idValidator = RegExp(r"[\d]{10,15}");
-  RegExp emailValidator = RegExp(r"^[A-Za-z0-9_]{14,25}@lus\.ac\.bd$");
+  RegExp idValidator = RegExp(r"[\d]{10,20}");
   RegExp cellValidator = RegExp(r"(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$");
   RegExp linkValidator = RegExp(
       r'^https:\/\/drive\.google\.com\/(?:file\/d\/|open\?id=|drive\/folders\/)([a-zA-Z0-9_-]+)(?:\/view)?(?:\?[^&]+)?$');
@@ -120,11 +120,11 @@ class _RequestTeamState extends State<RequestTeam> {
                         shadowColor: Colors.transparent,
                       ),
                       child: const Text(
-                        "CSE - 3300",
+                        "CSE-3300",
                         style: TextStyle(
                           color: Colors.black87,
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
                       ),
                     ),
@@ -149,11 +149,11 @@ class _RequestTeamState extends State<RequestTeam> {
                           shadowColor: Colors.transparent,
                         ),
                         child: const Text(
-                          "CSE - 4800",
+                          "CSE-4800",
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 14 ,
                           ),
                         )),
                   ],
@@ -182,7 +182,7 @@ class _RequestTeamState extends State<RequestTeam> {
                     // if (linkValidator.hasMatch(value!.trim()) == false) {
                     //   return "Invalid google drive link";
                     // } else
-                      if (value!.trim().isEmpty) {
+                    if (value!.trim().isEmpty) {
                       return "Please provide google drive link";
                     }
 
@@ -293,7 +293,7 @@ class _RequestTeamState extends State<RequestTeam> {
                 const Divider(color: Colors.green, thickness: 2),
                 Expanded(
                   child: SizedBox(
-                    height: 300.h,
+                    // height: 300.h,
                     child: ListView.builder(
                       itemCount: name.length,
                       itemBuilder: (context, index) {
@@ -309,7 +309,7 @@ class _RequestTeamState extends State<RequestTeam> {
                               controller: name[index],
                               validator: (value) {
                                 if (nameValidator.hasMatch(value!.trim()) == false) {
-                                  return "Invalid name format";
+                                  return "Valid name format: Mr. Person, Md Nayem Ali";
                                 } else if (value.trim().isEmpty) {
                                   return "Please provide name";
                                 }
@@ -355,7 +355,7 @@ class _RequestTeamState extends State<RequestTeam> {
                                     keyboardType: TextInputType.number,
                                     validator: (value) {
                                       if (cgpaValidator.hasMatch(value!) == false) {
-                                        return "Invalid format. Try format like 3.00 or 3.78";
+                                        return "3, 3.6 or 3.78";
                                       } else if (value.isEmpty) {
                                         return "Provide CGPA";
                                       }
@@ -363,10 +363,13 @@ class _RequestTeamState extends State<RequestTeam> {
                                     },
                                     decoration: InputDecoration(
                                       label: const Text('CGPA'),
+
                                       labelStyle:
                                           TextStyle(fontSize: 14.h, fontWeight: FontWeight.bold),
                                       filled: true,
                                       border: const OutlineInputBorder(),
+                                      errorStyle: TextStyle(fontSize: 10.h, fontWeight:
+                                      FontWeight.bold,overflow: TextOverflow.visible),
                                     ),
                                   ),
                                 ),
@@ -377,9 +380,9 @@ class _RequestTeamState extends State<RequestTeam> {
                               controller: email[index],
                               validator: (value) {
                                 if (emailValidator.hasMatch(value!.trim()) == false) {
-                                  return "Please provide academic (g-suit) email.";
+                                  return "Please provide a valid email.";
                                 } else if (value.trim().isEmpty) {
-                                  return "Please provide academic (g-suit) email";
+                                  return "Please provide an email";
                                 }
                                 return null;
                               },
@@ -413,22 +416,20 @@ class _RequestTeamState extends State<RequestTeam> {
                             if (index == name.length - 1)
                               ElevatedButton.icon(
                                 onPressed: () async {
-
                                   if (formKey.currentState!.validate()) {
-                                    if (courseCode.substring(0,8) == "CSE-3300" && cse3300) {
-
-                                      Get.showSnackbar(GetSnackBar(
+                                    if (courseCode.contains("CSE-3300") && cse3300) {
+                                      Get.showSnackbar(const GetSnackBar(
                                         message: "You have already submitted proposal for "
-                                            "$courseCode",
-                                        duration: const Duration(seconds: 3),
+                                            "CSE-3300",
+                                        duration: Duration(seconds: 3),
                                         backgroundColor: Colors.redAccent,
                                       ));
-                                    } else if (courseCode.substring(0,8) == 'CSE-4800-team-request' && cse4800) {
+                                    } else if (courseCode.contains("CSE-4800") && cse4800) {
                                       Get.showSnackbar(
-                                        GetSnackBar(
+                                        const GetSnackBar(
                                           message: "You have already submitted proposal for "
-                                              "$courseCode",
-                                          duration: const Duration(seconds: 3),
+                                              "CSE-4800",
+                                          duration: Duration(seconds: 3),
                                           backgroundColor: Colors.redAccent,
                                         ),
                                       );
@@ -445,7 +446,7 @@ class _RequestTeamState extends State<RequestTeam> {
                                     }
                                   }
                                 },
-                                style: buttonStyle(300, 40),
+                                style: buttonStyle(200, 40),
                                 icon: const Icon(Icons.send_sharp),
                                 label: const Text("Submit"),
                               )
@@ -455,56 +456,64 @@ class _RequestTeamState extends State<RequestTeam> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          if (name.length == 1) {
-                            name.add(TextEditingController());
-                            id.add(TextEditingController());
-                            cgpa.add(TextEditingController());
-                            email.add(TextEditingController());
-                            number.add(TextEditingController());
-                            setState(() {});
-                          } else {
-                            Get.showSnackbar(
-                              const GetSnackBar(
-                                message: "Team request can contain maximum of 2 members",
-                                duration: Duration(seconds: 3),
-                                backgroundColor: Colors.redAccent,
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text("Add Member")),
-                    TextButton(
-                        onPressed: () {
-                          if (name.length == 2) {
-                            name.removeLast();
-                            id.removeLast();
-                            cgpa.removeLast();
-                            email.removeLast();
-                            number.removeLast();
-                            setState(() {});
-                          } else {
-                            Get.showSnackbar(
-                              const GetSnackBar(
-                                message: "At lease 1 member required to make request",
-                                duration: Duration(seconds: 3),
-                                backgroundColor: Colors.redAccent,
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text("Remove Member")),
-                  ],
-                ),
-                const SizedBox(height: 12),
+
+                // const SizedBox(height: 12),
               ],
             ),
           ),
         ),
+      ),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          FloatingActionButton(
+              onPressed: () {
+                if (name.length == 1) {
+                  name.add(TextEditingController());
+                  id.add(TextEditingController());
+                  cgpa.add(TextEditingController());
+                  email.add(TextEditingController());
+                  number.add(TextEditingController());
+                  setState(() {});
+                } else {
+                  Get.showSnackbar(
+                    const GetSnackBar(
+                      message: "Team request can contain maximum of 2 members",
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.redAccent,
+                    ),
+                  );
+                }
+              },
+              backgroundColor: Colors.green,
+
+              heroTag: "Add",
+              child: const Icon(Icons.add)),
+          FloatingActionButton(
+            onPressed: () {
+              if (name.length == 2) {
+                name.removeLast();
+                id.removeLast();
+                cgpa.removeLast();
+                email.removeLast();
+                number.removeLast();
+                setState(() {});
+              } else {
+                Get.showSnackbar(
+                  const GetSnackBar(
+                    message: "At lease 1 member required to make request",
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.redAccent,
+                  ),
+                );
+              }
+            },
+            heroTag: "Remove",
+            backgroundColor: Colors.redAccent.shade400,
+            child: const Icon(Icons.remove),
+          ),
+        ],
       ),
     );
   }

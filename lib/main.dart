@@ -24,7 +24,7 @@ Future<void> initializeCriticalServices() async {
   await Future.wait([
     ProjectSheetApi.initialize(),
     Firebase.initializeApp(
-      // name: "Project Manager",
+      name: "Project Manager",
       options: DefaultFirebaseOptions.currentPlatform,
     ),
   ]);

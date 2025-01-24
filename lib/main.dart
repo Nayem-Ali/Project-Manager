@@ -10,6 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/services/proposal_sheets_api.dart';
 import 'package:teamlead/services/push_notification.dart';
 import 'package:teamlead/services/result_sheet_api.dart';
+import 'package:teamlead/v2/core/app/app.dart';
+import 'package:teamlead/v2/core/dl/dependency_injection.dart';
 
 // import 'package:teamlead/services/google_sheets_api.dart';
 import 'View/splash_screen.dart';
@@ -36,20 +38,15 @@ Future<void> initializeNonCriticalServices() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  /// v2 starting point
+  await SetupServices().dependencies();
+  runApp(const App());
 
-  // DateTime start = DateTime.now();
-  // print(start.second);
-
-  // Parallel initialization of critical services
-  await initializeCriticalServices();
-
-  // Non-blocking notification and non-critical service initialization
-  // PushNotifications.sendNotification();
-  initializeNonCriticalServices();
-
-  // print(DateTime.now().difference(start).inSeconds);
-
-  runApp(const MyApp());
+  /// v1 staring point [just uncomment next 3 line to run v1 ]
+  // await initializeCriticalServices();
+  // initializeNonCriticalServices();
+  //
+  // runApp(const MyApp());
 }
 
 // void main() async {
@@ -101,11 +98,7 @@ class _MyAppState extends State<MyApp> {
           home: const SplashScreen(),
           theme: ThemeData.light(useMaterial3: false).copyWith(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
-            // primaryColor: Colors.deepOrangeAccent,
-            //fontFamily: "Poppins",
             textTheme: GoogleFonts.adaminaTextTheme(),
-            // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            // useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
         );

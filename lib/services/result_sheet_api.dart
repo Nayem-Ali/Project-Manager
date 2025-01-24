@@ -1,34 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gsheets/gsheets.dart';
+import 'package:teamlead/constants/result_credentials.dart';
 
 import '../model/result_model.dart';
 
 class ResultSheetApi {
-  static const spreadsheetId = '1h_AKiwN82RWy5Tt5muSFaDKReL28eZw4P5ES0eQvqJc';
-  static const credentials = r'''
-  {
-  "type": "service_account",
-  "project_id": "result-410019",
-  "private_key_id": "fa30ae24674738a517c40341990a8d7b587c8926",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQD0djA/tIuuTxob\nZBGu+Qt9ejDelpEIDLW8NPgKOUdZLiCSw0QMDCG6pd6NeEbagK1KIBwRjs9nS2CL\n3Nu3OCd0ZRbNsvesQE8ocsTjifq+Qc09rifVsmQBgrtUs+RkDCfEFqoCQyxPNjFY\nG7h/xFqkQ61xoERwt8CHvgJgroCB2rQ2BtBwym41VIuKZWfe6FYRsHuOOysdadd1\nlzUhxGFoO+JiTGM+7he71EOI+lWr+gvjAhf0LVafmnSWHdijE381Yi9cmJbW9R3f\nCzIA9wAdThzTKwVPLt9YAym2LW7X7W4BbJkajE+wkBOdSizc2+Q7cLG9QmfpzKGU\nEPjr18lZAgMBAAECggEAS4n10MmeW+dvfsVGPZYROd23GiDWgfFDevu3JZmbdXAu\neotCDKL3DTDR+08OPdiDM6OGaNqDNjzxgWZmsk/0yR+vkzJZG+3nR+1m75SkWYQF\nwqh9AKiWBG18K2lHCq9C3nHOaNKO748kYkB2m2x2Qcnz32eRnm75XDiXjX5+kSED\n8YoqriZb7sc5Oe3T+9xy/aCy4acpiBrm39LYH5/jaIYEQvvUQWgLbJ3MzZ+RfhIy\nEmTtzp7CFVJLruaXJRMHRgupqQ5gguYElKD3BHC2Cvklxlz636+MKEWu/BjwTOEV\nlfBd58vh57l/8pz4vI/X48vzsso+a/Ge/WKqm5scTQKBgQD7R6JqX1iMo3pHsk3u\nA66BLreRULtPMmxfWwOLQpucYrNy3Que2cTysW9Sq8S2+L6sMJQo5+SDtf6F5VMr\nj9iCRrWtNrDw//zZo+Rc77Ul9MSoT/G01km46VApuA3iwN091tO9XFcjZpHroq6R\nRa540VXgApLiHnvJTLymHRfi2wKBgQD5DcRBWolhXz9OqcXqRGV/JukuxvYAtql+\nMBIXIzuXmJWcUktofVPCxWHgWWF4p3q6/324ZHndCYlPxhBKmm1vbJHjsTmIA+pu\nSxXluT0rNL7+kzFpFtSxbSV20vqxUjhLFFyPo9cs+gS72yUAkBqD2tEqG7IzLjvc\nbMcEvmuo2wKBgFtx5E9lx2nXDGcPIoEd4eGtSKyffqsBpKLHEnEZmlu9J6UDgHkc\nsynHHMYvMHWN7IXpX+HLEkREdQ3xOOU/ggFXDkKtBpON9UyW8kJIEdpwSykdfs7a\ntRWQAtZL3vHIUjtw9LmS4ztE1pG0MGc5vpbFR8Uv6phTk6TcQkMJj2nFAoGAH5CB\nGQ9SbgbWTS/zJ3e3rV/PGeCZeQmtfZK2GDyc5t+txnwfloSbwwmlF/v8AICpa13K\nHz6Mu1jkEDo4AlyEFiUacFMbyYNFiOj3Q4AwonMy6azaDEmad0ov/1lJ8INNIybX\nfFT1hnvBcdWaYPHiimeHLuEHurjXWV5n8s/3cRUCgYBlHucrXU2512G/jLdYLPK7\n3A1GchtjW4jxqlGL+g5+SYjEELFHJskSVwJKB8NO6fsLndiTasWEM3npJUvaFwtv\n8ewTF9+bMrADtwUjhhHRbITCZDnO0HWsA4GDmb9x52L9gSmZIJdtegIJpwNzigxO\nQ8M5iYmpy94tDHg/DaiRYQ==\n-----END PRIVATE KEY-----\n",
-  "client_email": "result@result-410019.iam.gserviceaccount.com",
-  "client_id": "105548947667189877330",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/result%40result-410019.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
-  ''';
 
-  static final gsheets = GSheets(credentials);
+
+  static final gsheets = GSheets(ResultCredentials.credentials);
   static Worksheet? result3300;
   static Worksheet? result4800;
   static Worksheet? result4801;
 
   static Future initialize() async {
     try {
-      final spreadSheet = await gsheets.spreadsheet(spreadsheetId);
+      final spreadSheet = await gsheets.spreadsheet(ResultCredentials.spreadsheetId);
       result3300 = await getWorkSheet(spreadSheet, title: "CSE-3300");
       result4800 = await getWorkSheet(spreadSheet, title: "CSE-4800");
       result4801 = await getWorkSheet(spreadSheet, title: "CSE-4801");
@@ -110,7 +96,7 @@ class ResultSheetApi {
 
   static giveAccess() async {
     FirebaseAuth auth = FirebaseAuth.instance;
-    final spreadSheet = await gsheets.spreadsheet(spreadsheetId);
+    final spreadSheet = await gsheets.spreadsheet(ResultCredentials.spreadsheetId);
     await spreadSheet.share(
       "${auth.currentUser!.email}",
       role: PermRole.writer,

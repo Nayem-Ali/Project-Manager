@@ -43,6 +43,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Secretr Files
-lib/services/result_sheet_api.dart
-lib/services/proposal_sheets_api.dart
+# Secret Files
+

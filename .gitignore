@@ -44,4 +44,5 @@ app.*.map.json
 /android/app/release
 
 # Secret Files
-
+./lib/constants/proposal_credentials.dart
+./lib/constants/result_credentials.dart

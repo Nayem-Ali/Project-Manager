@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:teamlead/v2/modules/shared/profile/view/components/about_us.dart';
 import 'package:teamlead/v2/core/database/firebase_db/firebase_handler.dart';
 import 'package:teamlead/v2/core/route/route_name.dart';
 import 'package:teamlead/v2/modules/authentication/controller/auth_controller.dart';
@@ -40,7 +42,7 @@ class _ProfileViewState extends State<ProfileView> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,6 +128,25 @@ class _ProfileViewState extends State<ProfileView> {
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     textStyle: Theme.of(context).textTheme.labelLarge,
                     side: BorderSide(color: Theme.of(context).colorScheme.primary),
+                  ),
+                ),
+              ),
+              Spacer(),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      Get.to(()=>AboutUs());
+                    },
+                    icon: const Icon(Icons.info_outline),
+                    label: const Text("About Us"),
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                      side: BorderSide(color: Theme.of(context).colorScheme.primary),
+                    ),
                   ),
                 ),
               ),

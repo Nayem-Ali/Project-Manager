@@ -24,6 +24,7 @@ class SplashController extends GetxController {
       if (data is TeacherModel) {
         debug("Teacher");
         // Get.to(Teacher());
+        Get.offAllNamed(RouteName.studentHome, arguments: data);
       } else if (data is StudentModel) {
         Get.offAllNamed(RouteName.studentHome, arguments: data);
         debug("student");

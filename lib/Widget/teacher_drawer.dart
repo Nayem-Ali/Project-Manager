@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:teamlead/services/auth_services.dart';
 import 'package:teamlead/services/db_service.dart';
 
-import 'about_us.dart';
+import '../v2/modules/shared/profile/view/components/about_us.dart';
 
 class TeacherDrawer extends StatefulWidget {
   const TeacherDrawer({Key? key}) : super(key: key);

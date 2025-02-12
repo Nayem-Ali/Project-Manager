@@ -1,16 +1,19 @@
 import 'package:get/get.dart';
 import 'package:teamlead/v2/core/dl/dependency_injection.dart';
 import 'package:teamlead/v2/core/route/route_name.dart';
+import 'package:teamlead/v2/modules/admin/admin_home/view/admin_home.dart';
+import 'package:teamlead/v2/modules/admin/manage_admin/view/manage_admin.dart';
+import 'package:teamlead/v2/modules/admin/proposal_setting/view/proposal_setting.dart';
 import 'package:teamlead/v2/modules/authentication/view/info.dart';
 import 'package:teamlead/v2/modules/authentication/view/login.dart';
 import 'package:teamlead/v2/modules/shared/marking/view/marking.dart';
 import 'package:teamlead/v2/modules/shared/profile/view/components/about_us.dart';
 import 'package:teamlead/v2/modules/shared/splash/view/splash.dart';
-import 'package:teamlead/v2/modules/student/home/view/student_home.dart';
 import 'package:teamlead/v2/modules/student/proposal/view/submit_proposal.dart';
-import 'package:teamlead/v2/modules/student/proposal/view/view_porposal.dart';
-import 'package:teamlead/v2/modules/teacher/home/view/teacher_home.dart';
+import 'package:teamlead/v2/modules/student/proposal/view/view_proposal.dart';
+import 'package:teamlead/v2/modules/student/student_home/view/student_home.dart';
 import 'package:teamlead/v2/modules/teacher/my_teams/view/my_teams.dart';
+import 'package:teamlead/v2/modules/teacher/teacher_home/view/teacher_home.dart';
 import 'package:teamlead/v2/modules/teacher/team_evaluation/view/team_evaluation.dart';
 
 class AppRoute {
@@ -31,6 +34,7 @@ class AppRoute {
     GetPage(
       name: RouteName.studentHome,
       page: () => StudentHome(student: Get.arguments),
+      binding: SetupServices(),
     ),
     GetPage(
       name: RouteName.submitProposal,
@@ -57,10 +61,7 @@ class AppRoute {
     ),
     GetPage(
       name: RouteName.boardMarking,
-      page: () => Marking(
-        proposal: Get.arguments,
-        doesBoard: true,
-      ),
+      page: () => Marking(proposal: Get.arguments, doesBoard: true),
     ),
     GetPage(
       name: RouteName.supervisorMarking,
@@ -73,6 +74,19 @@ class AppRoute {
       name: RouteName.myTeams,
       page: () => const MyTeams(),
       binding: SetupServices(),
+    ),
+    GetPage(
+      name: RouteName.adminHome,
+      page: () => const AdminHome(),
+    ),
+    GetPage(
+      name: RouteName.proposalSetting,
+      page: () => const ProposalSetting(),
+    ),
+    GetPage(
+      name: RouteName.mangeAdmin,
+      page: () => const ManageAdmin(),
+      binding: SetupServices()
     ),
   ];
 }

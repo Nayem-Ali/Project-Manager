@@ -224,11 +224,11 @@ class _SubmitProposalState extends State<SubmitProposal> {
                         child: ElevatedButton(
                           onPressed: () async {
                             await _proposalController.checkDeadlineStatus();
-                            debug("Proposal Submission: ${_proposalController.doesDeadlineOver.value}");
+                            debug(
+                                "Proposal Submission: ${_proposalController.doesDeadlineOver.value}");
                             if (_proposalController.doesDeadlineOver.value) {
                               BotToast.showText(text: "Deadline is over");
-                            }
-                            else if (_formState.currentState!.validate()) {
+                            } else if (_formState.currentState!.validate()) {
                               List<Member> members = [];
                               for (int i = 0; i < totalMembers.value; i++) {
                                 Member member = Member(
@@ -249,8 +249,7 @@ class _SubmitProposalState extends State<SubmitProposal> {
                               await _proposalController.checkDeadlineStatus();
                               if (_proposalController.doesDeadlineOver.value) {
                                 BotToast.showText(text: "Deadline is over");
-                              }
-                              {
+                              } else {
                                 _proposalController.submitProposal(
                                   proposal: proposalModel,
                                   cse3300: cse3300.value,

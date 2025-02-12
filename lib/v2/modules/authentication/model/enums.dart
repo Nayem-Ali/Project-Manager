@@ -6,6 +6,6 @@ enum Roles {
 
 enum RequestStatus{
   pending,
-  accepted,
+  approved,
   rejected,
 }

@@ -5,12 +5,13 @@ import 'package:teamlead/v2/core/route/route_name.dart';
 import 'package:teamlead/v2/core/utils/constant/icons_path.dart';
 import 'package:teamlead/v2/core/utils/constant/urls.dart';
 import 'package:teamlead/v2/core/utils/reusable_method/link_handler.dart';
+import 'package:teamlead/v2/modules/admin/proposal_setting/controller/proposal_setting_controller.dart';
 import 'package:teamlead/v2/modules/authentication/model/student_model.dart';
 import 'package:teamlead/v2/modules/shared/profile/view/profile_view.dart';
-import 'package:teamlead/v2/modules/student/home/controller/student_home_controller.dart';
-import 'package:teamlead/v2/modules/student/home/model/proposal_credential_model.dart';
-import 'package:teamlead/v2/modules/student/home/view/components/text_card.dart';
+import 'package:teamlead/v2/modules/student/student_home/controller/student_home_controller.dart';
+import 'package:teamlead/v2/modules/student/student_home/model/proposal_credential_model.dart';
 import '../../../widgets/k_gird_item.dart';
+import 'components/text_card.dart';
 
 class StudentHome extends StatefulWidget {
   const StudentHome({super.key, required this.student});
@@ -22,6 +23,7 @@ class StudentHome extends StatefulWidget {
 }
 
 class _StudentHomeState extends State<StudentHome> {
+  final ProposalSettingController _settingController = Get.find<ProposalSettingController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +42,7 @@ class _StudentHomeState extends State<StudentHome> {
             children: [
               const Divider(),
               StreamBuilder(
-                stream: StudentHomeController.getProposalCredential(),
+                stream: _settingController.getProposalSetting(),
                 builder: (context, snapshot) {
 
                   if (snapshot.hasData) {

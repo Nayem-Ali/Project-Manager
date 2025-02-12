@@ -6,8 +6,8 @@ import 'package:teamlead/v2/core/database/firebase_db/collection_name.dart';
 import 'package:teamlead/v2/core/database/firebase_db/document_name.dart';
 import 'package:teamlead/v2/core/database/firebase_db/firebase_handler.dart';
 import 'package:teamlead/v2/core/utils/logger/logger.dart';
-import 'package:teamlead/v2/modules/student/home/model/proposal_credential_model.dart';
 import 'package:teamlead/v2/modules/student/proposal/model/proposal_model.dart';
+import 'package:teamlead/v2/modules/student/student_home/model/proposal_credential_model.dart';
 
 class ProposalController extends GetxController {
   Rx<ProposalModel> proposal = Rx<ProposalModel>(ProposalModel());

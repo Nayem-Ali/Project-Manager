@@ -7,9 +7,6 @@ class TeacherModel {
   String? email;
   Roles? role;
   RequestStatus? status;
-  List<String>? cse3300;
-  List<String>? cse4800;
-  List<String>? cse4801;
 
   TeacherModel({
     this.name,
@@ -18,9 +15,6 @@ class TeacherModel {
     this.email,
     this.role,
     this.status,
-    this.cse3300,
-    this.cse4800,
-    this.cse4801,
   });
 
   factory TeacherModel.fromJson(Map<String, dynamic> json) {
@@ -31,9 +25,6 @@ class TeacherModel {
       email: json['email'] ?? '',
       role: _roleFromString(json['role']),
       status: _statusFromString(json['status']),
-      cse3300: json['cse3300'] != null ? List<String>.from(json['cse3300']) : null,
-      cse4800: json['cse4800'] != null ? List<String>.from(json['cse4800']) : null,
-      cse4801: json['cse4801'] != null ? List<String>.from(json['cse4801']) : null,
     );
   }
 
@@ -56,8 +47,8 @@ class TeacherModel {
     switch (status.toLowerCase()) {
       case 'pending':
         return RequestStatus.pending;
-      case 'accepted':
-        return RequestStatus.accepted;
+      case 'approved':
+        return RequestStatus.approved;
       case 'rejected':
         return RequestStatus.rejected;
       default:
@@ -74,9 +65,6 @@ class TeacherModel {
       'email': email,
       'role': role?.toString().split('.').last,
       'status': status?.toString().split('.').last,
-      'cse3300': cse3300,
-      'cse4800': cse4800,
-      'cse4801': cse4801,
     };
   }
 }

@@ -74,9 +74,6 @@ class _TeacherFormState extends State<TeacherForm> {
                     email: widget.user.email!,
                     role: Roles.teacher,
                     status: RequestStatus.pending,
-                    cse3300: [],
-                    cse4800: [],
-                    cse4801: [],
                   );
                   bool response = await _userController.addUserData(userData: teacher);
                   BotToast.closeAllLoading();

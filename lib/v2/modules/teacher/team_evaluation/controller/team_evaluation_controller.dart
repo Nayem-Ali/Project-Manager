@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/v2/core/database/firebase_db/collection_name.dart';
 import 'package:teamlead/v2/core/database/firebase_db/firebase_handler.dart';
-import 'package:teamlead/v2/core/utils/logger/logger.dart';
 import 'package:teamlead/v2/modules/authentication/controller/user_controller.dart';
 import 'package:teamlead/v2/modules/student/proposal/model/proposal_model.dart';
 
@@ -20,7 +19,7 @@ class TeamEvaluationController extends GetxController {
         searchResult.add(proposal);
       } else if (proposal.supervisor!
           .toLowerCase()
-          .contains(searchKey.text.trim().toLowerCase())) {
+          .contains(searchKey.toLowerCase())) {
         searchResult.add(proposal);
       } else {
         for (Member member in proposal.members!) {

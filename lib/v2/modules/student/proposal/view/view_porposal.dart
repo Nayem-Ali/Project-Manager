@@ -4,7 +4,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:teamlead/v2/modules/authentication/controller/user_controller.dart';
 import 'package:teamlead/v2/modules/student/proposal/controller/proposal_controller.dart';
 import 'package:teamlead/v2/modules/widgets/k_proposal_view.dart';
-import 'package:teamlead/v2/modules/widgets/option_button.dart';
+import 'package:teamlead/v2/modules/widgets/k_option_button.dart';
 
 class ViewProposal extends StatefulWidget {
   const ViewProposal({super.key});

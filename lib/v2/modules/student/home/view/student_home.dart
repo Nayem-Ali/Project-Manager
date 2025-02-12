@@ -10,7 +10,7 @@ import 'package:teamlead/v2/modules/shared/profile/view/profile_view.dart';
 import 'package:teamlead/v2/modules/student/home/controller/student_home_controller.dart';
 import 'package:teamlead/v2/modules/student/home/model/proposal_credential_model.dart';
 import 'package:teamlead/v2/modules/student/home/view/components/text_card.dart';
-import 'components/gird_item.dart';
+import '../../../widgets/k_gird_item.dart';
 
 class StudentHome extends StatefulWidget {
   const StudentHome({super.key, required this.student});

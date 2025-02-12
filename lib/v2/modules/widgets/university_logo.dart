@@ -14,7 +14,7 @@ class UniversityLogo extends StatelessWidget {
         return Image(
           height: imageSize,
           width: imageSize,
-          image: const AssetImage(IconsPath.universityLogo),
+          image: const AssetImage(IconsPath.universityLogoIcon),
           // color: Colors.teal.shade700,
         );
       },

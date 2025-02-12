@@ -8,6 +8,7 @@ import 'package:teamlead/v2/modules/authentication/controller/auth_controller.da
 import 'package:teamlead/v2/modules/authentication/controller/user_controller.dart';
 import 'package:teamlead/v2/modules/shared/splash/controller/splash_controller.dart';
 import 'package:teamlead/v2/modules/student/proposal/controller/proposal_controller.dart';
+import 'package:teamlead/v2/modules/teacher/team_evaluation/controller/team_evaluation_controller.dart';
 
 class SetupServices extends Bindings {
   @override
@@ -21,7 +22,6 @@ class SetupServices extends Bindings {
     await Get.putAsync<ProposalSheetAPI>(() async {
       ProposalSheetAPI proposalSheetAPI = ProposalSheetAPI();
       await proposalSheetAPI.initialize();
-      debug(proposalSheetAPI.cse3300);
       return proposalSheetAPI;
     });
     // initializing result worksheets
@@ -35,5 +35,6 @@ class SetupServices extends Bindings {
     Get.put<UserController>(UserController());
     Get.put<SplashController>(SplashController());
     Get.put<ProposalController>(ProposalController());
+    Get.put<TeamEvaluationController>(TeamEvaluationController());
   }
 }

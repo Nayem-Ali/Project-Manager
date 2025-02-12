@@ -8,7 +8,7 @@ import 'package:teamlead/v2/core/utils/logger/logger.dart';
 import 'package:teamlead/v2/modules/authentication/controller/auth_controller.dart';
 import 'package:teamlead/v2/modules/authentication/view/components/student_form.dart';
 import 'package:teamlead/v2/modules/authentication/view/components/teacher_form.dart';
-import 'package:teamlead/v2/modules/widgets/option_button.dart';
+import 'package:teamlead/v2/modules/widgets/k_option_button.dart';
 
 class Info extends StatefulWidget {
   const Info({super.key, required this.user});

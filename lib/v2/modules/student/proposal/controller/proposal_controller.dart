@@ -130,7 +130,6 @@ class ProposalController extends GetxController {
         .collection(CollectionName.admin)
         .doc(DocumentName.credential).get();
      final credentialModel = ProposalCredentialModel.fromJson(credential.data() ?? {});
-     credentialModel.deadline.add(Duration(days: 500));
      doesDeadlineOver.value = credentialModel.deadline.isBefore(DateTime.now());
      debug("Deadline status: ${doesDeadlineOver.value}");
   }

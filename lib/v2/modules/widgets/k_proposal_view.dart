@@ -34,8 +34,15 @@ class KProposalView extends StatelessWidget {
               "ID: ${proposal.id ?? '-'}",
               style: Theme.of(context).textTheme.titleMedium,
             ),
+            const Divider(height: 20, thickness: 2),
 
-            const Divider(height: 20),
+            // Supervisor
+            Text(
+              "Supervisor: ${proposal.supervisor ?? 'Not Assigned'}",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+
+            const Divider(height: 20, thickness: 2,),
 
             // Team Members Section
             Text(
@@ -47,7 +54,7 @@ class KProposalView extends StatelessWidget {
             const SizedBox(height: 8),
             ..._buildMemberWidgets(proposal.members ?? []),
 
-            const Divider(height: 20),
+            const Divider(height: 20, thickness: 2),
 
             // Proposal Drive Link
             if (proposal.proposal != null && proposal.proposal!.isNotEmpty)
@@ -64,13 +71,7 @@ class KProposalView extends StatelessWidget {
                 ),
               ),
 
-            const Divider(height: 20),
 
-            // Supervisor
-            Text(
-              "Supervisor: ${proposal.supervisor ?? 'Not Assigned'}",
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
           ],
         ),
       ),

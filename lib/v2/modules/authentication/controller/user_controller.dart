@@ -4,15 +4,17 @@ import 'package:get/get.dart';
 import 'package:teamlead/v2/core/database/firebase_db/collection_name.dart';
 import 'package:teamlead/v2/core/database/firebase_db/firebase_handler.dart';
 import 'package:teamlead/v2/core/utils/logger/logger.dart';
+import 'package:teamlead/v2/modules/authentication/model/enums.dart';
 import 'package:teamlead/v2/modules/authentication/model/student_model.dart';
 import 'package:teamlead/v2/modules/authentication/model/teacher_model.dart';
 
 class UserController extends GetxController {
   Rx<StudentModel> student = Rx<StudentModel>(StudentModel());
   Rx<TeacherModel> teacher = Rx<TeacherModel>(TeacherModel());
+  Rx<List<TeacherModel>> admins = Rx<List<TeacherModel>>([]);
 
   Future<bool> addUserData({required dynamic userData}) async {
-    try{
+    try {
       debug(userData.toJson());
       if (userData is StudentModel) {
         await FirebaseHandler.fireStore
@@ -29,7 +31,7 @@ class UserController extends GetxController {
         teacher.value = userData;
       }
       return true;
-    } catch(e){
+    } catch (e) {
       BotToast.showText(text: "Something went wrong. Try again later!");
       debug("ADD USER DATA Error: $e");
     }
@@ -62,4 +64,11 @@ class UserController extends GetxController {
     }
     return null;
   }
+
+  // void fetchAllAdmins() async {
+  //   final adminsData = await FirebaseHandler.fireStore
+  //       .collection(CollectionName.teacher)
+  //       .where("role", isEqualTo: Roles.admin.name).get();
+  //   debug(adminsData);
+  // }
 }

@@ -59,25 +59,39 @@ class _KTeamListState extends State<KTeamList> {
                           ),
                         ),
                         child: ListTile(
-                            onTap: () => Get.toNamed(widget.routeName, arguments: proposal),
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              foregroundColor: Colors.black,
-                              child: Text(
-                                "${proposal.id}",
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
+                          onTap: () => Get.toNamed(widget.routeName, arguments: proposal),
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            foregroundColor: Colors.black,
+                            child: Text(
+                              "${proposal.id}",
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
-                            title: Text(
-                              "${proposal.title}",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            subtitle: Text("Supervisor: ${proposal.supervisor}"),
-                            trailing: (snapshot.data?.docs.length ?? 0) > 0
-                                ? const Icon(FontAwesomeIcons.clipboardCheck,
-                                    color: Colors.redAccent)
-                                : const Icon(FontAwesomeIcons.clipboardCheck)),
+                          ),
+                          title: Text(
+                            "${proposal.title}",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          subtitle: Text("Supervisor: ${proposal.supervisor}"),
+                          trailing: (snapshot.data?.docs.length ?? 0) > 0
+                              ? const CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: Icon(
+                                    FontAwesomeIcons.clipboardCheck,
+                                    color: Colors.green,
+                                    size: 20,
+                                  ),
+                                )
+                              : const CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: Icon(
+                                    FontAwesomeIcons.clipboardCheck,
+                                    color: Colors.grey,
+                                    size: 20,
+                                  ),
+                                ),
+                        ),
                       ),
                     );
                   },

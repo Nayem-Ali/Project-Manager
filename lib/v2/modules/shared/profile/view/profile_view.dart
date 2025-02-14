@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:teamlead/v2/core/route/app_route.dart';
-import 'package:teamlead/v2/modules/shared/profile/view/components/about_us.dart';
 import 'package:teamlead/v2/core/database/firebase_db/firebase_handler.dart';
 import 'package:teamlead/v2/core/route/route_name.dart';
 import 'package:teamlead/v2/modules/authentication/controller/auth_controller.dart';
 import 'package:teamlead/v2/modules/authentication/model/student_model.dart';
 import 'package:teamlead/v2/modules/authentication/model/teacher_model.dart';
+import 'package:teamlead/v2/modules/widgets/k_profile_row.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key, required this.data});
@@ -71,26 +68,26 @@ class _ProfileViewState extends State<ProfileView> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      profileRow(
+                      KProfileRow(
                         title: "Name",
                         value: isStudent ? student.name ?? "" : teacher.name ?? "",
                         icon: Icons.person_2_outlined,
                       ),
-                      profileRow(
+                      KProfileRow(
                         title: isStudent ? "Student ID" : "Initial",
                         value: isStudent ? student.id ?? "" : teacher.initial ?? "",
                         icon: Icons.badge_outlined,
                       ),
-                      profileRow(
+                      KProfileRow(
                         title: isStudent ? "Batch (Section)" : "Designation",
                         value: isStudent
                             ? "${student.batch} (${student.section})"
                             : teacher.designation ?? "",
                         icon: isStudent ? Icons.groups : Icons.work_outline,
                       ),
-                      profileRow(
+                      KProfileRow(
                         title: "Email",
-                        value: FirebaseHandler.auth.currentUser!.email!.trim() ?? "N/A",
+                        value: FirebaseHandler.auth.currentUser!.email!.trim(),
                         icon: Icons.email_outlined,
                       ),
                     ],
@@ -159,30 +156,5 @@ class _ProfileViewState extends State<ProfileView> {
     );
   }
 
-  Widget profileRow({required String title, required String value, required IconData icon}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          Icon(icon, color: Theme.of(context).colorScheme.primary),
-          const SizedBox(width: 8),
-          Text(
-            "$title: ",
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          Flexible(
-            child: Text(
-              value,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
-              textAlign: TextAlign.right,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 }

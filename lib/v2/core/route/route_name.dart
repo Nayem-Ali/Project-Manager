@@ -20,8 +20,8 @@ class RouteName{
   /// admin
   static const String adminHome = "/admin-home";
   static const String proposalSetting = "/proposal-setting";
-  static const String mangeAdmin = "/manage-admin";
-  static const String teacherRequest = "/teacher-request";
+  static const String manageAdmin = "/manage-admin";
+  static const String manageRequest = "/manage-request";
   static const String generateResult = "/generate-result";
 
   ///shared

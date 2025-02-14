@@ -108,7 +108,7 @@ class _TeamEvaluationState extends State<TeamEvaluation> {
                   labelText: "Search by Supervisor, Title, ID or Name",
                   suffixIcon: IconButton(
                     onPressed: () {
-                      List<ProposalModel> allProposals = _proposalController.allProposal;
+                      List<ProposalModel> allProposals = _proposalController.allProposal.value;
                       List<ProposalModel> searchResult = _evaluationController.searchTeams(
                         allProposals: allProposals,
                         searchKey: searchController.text.trim(),
@@ -124,31 +124,40 @@ class _TeamEvaluationState extends State<TeamEvaluation> {
               ),
             ),
             Flexible(
-              child: StreamBuilder(
-                stream: _settingController.getProposalSetting(),
-                builder: (context, snapshot) {
-
-                  if(snapshot.hasData){
-                    ProposalSettingModel setting =
-                    ProposalSettingModel.fromJson(snapshot.data?.data() ?? {});
-                    return setting.allowEvaluation!
-                        ? KTeamList(
-                      proposals: _proposalController.allProposal.value,
-                      routeName: RouteName.boardMarking,
-                      cse3300: cse3300.value,
-                      cse4800: cse4800.value,
-                      cse4801: cse4801.value,
-                      doesEvaluation: true,
-                    )
-                        : const Center(
-                      child: Text("Evaluation is not yet started"),
-                    );
-                  } else {
-                    return const SizedBox.shrink();
-                  }
-                },
+              child: KTeamList(
+                proposals: _proposalController.allProposal.value,
+                routeName: RouteName.boardMarking,
+                cse3300: cse3300.value,
+                cse4800: cse4800.value,
+                cse4801: cse4801.value,
+                doesEvaluation: true,
               ),
-            ),
+            )
+            // Flexible(
+            //   child: StreamBuilder(
+            //     stream: _settingController.getProposalSetting(),
+            //     builder: (context, snapshot) {
+            //       if (snapshot.hasData) {
+            //         ProposalSettingModel setting =
+            //             ProposalSettingModel.fromJson(snapshot.data?.data() ?? {});
+            //         return setting.allowEvaluation!
+            //             ? KTeamList(
+            //                 proposals: _proposalController.allProposal.value,
+            //                 routeName: RouteName.boardMarking,
+            //                 cse3300: cse3300.value,
+            //                 cse4800: cse4800.value,
+            //                 cse4801: cse4801.value,
+            //                 doesEvaluation: true,
+            //               )
+            //             : const Center(
+            //                 child: Text("Evaluation is not yet started"),
+            //               );
+            //       } else {
+            //         return const SizedBox.shrink();
+            //       }
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),

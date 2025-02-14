@@ -59,7 +59,9 @@ class ProposalController extends GetxController {
     bool request4800 = false,
   }) async {
     try {
+      debug("$cse3300 $cse4800 $cse4801");
       List<Map<String, String>>? rawData;
+      allProposal.clear();
       if (cse3300) {
         rawData = await proposalSheetAPI.cse3300!.values.map.allRows();
         allProposal.value = rawData == null

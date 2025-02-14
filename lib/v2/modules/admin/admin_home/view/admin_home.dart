@@ -39,17 +39,17 @@ class _AdminHomeState extends State<AdminHome> {
                   GridItem(
                     gridImage: IconsPath.manageAdminIcon,
                     gridText: "Manage Admin",
-                    onTap: () => Get.toNamed(RouteName.mangeAdmin),
+                    onTap: () => Get.toNamed(RouteName.manageAdmin),
                   ),
                   GridItem(
                     gridImage: IconsPath.teacherRequestIcon,
                     gridText: "Manage Request",
-                    onTap: () {},
+                    onTap: () => Get.toNamed(RouteName.manageRequest),
                   ),
                   GridItem(
                     gridImage: IconsPath.resultGenerationIcon,
                     gridText: "Generate Result",
-                    onTap: () {},
+                    onTap: () => Get.toNamed(RouteName.generateResult),
                   ),
                   GridItem(
                     gridImage: IconsPath.defenseSchedule,

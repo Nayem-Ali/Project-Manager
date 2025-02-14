@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/v2/core/utils/logger/logger.dart';
 import 'package:teamlead/v2/core/utils/validators/validators.dart';
+import 'package:teamlead/v2/modules/authentication/controller/user_controller.dart';
 import 'package:teamlead/v2/modules/student/proposal/model/proposal_model.dart';
 import 'package:teamlead/v2/modules/shared/marking/model/marking_model.dart';
 import 'package:teamlead/v2/modules/widgets/k_proposal_view.dart';
@@ -12,6 +13,8 @@ class Marking extends StatefulWidget {
 
   final ProposalModel proposal;
   final bool doesBoard;
+
+
 
   @override
   State<Marking> createState() => _MarkingState();
@@ -23,6 +26,7 @@ class _MarkingState extends State<Marking> {
   RxList<TextEditingController> criteria2 = RxList([]);
   RxList<bool> doesAbsent = RxList([]);
   RxList<double> totalMarks = RxList([]);
+  // final UserController _userController = Get.find<UserController>();
 
   @override
   void initState() {

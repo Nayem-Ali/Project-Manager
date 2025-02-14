@@ -2,7 +2,9 @@ import 'package:get/get.dart';
 import 'package:teamlead/v2/core/dl/dependency_injection.dart';
 import 'package:teamlead/v2/core/route/route_name.dart';
 import 'package:teamlead/v2/modules/admin/admin_home/view/admin_home.dart';
+import 'package:teamlead/v2/modules/admin/generate_result/view/generate_result.dart';
 import 'package:teamlead/v2/modules/admin/manage_admin/view/manage_admin.dart';
+import 'package:teamlead/v2/modules/admin/manage_request/view/manage_request.dart';
 import 'package:teamlead/v2/modules/admin/proposal_setting/view/proposal_setting.dart';
 import 'package:teamlead/v2/modules/authentication/view/info.dart';
 import 'package:teamlead/v2/modules/authentication/view/login.dart';
@@ -84,9 +86,19 @@ class AppRoute {
       page: () => const ProposalSetting(),
     ),
     GetPage(
-      name: RouteName.mangeAdmin,
+      name: RouteName.manageAdmin,
       page: () => const ManageAdmin(),
       binding: SetupServices()
+    ),
+    GetPage(
+        name: RouteName.manageRequest,
+        page: () => const ManageRequest(),
+        binding: SetupServices()
+    ),
+    GetPage(
+        name: RouteName.generateResult,
+        page: () => const GenerateResult(),
+        binding: SetupServices()
     ),
   ];
 }

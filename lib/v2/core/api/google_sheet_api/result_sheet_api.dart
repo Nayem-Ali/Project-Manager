@@ -16,9 +16,16 @@ class ResultSheetAPI {
   Future initialize() async {
     try {
       final spreadSheet = await resultSheets.spreadsheet(ResultCredentials.spreadsheetId);
-      result3300 = await getWorkSheet(spreadSheet, title: WorksheetTitles.cse3300);
-      result4800 = await getWorkSheet(spreadSheet, title: WorksheetTitles.cse4800);
-      result4801 = await getWorkSheet(spreadSheet, title: WorksheetTitles.cse4801);
+      final results = await Future.wait([
+        getWorkSheet(spreadSheet, title: WorksheetTitles.cse3300),
+        getWorkSheet(spreadSheet, title: WorksheetTitles.cse4800),
+        getWorkSheet(spreadSheet, title: WorksheetTitles.cse4801),
+      ]);
+
+      result3300 = results[0];
+      result4800 = results[1];
+      result4801 = results[2];
+
       final List<String> columnsTitles = ResultSheetColumns.getColumnsTitle();
       result3300!.values.insertRow(1, columnsTitles);
       result4800!.values.insertRow(1, columnsTitles);

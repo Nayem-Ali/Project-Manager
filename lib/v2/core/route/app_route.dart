@@ -3,9 +3,11 @@ import 'package:teamlead/v2/core/dl/dependency_injection.dart';
 import 'package:teamlead/v2/core/route/route_name.dart';
 import 'package:teamlead/v2/modules/admin/admin_home/view/admin_home.dart';
 import 'package:teamlead/v2/modules/admin/generate_result/view/generate_result.dart';
+import 'package:teamlead/v2/modules/admin/generate_schedule/view/generate_schedule.dart';
 import 'package:teamlead/v2/modules/admin/manage_admin/view/manage_admin.dart';
 import 'package:teamlead/v2/modules/admin/manage_request/view/manage_request.dart';
 import 'package:teamlead/v2/modules/admin/proposal_setting/view/proposal_setting.dart';
+import 'package:teamlead/v2/modules/admin/view_all_proposals/view_all_proposals.dart';
 import 'package:teamlead/v2/modules/authentication/view/info.dart';
 import 'package:teamlead/v2/modules/authentication/view/login.dart';
 import 'package:teamlead/v2/modules/shared/marking/view/marking.dart';
@@ -63,14 +65,22 @@ class AppRoute {
     ),
     GetPage(
       name: RouteName.boardMarking,
-      page: () => Marking(proposal: Get.arguments, doesBoard: true),
+      page: () => Marking(
+        proposal: Get.arguments[0],
+        course: Get.arguments[1],
+        doesBoard: true,
+        mark: Get.arguments[2],
+      ),
     ),
     GetPage(
       name: RouteName.supervisorMarking,
       page: () => Marking(
-        proposal: Get.arguments,
+        proposal: Get.arguments[0],
+        course: Get.arguments[1],
         doesBoard: false,
+        mark: Get.arguments[2],
       ),
+      binding: SetupServices(),
     ),
     GetPage(
       name: RouteName.myTeams,
@@ -86,19 +96,22 @@ class AppRoute {
       page: () => const ProposalSetting(),
     ),
     GetPage(
-      name: RouteName.manageAdmin,
-      page: () => const ManageAdmin(),
-      binding: SetupServices()
-    ),
+        name: RouteName.manageAdmin, page: () => const ManageAdmin(), binding: SetupServices()),
     GetPage(
         name: RouteName.manageRequest,
         page: () => const ManageRequest(),
-        binding: SetupServices()
-    ),
+        binding: SetupServices()),
     GetPage(
         name: RouteName.generateResult,
         page: () => const GenerateResult(),
-        binding: SetupServices()
-    ),
+        binding: SetupServices()),
+    GetPage(
+        name: RouteName.generateSchedule,
+        page: () => const GenerateSchedule(),
+        binding: SetupServices()),
+    GetPage(
+        name: RouteName.viewAllProposal,
+        page: () => const ViewAllProposal(),
+        binding: SetupServices()),
   ];
 }

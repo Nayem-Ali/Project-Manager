@@ -23,6 +23,8 @@ class RouteName{
   static const String manageAdmin = "/manage-admin";
   static const String manageRequest = "/manage-request";
   static const String generateResult = "/generate-result";
+  static const String generateSchedule = "/generate-schedule";
+  static const String viewAllProposal = "/view-all-proposal";
 
   ///shared
   static const String aboutUs = "/about-us";

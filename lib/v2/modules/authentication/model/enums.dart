@@ -8,4 +8,5 @@ enum RequestStatus{
   pending,
   approved,
   rejected,
+  removed,
 }

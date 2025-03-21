@@ -50,7 +50,7 @@ class ResultFormatting {
 
     // Iterate through proposals and add data
     for (OverAllMarkingModel mark in marks) {
-      for (IndividualGrade grade in mark.grades!) {
+      for (IndividualGrade grade in mark.grades) {
         int lastRow = sheet.getLastRow() + 1;
         sheet.getRangeByName('A$lastRow').setText("${mark.id ?? 0}");
         sheet.getRangeByName('B$lastRow').setText(mark.title ?? "");

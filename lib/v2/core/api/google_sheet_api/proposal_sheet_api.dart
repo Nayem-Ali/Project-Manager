@@ -20,12 +20,21 @@ class ProposalSheetAPI {
     try {
       final Spreadsheet spreadSheet =
           await proposalSheets.spreadsheet(ProposalCredentials.spreadsheetId);
-      cse3300 = await getWorkSheet(spreadSheet, title: WorksheetTitles.cse3300);
-      cse4800 = await getWorkSheet(spreadSheet, title: WorksheetTitles.cse4800);
-      cse4801 = await getWorkSheet(spreadSheet, title: WorksheetTitles.cse4801);
-      teamRequest3300 = await getWorkSheet(spreadSheet, title: WorksheetTitles.cse3300TeamRequest);
-      teamRequest4800 = await getWorkSheet(spreadSheet, title: WorksheetTitles.cse4800TeamRequest);
-      teamDistribution = await getWorkSheet(spreadSheet, title: WorksheetTitles.teamDistribution);
+      final worksheets = await Future.wait([
+        getWorkSheet(spreadSheet, title: WorksheetTitles.cse3300),
+        getWorkSheet(spreadSheet, title: WorksheetTitles.cse4800),
+        getWorkSheet(spreadSheet, title: WorksheetTitles.cse4801),
+        getWorkSheet(spreadSheet, title: WorksheetTitles.cse3300TeamRequest),
+        getWorkSheet(spreadSheet, title: WorksheetTitles.cse4800TeamRequest),
+        getWorkSheet(spreadSheet, title: WorksheetTitles.teamDistribution),
+      ]);
+
+      cse3300 = worksheets[0];
+      cse4800 = worksheets[1];
+      cse4801 = worksheets[2];
+      teamRequest3300 = worksheets[3];
+      teamRequest4800 = worksheets[4];
+      teamDistribution = worksheets[5];
       final List<String> columnsTitle = ProposalSheetColumns.getColumnsTitle();
       cse3300!.values.insertRow(1, columnsTitle);
       cse4800!.values.insertRow(1, columnsTitle);

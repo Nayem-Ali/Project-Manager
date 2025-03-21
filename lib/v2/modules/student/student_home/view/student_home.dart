@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -24,6 +25,7 @@ class StudentHome extends StatefulWidget {
 
 class _StudentHomeState extends State<StudentHome> {
   final ProposalSettingController _settingController = Get.find<ProposalSettingController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,86 +39,92 @@ class _StudentHomeState extends State<StudentHome> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Divider(),
-              StreamBuilder(
-                stream: _settingController.getProposalSetting(),
-                builder: (context, snapshot) {
-
-                  if (snapshot.hasData) {
-                    ProposalCredentialModel credential = ProposalCredentialModel.fromJson(
-                      snapshot.data?.data() ?? {},
-                    );
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.timelapse,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          "Deadline: ${DateFormat.yMMMEd().format(credential.deadline)} ${DateFormat.jm().format(credential.deadline)}",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(color: Colors.teal),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return const SizedBox.shrink();
-                  }
-                },
-              ),
-              const Divider(),
-              Flexible(
-                child: GridView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                  shrinkWrap: true,
-                  children: [
-                    GridItem(
-                      gridImage: IconsPath.viewDocsIcon,
-                      gridText: "View Proposal(s)",
-                      onTap: () => Get.toNamed(RouteName.viewProposal),
-                    ),
-                    GridItem(
-                      gridImage: IconsPath.submitDocsIcon,
-                      gridText: "Submit Proposal",
-                      onTap: () => Get.toNamed(RouteName.submitProposal, arguments: false),
-                    ),
-                    GridItem(
-                      gridImage: IconsPath.requestTeamIcon,
-                      gridText: "Team Request",
-                      onTap: () => Get.toNamed(RouteName.submitProposal, arguments: true),
-                    ),
-                    GridItem(
-                      gridImage: IconsPath.downloadIcon,
-                      gridText: "Get Proposal Template",
-                      onTap: () => LinkHandler.shareLink(Urls.templateUrl),
-                    ),
-                  ],
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Divider(),
+                StreamBuilder(
+                  stream: _settingController.getProposalSetting(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      ProposalCredentialModel credential = ProposalCredentialModel.fromJson(
+                        snapshot.data?.data() ?? {},
+                      );
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.timelapse,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            "Deadline: ${DateFormat.yMMMEd().format(credential.deadline)} ${DateFormat.jm().format(credential.deadline)}",
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(color: Colors.teal),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  },
                 ),
-              ),
-              const TextCard(
-                text: "Please make sure only one member from a team submit proposal.",
-                color: Colors.redAccent,
-              ),
-              const TextCard(
-                text: 'If you are unable to make a team, you can give your '
-                    'details by tapping on the "Team Request" button. Project Committee'
-                    ' will form a team for you.',
-                color: Colors.blueAccent,
-              ),
-              const TextCard(
-                text: "Get the download link of proposal template. If you don't have any.",
-                color: Colors.green,
-              )
-            ],
+                const Divider(),
+                SizedBox(
+                  width: kIsWeb ? 400 : Get.width,
+                  child: GridView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                    ),
+                    shrinkWrap: true,
+                    children: [
+                      GridItem(
+                        gridImage: IconsPath.viewDocsIcon,
+                        gridText: "View Proposal(s)",
+                        onTap: () => Get.toNamed(RouteName.viewProposal),
+                      ),
+                      GridItem(
+                        gridImage: IconsPath.submitDocsIcon,
+                        gridText: "Submit Proposal",
+                        onTap: () => Get.toNamed(RouteName.submitProposal, arguments: false),
+                      ),
+                      GridItem(
+                        gridImage: IconsPath.requestTeamIcon,
+                        gridText: "Team Request",
+                        onTap: () => Get.toNamed(RouteName.submitProposal, arguments: true),
+                      ),
+                      GridItem(
+                        gridImage: IconsPath.downloadIcon,
+                        gridText: "Get Proposal Template",
+                        onTap: () => LinkHandler.shareLink(Urls.templateUrl),
+                      ),
+                    ],
+                  ),
+                ),
+                const TextCard(
+                  text: "Please make sure only one member from a team submit proposal.",
+                  color: Colors.redAccent,
+                ),
+                const TextCard(
+                  text: 'If you are unable to make a team, you can give your '
+                      'details by tapping on the "Team Request" button. Project Committee'
+                      ' will form a team for you.',
+                  color: Colors.blueAccent,
+                ),
+                const TextCard(
+                  text: "Get the download link of proposal template. If you don't have any.",
+                  color: Colors.green,
+                )
+              ],
+            ),
           ),
         ),
       ),

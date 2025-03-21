@@ -4,17 +4,24 @@ import 'package:get/get.dart';
 import 'package:teamlead/v2/core/utils/logger/logger.dart';
 import 'package:teamlead/v2/core/utils/validators/validators.dart';
 import 'package:teamlead/v2/modules/authentication/controller/user_controller.dart';
+import 'package:teamlead/v2/modules/shared/marking/controller/marking_controller.dart';
 import 'package:teamlead/v2/modules/student/proposal/model/proposal_model.dart';
 import 'package:teamlead/v2/modules/shared/marking/model/marking_model.dart';
 import 'package:teamlead/v2/modules/widgets/k_proposal_view.dart';
 
 class Marking extends StatefulWidget {
-  const Marking({super.key, required this.proposal, required this.doesBoard});
+  const Marking({
+    super.key,
+    required this.proposal,
+    required this.doesBoard,
+    required this.course,
+    this.mark,
+  });
 
   final ProposalModel proposal;
   final bool doesBoard;
-
-
+  final String course;
+  final MarkingModel? mark;
 
   @override
   State<Marking> createState() => _MarkingState();
@@ -24,17 +31,28 @@ class _MarkingState extends State<Marking> {
   final _formKey = GlobalKey<FormState>();
   RxList<TextEditingController> criteria1 = RxList([]);
   RxList<TextEditingController> criteria2 = RxList([]);
+  RxList<TextEditingController> total = RxList([]);
   RxList<bool> doesAbsent = RxList([]);
   RxList<double> totalMarks = RxList([]);
-  // final UserController _userController = Get.find<UserController>();
+  String factor1 = "";
+  String factor2 = "";
+
+  final UserController _userController = Get.find<UserController>();
+  final MarkingController _markController = Get.find<MarkingController>();
 
   @override
   void initState() {
+    factor1 = widget.doesBoard ? "Problem Definition, Design & Viva" : "Technical";
+    factor2 = widget.doesBoard ? "Presentation, Testing & Report" : "Teamwork";
     for (int i = 0; i < widget.proposal.totalMembers!; i++) {
       doesAbsent.add(false);
       totalMarks.add(0);
-      criteria1.add(TextEditingController());
-      criteria2.add(TextEditingController());
+      criteria1.add(TextEditingController(
+          text: widget.mark == null ? "" : widget.mark?.marks[i].criteria1.toString()));
+      criteria2.add(TextEditingController(
+          text: widget.mark == null ? "" : widget.mark?.marks[i].criteria2.toString()));
+      total.add(TextEditingController(
+          text: widget.mark == null ? "" : widget.mark?.marks[i].total.toString()));
     }
     super.initState();
   }
@@ -46,18 +64,24 @@ class _MarkingState extends State<Marking> {
         title: Text("${widget.proposal.title}"),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: (){
-            Get.bottomSheet(
-              isScrollControlled: true,
-              KProposalView(proposal: widget.proposal)
-            );
-          }, icon: const Icon(Icons.remove_red_eye_outlined))
+          IconButton(
+              onPressed: () {
+                Get.bottomSheet(
+                    isScrollControlled: true, KProposalView(proposal: widget.proposal));
+              },
+              icon: const Icon(Icons.remove_red_eye_outlined))
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text("Criteria - 1: $factor1"),
+            const SizedBox(height: 5),
+            Text("Criteria - 2: $factor2"),
+            const SizedBox(height: 5),
             Flexible(
               child: Form(
                 key: _formKey,
@@ -80,30 +104,27 @@ class _MarkingState extends State<Marking> {
                               title: Text("${member.name}"),
                               subtitle: Text("${member.studentId}"),
                               trailing: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text("Marks as Absent"),
-                                  Flexible(
+                                  SizedBox(
+                                    height: 20,
                                     child: Switch(
                                       value: doesAbsent[index],
                                       onChanged: (value) {
                                         criteria1[index].text = "0";
                                         criteria2[index].text = "0";
                                         totalMarks[index] = 0;
+                                        total[index].text = "${totalMarks[index]}";
                                         doesAbsent[index] = value;
                                       },
                                     ),
-                                  )
+                                  ),
+                                  const Text("Marks as Absent"),
                                 ],
                               ),
                             ),
                           ),
-                          ListTile(
-                            title: Center(
-                              child: Text(
-                                  "Total marks obtained ${totalMarks[index]} out of ${widget
-                                      .doesBoard ? 60 : 40}"),
-                            ),
-                          ),
+                          const SizedBox(height: 20),
                           if (!doesAbsent[index])
                             Row(
                               children: [
@@ -115,6 +136,7 @@ class _MarkingState extends State<Marking> {
                                       totalMarks[index] =
                                           (double.tryParse(criteria1[index].text.trim()) ?? 0) +
                                               (double.tryParse(criteria2[index].text.trim()) ?? 0);
+                                      total[index].text = "${totalMarks[index]}";
                                     },
                                     decoration: const InputDecoration(
                                       border: OutlineInputBorder(),
@@ -134,6 +156,7 @@ class _MarkingState extends State<Marking> {
                                       totalMarks[index] =
                                           (double.tryParse(criteria1[index].text.trim()) ?? 0) +
                                               (double.tryParse(criteria2[index].text.trim()) ?? 0);
+                                      total[index].text = "${totalMarks[index]}";
                                     },
                                     keyboardType: TextInputType.number,
                                     decoration: const InputDecoration(
@@ -144,6 +167,19 @@ class _MarkingState extends State<Marking> {
                                     validator: widget.doesBoard
                                         ? Validators.defenseMarkValidator
                                         : Validators.supervisorMarkValidator,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Flexible(
+                                  child: TextFormField(
+                                    controller: total[index],
+                                    keyboardType: TextInputType.number,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      helperText: "",
+                                      hintText: "Total",
+                                    ),
+                                    readOnly: true,
                                   ),
                                 ),
                               ],
@@ -159,7 +195,7 @@ class _MarkingState extends State<Marking> {
               height: Get.height * 0.06,
               width: Get.width,
               child: ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     List<IndividualMark> marks = [];
                     for (int i = 0; i < widget.proposal.totalMembers!; i++) {
@@ -170,21 +206,27 @@ class _MarkingState extends State<Marking> {
                           criteria2: double.tryParse(criteria2[i].text.trim()) ?? 0,
                           total: totalMarks[i]));
                     }
-                    MarkingModel boardMark = MarkingModel(
+                    MarkingModel markingModel = MarkingModel(
                       proposalTitle: widget.proposal.title ?? "",
                       proposalId: widget.proposal.id ?? 0,
-                      evaluatedBy: "",
+                      evaluatedBy: _userController.teacher.value.initial!,
                       marks: marks,
                     );
-                    debug(boardMark.toJson());
+                    debug(markingModel.toJson());
                     // TODO: Send it to controller for adding firebase
+                    await _markController.addMark(
+                      markingModel: markingModel,
+                      doesBoard: widget.doesBoard,
+                      courseCode: widget.course,
+                    );
+                    BotToast.showText(text: "Mark is added successfully");
                   }
-                  // BotToast.showText(text: "Mark is added successfully");
+
                   // Get.back();
                 },
                 icon: const Icon(Icons.send),
                 label: Text(
-                  "Evaluate",
+                  widget.mark == null ? "Evaluate" : "Update",
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
                 ),
               ),

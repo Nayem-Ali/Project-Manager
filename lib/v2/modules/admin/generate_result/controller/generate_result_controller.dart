@@ -12,12 +12,12 @@ import 'package:teamlead/v2/core/database/firebase_db/firebase_handler.dart';
 import 'package:teamlead/v2/core/utils/data_formatting/result_fromatting.dart';
 import 'package:teamlead/v2/core/utils/logger/logger.dart';
 import 'package:teamlead/v2/modules/admin/generate_result/model/overall_marking_model.dart';
+import 'package:teamlead/v2/modules/shared/marking/model/marking_model.dart';
 import 'package:teamlead/v2/modules/student/proposal/model/proposal_model.dart';
 
 class GenerateResultController extends GetxController {
   final ResultSheetAPI _resultSheetAPI = Get.find<ResultSheetAPI>();
   final Workbook proposalBook = Workbook();
-  RxInt totalCompleted = 0.obs;
   RxList<OverAllMarkingModel> marks = RxList([]);
 
   Future<void> resultGeneration({required List<ProposalModel> proposals}) async {
@@ -62,63 +62,70 @@ class GenerateResultController extends GetxController {
     }
   }
 
+
   Future<void> generateResult({
     required List<ProposalModel> proposals,
     required String courseCode,
   }) async {
-    totalCompleted.value = 0;
     marks.clear();
-    for (int i = 0; i < proposals.length; i++) {
+
+    // Create a list of futures
+    List<Future<OverAllMarkingModel>> futureMarks = proposals.map((proposal) async {
       List<double>? boardMark = await defenseBoardAllMarks(
-        title: proposals[i].title!,
-        teamMembers: proposals[i].totalMembers!,
+        title: proposal.title!,
+        teamMembers: proposal.totalMembers!,
         courseCode: courseCode,
       );
-      // debug("Board mark: $boardMark");
+
       List<double>? markSupervisor = await supervisorMark(
-        title: proposals[i].title!,
+        title: proposal.title!,
         courseCode: courseCode,
       );
-      // debug("Supervisor: $markSupervisor");
+
       List<IndividualGrade> grades = [];
-      for (int j = 0; j < proposals[i].totalMembers!; j++) {
+      for (int j = 0; j < proposal.totalMembers!; j++) {
         IndividualGrade grade = IndividualGrade(
-          name: proposals[i].members![j].name!,
-          studentId: proposals[i].members![j].studentId!,
+          name: proposal.members![j].name!,
+          studentId: proposal.members![j].studentId!,
           boardMark: boardMark != null ? boardMark[j].toString() : "Not Evaluated",
           supervisorMark: markSupervisor != null ? markSupervisor[j].toString() : "Not Evaluated",
           total: boardMark == null || markSupervisor == null
               ? "-"
-              : "${boardMark[j] + markSupervisor[j]}",
+              : "${(boardMark[j] + markSupervisor[j]).ceil()}",
           grade: boardMark == null || markSupervisor == null
               ? "-"
-              : getGrade(totalMark: boardMark[j] + markSupervisor[j]),
+              : getGrade(totalMark: (boardMark[j] + markSupervisor[j]).ceil()),
           point: boardMark == null || markSupervisor == null
               ? "-"
-              : getPoint(totalMark: boardMark[j] + markSupervisor[j]),
+              : getPoint(totalMark: (boardMark[j] + markSupervisor[j]).ceil()),
         );
         grades.add(grade);
       }
+
       List<String> markedBy = await evaluatedBy(
-        title: proposals[i].title!,
+        title: proposal.title!,
         courseCode: courseCode,
       );
-      OverAllMarkingModel mark = OverAllMarkingModel(
-        id: proposals[i].id!,
-        title: proposals[i].title!,
-        totalMembers: proposals[i].totalMembers!,
+
+      return OverAllMarkingModel(
+        id: proposal.id!,
+        title: proposal.title!,
+        totalMembers: proposal.totalMembers!,
         evaluatedBy: markedBy.join(", "),
         grades: grades,
       );
-      marks.add(mark);
-      totalCompleted += 1;
-    }
-    // debug("Marks ${marks.value}");
+    }).toList(); // Convert Iterable to List
+
+    // Run all futures concurrently and wait for completion
+    marks.value = await Future.wait(futureMarks);
+
+
     if (marks.isNotEmpty) {
       generateExcelSheet(courseCode: courseCode);
       BotToast.showText(text: "Result Generation Completed for $courseCode");
     }
   }
+
 
   Future<List<String>> evaluatedBy({
     required String title,
@@ -128,7 +135,7 @@ class GenerateResultController extends GetxController {
       final querySnapshot = await FirebaseHandler.fireStore
           .collection(courseCode)
           .doc(title)
-          .collection(CollectionName.evaluationData)
+          .collection(CollectionName.boardMark)
           .get();
 
       final List<String> evaluated = querySnapshot.docs.map((doc) => doc.id).toList();
@@ -147,24 +154,25 @@ class GenerateResultController extends GetxController {
       final data = await FirebaseHandler.fireStore
           .collection(courseCode)
           .doc(title)
-          .collection(CollectionName.evaluationData)
+          .collection(CollectionName.boardMark)
           .get();
 
       if (data.docs.isNotEmpty) {
         List<double> averageMark = [];
-
         for (int i = 0; i < teamMembers; i++) {
           averageMark.add(0);
         }
         for (QueryDocumentSnapshot<Map<String, dynamic>> doc in data.docs) {
-          for (int i = 1; i < doc.data()['data'].length; i++) {
-            averageMark[i - 1] += doc.data()['data'][i]['criteria1'];
-            averageMark[i - 1] += doc.data()['data'][i]['criteria2'];
+          MarkingModel boardMarks = MarkingModel.fromJson(doc.data());
+
+          for (int i=0; i<boardMarks.marks.length; i++) {
+            averageMark[i] += boardMarks.marks[i].total;
           }
         }
         for (int i = 0; i < teamMembers; i++) {
           averageMark[i] = (averageMark[i] / data.docs.length).toPrecision(2);
         }
+        debug("Average Mark:$averageMark");
         return averageMark;
       }
     } catch (e) {
@@ -185,11 +193,14 @@ class GenerateResultController extends GetxController {
           .get();
 
       if (data.docs.isNotEmpty) {
-        List<dynamic> rawData = data.docs[0].data()['data'];
-
-        List<double> k = rawData.map((e) => double.parse(e['total'].toString())).toList();
+        MarkingModel supervisorMark = MarkingModel.fromJson(data.docs.first.data());
         // debug(k);
-        return k;
+        List<double> marksObtained = [];
+        for(IndividualMark mark in supervisorMark.marks){
+          marksObtained.add(mark.total);
+        }
+        debug("Supervisor Mark $marksObtained");
+        return marksObtained;
       }
     } catch (e) {
       debug("$e No supervisor mark found");
@@ -210,7 +221,7 @@ class GenerateResultController extends GetxController {
     await Share.shareXFiles([xFile], text: 'Here is your Excel file!');
   }
 
-  String getGrade({required double totalMark}) {
+  String getGrade({required int totalMark}) {
     if (totalMark >= 80) {
       return 'A+';
     } else if (totalMark >= 75 && totalMark <= 79) {
@@ -234,7 +245,7 @@ class GenerateResultController extends GetxController {
     }
   }
 
-  String getPoint({required double totalMark}) {
+  String getPoint({required int totalMark}) {
     if (totalMark >= 80) {
       return '4.00';
     } else if (totalMark >= 75 && totalMark <= 79) {

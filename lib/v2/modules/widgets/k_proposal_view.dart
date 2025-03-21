@@ -1,5 +1,7 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:teamlead/v2/modules/student/proposal/model/proposal_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class KProposalView extends StatelessWidget {
   final ProposalModel proposal;
@@ -59,8 +61,13 @@ class KProposalView extends StatelessWidget {
             // Proposal Drive Link
             if (proposal.proposal != null && proposal.proposal!.isNotEmpty)
               GestureDetector(
-                onTap: () {
-                  // TODO: Handle opening the proposal link
+                onTap: () async {
+                  Uri proposalUrl = Uri.parse(proposal.proposal ?? "");
+                  try{
+                    await launchUrl(proposalUrl);
+                  } catch(e){
+                    BotToast.showText(text: "Something Went Wrong!");
+                  }
                 },
                 child: Text(
                   "Proposal Link: ${proposal.proposal}",

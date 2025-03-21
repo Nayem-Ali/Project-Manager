@@ -5,7 +5,7 @@ class ProposalModel {
   int? id;
   String? title;
   String? proposal;
-  List<String>? preference;
+  String? preference;
   List<Member>? members;
   int? totalMembers;
   String? supervisor;
@@ -26,7 +26,7 @@ class ProposalModel {
       title: json['title'] ?? '',
       proposal: json['proposal'] ?? '',
       preference:
-          json['preference'] != null ? List<String>.from(json['preference'] as List<dynamic>) : [],
+          json['preference'] ?? '',
       members: json['members'] != null
           ? (json['members'] as List<dynamic>)
               .map((member) => Member.fromJson(member as Map<String, dynamic>))
@@ -76,7 +76,7 @@ class ProposalModel {
         title: rowData[ProposalSheetColumns.title] ?? "No title found",
         supervisor: rowData[ProposalSheetColumns.supervisor] ?? "Not Assigned",
         proposal: rowData[ProposalSheetColumns.link] ?? "No Document Link Found",
-        preference: rowData[ProposalSheetColumns.preference]?.split(',') ?? [],
+        preference: rowData[ProposalSheetColumns.preference] ?? "No Preference",
         totalMembers: int.tryParse(rowData[ProposalSheetColumns.members] ?? "0") ?? 0,
         members: memberExtractionLogic(
           name: rowData[ProposalSheetColumns.name] ?? '',

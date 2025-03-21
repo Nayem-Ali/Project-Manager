@@ -166,6 +166,9 @@ class _ManageAdminState extends State<ManageAdmin> {
                             ),
                           );
                         }
+                        teachers.sort((a, b) {
+                          return a.name!.toLowerCase().compareTo(b.name!.toLowerCase());
+                        });
                         return Column(
                           children: [
                             Flexible(
@@ -176,66 +179,88 @@ class _ManageAdminState extends State<ManageAdmin> {
                                     return const SizedBox.shrink();
                                   }
                                   return Card(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Colors.greenAccent.shade100,
-                                            Colors.teal.shade200
-                                          ],
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
-                                        ),
+                                    child: ExpansionTile(
+                                      title: Text(
+                                        "${teachers[index].name} (${teachers[index].initial})",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
                                       ),
-                                      child: ListTile(
-                                        title: Text(
-                                          "${teachers[index].name} (${teachers[index].initial})",
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                        ),
-                                        subtitle: Text("${teachers[index].email}"),
-                                        trailing: SuperAdmins.superAdmins
-                                                .contains(_userController.teacher.value.email)
-                                            ? IconButton(
-                                                onPressed: () {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return AlertDialog(
-                                                        title: const Text("Acknowledgement"),
-                                                        content: Text(
-                                                            "Are you sure to add ${teachers[index].name} as admin"),
-                                                        actionsAlignment: MainAxisAlignment.center,
-                                                        actions: [
-                                                          ElevatedButton(
+                                      subtitle: Text("${teachers[index].email}"),
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      title: const Text("Acknowledgement"),
+                                                      content: Text(
+                                                          "Are you sure to add ${teachers[index].name} as admin"),
+                                                      actionsAlignment: MainAxisAlignment.center,
+                                                      actions: [
+                                                        ElevatedButton(
+                                                          onPressed: () {
+                                                            teachers[index].role = Roles.admin;
+                                                            _manageAdmin.updateRole(
+                                                                newAdmin: teachers[index]);
+                                                            Get.back();
+                                                          },
+                                                          child: const Text("YES"),
+                                                        ),
+                                                        ElevatedButton(
                                                             onPressed: () {
-                                                              teachers[index].role = Roles.admin;
-                                                              _manageAdmin.updateRole(
-                                                                  newAdmin: teachers[index]);
                                                               Get.back();
                                                             },
-                                                            child: const Text("YES"),
-                                                          ),
-                                                          ElevatedButton(
-                                                              onPressed: () {
-                                                                Get.back();
-                                                              },
-                                                              child: const Text("NO")),
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                                icon: const CircleAvatar(
-                                                  backgroundColor: Colors.white,
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    color: Colors.green,
-                                                  ),
-                                                ),
-                                              )
-                                            : const SizedBox.shrink(),
-                                      ),
+                                                            child: const Text("NO")),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              child: const Text("Appoint as Admin"),
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      title: const Text("Acknowledgement"),
+                                                      content: Text("Are you sure to remove "
+                                                          "${teachers[index].name} from Teacher"),
+                                                      actionsAlignment: MainAxisAlignment.center,
+                                                      actions: [
+                                                        ElevatedButton(
+                                                          onPressed: () {
+                                                            teachers[index].status =
+                                                                RequestStatus.removed;
+                                                            _manageAdmin.updateRole(
+                                                                newAdmin: teachers[index]);
+                                                            Get.back();
+                                                          },
+                                                          child: const Text("YES"),
+                                                        ),
+                                                        ElevatedButton(
+                                                            onPressed: () {
+                                                              Get.back();
+                                                            },
+                                                            child: const Text("NO")),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.redAccent,
+                                              ),
+                                              child: const Text("Remove from Faculty"),
+                                            ),
+                                          ],
+                                        )
+                                      ],
                                     ),
                                   );
                                 },

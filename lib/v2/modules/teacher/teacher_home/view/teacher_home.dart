@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/v2/core/route/route_name.dart';
@@ -25,14 +26,14 @@ class _TeacherHomeState extends State<TeacherHome> {
         title: const Text("Project Manager"),
         centerTitle: true,
         actions: [
-          widget.teacher.role == Roles.admin
-              ? IconButton(
-                  onPressed: () {
-                    Get.toNamed(RouteName.adminHome);
-                  },
-                  icon: const Icon(Icons.admin_panel_settings),
-                )
-              : const SizedBox.shrink()
+          // widget.teacher.role == Roles.admin ?
+          IconButton(
+            onPressed: () {
+              Get.toNamed(RouteName.adminHome);
+            },
+            icon: const Icon(Icons.admin_panel_settings),
+          )
+          // : const SizedBox.shrink()
         ],
       ),
       drawer: Drawer(
@@ -40,39 +41,62 @@ class _TeacherHomeState extends State<TeacherHome> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            const UniversityLogo(),
-            Flexible(
-              child: GridView(
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                shrinkWrap: true,
-                children: [
-                  GridItem(
-                    gridImage: IconsPath.myTeamsIcon,
-                    gridText: "My Teams",
-                    onTap: () => Get.toNamed(RouteName.myTeams),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const UniversityLogo(),
+              SizedBox(
+                width: kIsWeb ? 400 : Get.width,
+                child: GridView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    childAspectRatio: 1.75,
                   ),
-                  GridItem(
-                    gridImage: IconsPath.teamEvaluationIcon,
-                    gridText: "Team Evaluation",
-                    onTap: () => Get.toNamed(RouteName.allTeams),
-                  ),
-                  GridItem(
-                    gridImage: IconsPath.defenseSchedule,
-                    gridText: "Defense Schedule",
-                    onTap: () {},
-                  ),
-                  GridItem(
-                    gridImage: IconsPath.announcement,
-                    gridText: "Announcement",
-                    onTap: () {},
-                  ),
-                ],
+                  shrinkWrap: true,
+                  children: [
+                    GridItem(
+                      gridImage: IconsPath.myTeamsIcon,
+                      gridText: "My Teams",
+                      onTap: () => Get.toNamed(RouteName.myTeams),
+                    ),
+                    GridItem(
+                      gridImage: IconsPath.teamEvaluationIcon,
+                      gridText: "Team Evaluation",
+                      onTap: () => Get.toNamed(RouteName.allTeams),
+                    ),
+                    // GridItem(
+                    //   gridImage: IconsPath.viewDocsIcon,
+                    //   gridText: "View Proposals",
+                    //   onTap: () {},
+                    // ),
+                    // GridItem(
+                    //   gridImage: IconsPath.announcement,
+                    //   gridText: "Announcement",
+                    //   onTap: () {},
+                    // ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 10),
+              Text(
+                "Project Committee",
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium
+                    ?.copyWith(color: Theme.of(context).colorScheme.primary),
+              ),
+              Text(
+                "Department of CSE",
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium
+                    ?.copyWith(color: Theme.of(context).colorScheme.primary),
+              ),
+            ],
+          ),
         ),
       ),
     );

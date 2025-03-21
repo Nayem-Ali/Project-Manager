@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/v2/modules/admin/manage_request/controller/manage_request_controller.dart';
@@ -31,26 +29,29 @@ class _ManageRequestState extends State<ManageRequest> {
         () => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                OptionButton(
-                  onPressed: () {
-                    doesPending.value = true;
-                    doesRejected.value = false;
-                  },
-                  optionName: "PENDING",
-                  doesFocus: doesPending.value,
-                ),
-                OptionButton(
-                  onPressed: () {
-                    doesPending.value = false;
-                    doesRejected.value = true;
-                  },
-                  optionName: "REJECTED",
-                  doesFocus: doesRejected.value,
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  OptionButton(
+                    onPressed: () {
+                      doesPending.value = true;
+                      doesRejected.value = false;
+                    },
+                    optionName: "PENDING",
+                    doesFocus: doesPending.value,
+                  ),
+                  OptionButton(
+                    onPressed: () {
+                      doesPending.value = false;
+                      doesRejected.value = true;
+                    },
+                    optionName: "REJECTED",
+                    doesFocus: doesRejected.value,
+                  ),
+                ],
+              ),
             ),
             Expanded(
               child: StreamBuilder(
@@ -81,7 +82,6 @@ class _ManageRequestState extends State<ManageRequest> {
                       itemCount: teachers.length,
                       itemBuilder: (context, index) {
                         TeacherModel request = teachers[index];
-
                         return Card(
                           margin: const EdgeInsets.symmetric(vertical: 8.0),
                           elevation: 3,

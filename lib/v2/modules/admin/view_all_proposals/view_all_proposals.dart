@@ -1,26 +1,25 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teamlead/v2/core/route/route_name.dart';
 import 'package:teamlead/v2/modules/authentication/controller/user_controller.dart';
 import 'package:teamlead/v2/modules/student/proposal/controller/proposal_controller.dart';
+import 'package:teamlead/v2/modules/student/proposal/model/proposal_model.dart';
+import 'package:teamlead/v2/modules/widgets/k_proposal_view.dart';
 import 'package:teamlead/v2/modules/widgets/k_option_button.dart';
 import 'package:teamlead/v2/modules/widgets/k_team_list.dart';
 
-class MyTeams extends StatefulWidget {
-  const MyTeams({super.key});
+class ViewAllProposal extends StatefulWidget {
+  const ViewAllProposal({super.key});
 
   @override
-  State<MyTeams> createState() => _MyTeamsState();
+  State<ViewAllProposal> createState() => _ViewAllProposalState();
 }
 
-class _MyTeamsState extends State<MyTeams> {
-  RxBool cse3300 = RxBool(true);
-  RxBool cse4800 = RxBool(false);
-  RxBool cse4801 = RxBool(false);
-
-  final ProposalController _proposalController = Get.find<ProposalController>();
-  final UserController _userController = Get.find<UserController>();
+class _ViewAllProposalState extends State<ViewAllProposal> {
+  Rx<bool> cse3300 = Rx<bool>(true);
+  Rx<bool> cse4800 = Rx<bool>(false);
+  Rx<bool> cse4801 = Rx<bool>(false);
+  final _proposalController = Get.find<ProposalController>();
 
   @override
   void initState() {
@@ -36,16 +35,17 @@ class _MyTeamsState extends State<MyTeams> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Teams"),
+        title: const Text("Proposals"),
         centerTitle: true,
       ),
       body: Obx(
         () => Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   OptionButton(
                     onPressed: () async {
@@ -86,19 +86,42 @@ class _MyTeamsState extends State<MyTeams> {
                 ],
               ),
             ),
-            Flexible(
-              child: KTeamList(
-                proposals: _proposalController.allProposal
-                    .where(
-                        (proposal) => proposal.supervisor == _userController.teacher.value.initial)
-                    .toList(),
-                routeName: RouteName.supervisorMarking,
-                doesBoard: false,
-                cse3300: cse3300.value,
-                cse4800: cse4800.value,
-                cse4801: cse4801.value,
-              ),
-            ),
+            if (_proposalController.allProposal.isNotEmpty)
+              Flexible(
+                child: ListView.builder(
+                  itemCount: _proposalController.allProposal.length,
+                  itemBuilder: (context, index) {
+                    ProposalModel proposal = _proposalController.allProposal[index];
+                    return Card(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.green.shade100, Colors.teal.shade200],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                        ),
+                        child: ExpansionTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            child: Text(
+                              "${proposal.id}",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ),
+                          title:  Text("${proposal.title}"),
+                          children: [KProposalView(proposal: proposal)],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              )
+            else
+              SizedBox(
+                height: Get.height * 0.8,
+                child: const Center(child: Text("No Data Found")),
+              )
           ],
         ),
       ),

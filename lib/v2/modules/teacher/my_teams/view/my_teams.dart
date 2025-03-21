@@ -42,56 +42,58 @@ class _MyTeamsState extends State<MyTeams> {
       body: Obx(
         () => Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                OptionButton(
-                  onPressed: () async {
-                    cse3300.value = true;
-                    cse4800.value = false;
-                    cse4801.value = false;
-                    BotToast.showLoading();
-                    await _proposalController.fetchAllProposals(cse3300: cse3300.value);
-                    BotToast.closeAllLoading();
-                  },
-                  optionName: "CSE-3300",
-                  doesFocus: cse3300.value,
-                ),
-                OptionButton(
-                  onPressed: () async {
-                    cse3300.value = false;
-                    cse4800.value = true;
-                    cse4801.value = false;
-                    BotToast.showLoading();
-                    await _proposalController.fetchAllProposals(cse4800: cse4800.value);
-                    BotToast.closeAllLoading();
-                  },
-                  optionName: "CSE-4800",
-                  doesFocus: cse4800.value,
-                ),
-                OptionButton(
-                  onPressed: () async {
-                    cse3300.value = false;
-                    cse4800.value = false;
-                    cse4801.value = true;
-                    BotToast.showLoading();
-                    await _proposalController.fetchAllProposals(cse4801: cse4801.value);
-                    BotToast.closeAllLoading();
-                  },
-                  optionName: "CSE-4801",
-                  doesFocus: cse4801.value,
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  OptionButton(
+                    onPressed: () async {
+                      cse3300.value = true;
+                      cse4800.value = false;
+                      cse4801.value = false;
+                      BotToast.showLoading();
+                      await _proposalController.fetchAllProposals(cse3300: cse3300.value);
+                      BotToast.closeAllLoading();
+                    },
+                    optionName: "CSE-3300",
+                    doesFocus: cse3300.value,
+                  ),
+                  OptionButton(
+                    onPressed: () async {
+                      cse3300.value = false;
+                      cse4800.value = true;
+                      cse4801.value = false;
+                      BotToast.showLoading();
+                      await _proposalController.fetchAllProposals(cse4800: cse4800.value);
+                      BotToast.closeAllLoading();
+                    },
+                    optionName: "CSE-4800",
+                    doesFocus: cse4800.value,
+                  ),
+                  OptionButton(
+                    onPressed: () async {
+                      cse3300.value = false;
+                      cse4800.value = false;
+                      cse4801.value = true;
+                      BotToast.showLoading();
+                      await _proposalController.fetchAllProposals(cse4801: cse4801.value);
+                      BotToast.closeAllLoading();
+                    },
+                    optionName: "CSE-4801",
+                    doesFocus: cse4801.value,
+                  ),
+                ],
+              ),
             ),
             Flexible(
               child: KTeamList(
-                /// TODO: MAKE SUPERVISOR INITIAL DYNAMIC
                 proposals: _proposalController.allProposal
                     .where(
                         (proposal) => proposal.supervisor == _userController.teacher.value.initial)
                     .toList(),
                 routeName: RouteName.supervisorMarking,
-                doesEvaluation: false,
+                doesBoard: false,
                 cse3300: cse3300.value,
                 cse4800: cse4800.value,
                 cse4801: cse4801.value,

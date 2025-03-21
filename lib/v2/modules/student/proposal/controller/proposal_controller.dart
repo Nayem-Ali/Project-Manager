@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/v2/core/api/google_sheet_api/proposal_sheet_api.dart';
@@ -6,8 +7,10 @@ import 'package:teamlead/v2/core/database/firebase_db/collection_name.dart';
 import 'package:teamlead/v2/core/database/firebase_db/document_name.dart';
 import 'package:teamlead/v2/core/database/firebase_db/firebase_handler.dart';
 import 'package:teamlead/v2/core/utils/logger/logger.dart';
-import 'package:teamlead/v2/modules/student/home/model/proposal_credential_model.dart';
+import 'package:teamlead/v2/modules/authentication/model/enums.dart';
+import 'package:teamlead/v2/modules/authentication/model/teacher_model.dart';
 import 'package:teamlead/v2/modules/student/proposal/model/proposal_model.dart';
+import 'package:teamlead/v2/modules/student/student_home/model/proposal_credential_model.dart';
 
 class ProposalController extends GetxController {
   Rx<ProposalModel> proposal = Rx<ProposalModel>(ProposalModel());
@@ -59,9 +62,12 @@ class ProposalController extends GetxController {
     bool request4800 = false,
   }) async {
     try {
+      debug("$cse3300 $cse4800 $cse4801");
       List<Map<String, String>>? rawData;
+      allProposal.clear();
       if (cse3300) {
         rawData = await proposalSheetAPI.cse3300!.values.map.allRows();
+        // debug(rawData);
         allProposal.value = rawData == null
             ? []
             : rawData.map((proposal) => ProposalModel.fromColumn(proposal)).toList();
@@ -126,13 +132,27 @@ class ProposalController extends GetxController {
   }
 
   checkDeadlineStatus() async {
-     final credential = await FirebaseHandler.fireStore
+    final credential = await FirebaseHandler.fireStore
         .collection(CollectionName.admin)
-        .doc(DocumentName.credential).get();
-     final credentialModel = ProposalCredentialModel.fromJson(credential.data() ?? {});
-     doesDeadlineOver.value = credentialModel.deadline.isBefore(DateTime.now());
-     debug("Deadline status: ${doesDeadlineOver.value}");
+        .doc(DocumentName.credential)
+        .get();
+    final credentialModel = ProposalCredentialModel.fromJson(credential.data() ?? {});
+    doesDeadlineOver.value = credentialModel.deadline.isBefore(DateTime.now());
+    debug("Deadline status: ${doesDeadlineOver.value}");
   }
 
-
+  Future<List<String>> getAllTeachersInitial() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> allTeacherData = await FirebaseHandler.fireStore
+          .collection(CollectionName.teacher)
+          .where('status', isEqualTo: RequestStatus.approved.name)
+          .get();
+      List<TeacherModel> teachers =
+          allTeacherData.docs.map((teacher) => TeacherModel.fromJson(teacher.data())).toList();
+      return teachers.map((e) => e.initial ?? "").toSet().toList();
+    } catch (e) {
+      debug(e);
+    }
+    return [];
+  }
 }

@@ -20,6 +20,7 @@ class GridItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
+        color: Colors.teal.shade50,
         elevation: 4,
         child: Container(
           margin: const EdgeInsets.all(8.0),
@@ -40,6 +41,9 @@ class GridItem extends StatelessWidget {
                 Text(
                   gridText,
                   textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
               ],
             ),

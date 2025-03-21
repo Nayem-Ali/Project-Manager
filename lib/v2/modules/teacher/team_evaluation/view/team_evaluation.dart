@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teamlead/v2/core/route/route_name.dart';
 import 'package:teamlead/v2/core/utils/logger/logger.dart';
+import 'package:teamlead/v2/modules/admin/proposal_setting/controller/proposal_setting_controller.dart';
+import 'package:teamlead/v2/modules/admin/proposal_setting/model/proposal_setting_model.dart';
 import 'package:teamlead/v2/modules/student/proposal/controller/proposal_controller.dart';
 import 'package:teamlead/v2/modules/student/proposal/model/proposal_model.dart';
 import 'package:teamlead/v2/modules/teacher/team_evaluation/controller/team_evaluation_controller.dart';
@@ -22,6 +24,7 @@ class _TeamEvaluationState extends State<TeamEvaluation> {
   RxBool cse4801 = RxBool(false);
   final ProposalController _proposalController = Get.find<ProposalController>();
   final TeamEvaluationController _evaluationController = Get.find<TeamEvaluationController>();
+  final ProposalSettingController _settingController = Get.find<ProposalSettingController>();
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -44,46 +47,49 @@ class _TeamEvaluationState extends State<TeamEvaluation> {
       body: Obx(
         () => Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                OptionButton(
-                  onPressed: () async {
-                    cse3300.value = true;
-                    cse4800.value = false;
-                    cse4801.value = false;
-                    BotToast.showLoading();
-                    await _proposalController.fetchAllProposals(cse3300: cse3300.value);
-                    BotToast.closeAllLoading();
-                  },
-                  optionName: "CSE-3300",
-                  doesFocus: cse3300.value,
-                ),
-                OptionButton(
-                  onPressed: () async {
-                    cse3300.value = false;
-                    cse4800.value = true;
-                    cse4801.value = false;
-                    BotToast.showLoading();
-                    await _proposalController.fetchAllProposals(cse4800: cse4800.value);
-                    BotToast.closeAllLoading();
-                  },
-                  optionName: "CSE-4800",
-                  doesFocus: cse4800.value,
-                ),
-                OptionButton(
-                  onPressed: () async {
-                    cse3300.value = false;
-                    cse4800.value = false;
-                    cse4801.value = true;
-                    BotToast.showLoading();
-                    await _proposalController.fetchAllProposals(cse4801: cse4801.value);
-                    BotToast.closeAllLoading();
-                  },
-                  optionName: "CSE-4801",
-                  doesFocus: cse4801.value,
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  OptionButton(
+                    onPressed: () async {
+                      cse3300.value = true;
+                      cse4800.value = false;
+                      cse4801.value = false;
+                      BotToast.showLoading();
+                      await _proposalController.fetchAllProposals(cse3300: cse3300.value);
+                      BotToast.closeAllLoading();
+                    },
+                    optionName: "CSE-3300",
+                    doesFocus: cse3300.value,
+                  ),
+                  OptionButton(
+                    onPressed: () async {
+                      cse3300.value = false;
+                      cse4800.value = true;
+                      cse4801.value = false;
+                      BotToast.showLoading();
+                      await _proposalController.fetchAllProposals(cse4800: cse4800.value);
+                      BotToast.closeAllLoading();
+                    },
+                    optionName: "CSE-4800",
+                    doesFocus: cse4800.value,
+                  ),
+                  OptionButton(
+                    onPressed: () async {
+                      cse3300.value = false;
+                      cse4800.value = false;
+                      cse4801.value = true;
+                      BotToast.showLoading();
+                      await _proposalController.fetchAllProposals(cse4801: cse4801.value);
+                      BotToast.closeAllLoading();
+                    },
+                    optionName: "CSE-4801",
+                    doesFocus: cse4801.value,
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -105,7 +111,7 @@ class _TeamEvaluationState extends State<TeamEvaluation> {
                   labelText: "Search by Supervisor, Title, ID or Name",
                   suffixIcon: IconButton(
                     onPressed: () {
-                      List<ProposalModel> allProposals = _proposalController.allProposal;
+                      List<ProposalModel> allProposals = _proposalController.allProposal.value;
                       List<ProposalModel> searchResult = _evaluationController.searchTeams(
                         allProposals: allProposals,
                         searchKey: searchController.text.trim(),
@@ -127,9 +133,34 @@ class _TeamEvaluationState extends State<TeamEvaluation> {
                 cse3300: cse3300.value,
                 cse4800: cse4800.value,
                 cse4801: cse4801.value,
-                doesEvaluation: true,
+                doesBoard: true,
               ),
-            ),
+            )
+            // Flexible(
+            //   child: StreamBuilder(
+            //     stream: _settingController.getProposalSetting(),
+            //     builder: (context, snapshot) {
+            //       if (snapshot.hasData) {
+            //         ProposalSettingModel setting =
+            //             ProposalSettingModel.fromJson(snapshot.data?.data() ?? {});
+            //         return setting.allowEvaluation!
+            //             ? KTeamList(
+            //                 proposals: _proposalController.allProposal.value,
+            //                 routeName: RouteName.boardMarking,
+            //                 cse3300: cse3300.value,
+            //                 cse4800: cse4800.value,
+            //                 cse4801: cse4801.value,
+            //                 doesEvaluation: true,
+            //               )
+            //             : const Center(
+            //                 child: Text("Evaluation is not yet started"),
+            //               );
+            //       } else {
+            //         return const SizedBox.shrink();
+            //       }
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -48,4 +48,3 @@ class DefaultFirebaseOptions {
     projectId: "project-manager-4cea3",
   );
 }
-

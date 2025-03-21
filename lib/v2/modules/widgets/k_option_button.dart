@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:teamlead/v2/core/utils/logger/logger.dart';
 
 class OptionButton extends StatelessWidget {
@@ -11,16 +12,18 @@ class OptionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 4.0),
-      child: OutlinedButton(
-        onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
-          backgroundColor: doesFocus
-              ? Theme.of(context).focusColor.withGreen(255)
-              : Colors.transparent,
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 4.0),
+        child: OutlinedButton(
+          onPressed: onPressed,
+          style: OutlinedButton.styleFrom(
+            backgroundColor: doesFocus
+                ? Theme.of(context).focusColor.withGreen(255)
+                : Colors.transparent,
+          ),
+          child: Text(optionName),
         ),
-        child: Text(optionName),
       ),
     );
   }

@@ -6,7 +6,6 @@ class Validators {
   static final numberRegex = RegExp(r"^(?:\+?88)?01[3-9]\d{8}$");
   static final cgpaRegex = RegExp(r"^(4\.00|[1-3]\.\d{2}|1\.00)$");
 
-  // Name Validator
   static String? nameValidator(String? name) {
     if (name!.trim().isEmpty) {
       return "Enter Name";
@@ -17,7 +16,6 @@ class Validators {
     }
   }
 
-  // Student ID Validator
   static String? idValidation(String? id) {
     if (id!.trim().isEmpty) {
       return "Enter Student ID";
@@ -28,7 +26,6 @@ class Validators {
     }
   }
 
-  // Teacher Initial Validator
   static String? initialValidator(String? initial) {
     if (initial!.trim().isEmpty) {
       return "Enter Initial";
@@ -39,7 +36,6 @@ class Validators {
     }
   }
 
-  // Email Validator
   static String? emailValidator(String? email) {
     if (email!.trim().isEmpty) {
       return "Enter Email";
@@ -50,7 +46,6 @@ class Validators {
     }
   }
 
-  // Bangladeshi Mobile Number Validator
   static String? numberValidator(String? number) {
     if (number!.trim().isEmpty) {
       return "Enter Mobile Number";
@@ -61,7 +56,6 @@ class Validators {
     }
   }
 
-  // CGPA Validator (Scale 1.00 to 4.00)
   static String? cgpaValidator(String? cgpa) {
     if (cgpa!.trim().isEmpty) {
       return "Enter CGPA";

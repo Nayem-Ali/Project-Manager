@@ -5,8 +5,8 @@ class RouteName{
 
   /// student
   static const studentHome = "/student-home";
+  static const viewProposal = "/view-proposal";
   static const submitProposal = "/submit-proposal";
-  static const teamRequest = "/team-request";
 
   /// teacher
   static const teacherHome = "/teacher-home";
@@ -24,7 +24,6 @@ class RouteName{
   static const teacherRequest = "/teacher-request";
   static const generateResult = "/generate-result";
 
-  /// shared
-  static const viewProposal = "/view-proposal";
+
 
 }

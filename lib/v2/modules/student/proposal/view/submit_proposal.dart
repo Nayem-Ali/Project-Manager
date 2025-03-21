@@ -10,7 +10,7 @@ import 'package:teamlead/v2/modules/student/proposal/controller/proposal_control
 import 'package:teamlead/v2/modules/student/proposal/model/proposal_model.dart';
 import 'package:teamlead/v2/modules/widgets/k_data_validation_info.dart';
 import 'package:teamlead/v2/modules/widgets/k_text_field.dart';
-import 'package:teamlead/v2/modules/widgets/option_button.dart';
+import 'package:teamlead/v2/modules/widgets/k_option_button.dart';
 
 class SubmitProposal extends StatefulWidget {
   const SubmitProposal({super.key, required this.doesRequest});

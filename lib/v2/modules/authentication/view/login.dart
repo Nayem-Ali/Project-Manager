@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,7 +39,7 @@ class _LoginState extends State<Login> {
                       if(data is StudentModel) {
                         Get.offAllNamed(RouteName.studentHome, arguments: data);
                       } else {
-                        // Get.offAllNamed(RouteName.teacherHome, arguments: data);
+                        Get.offAllNamed(RouteName.teacherHome, arguments: data);
                       }
                     } else {
                       Get.toNamed(RouteName.info, arguments: credential.user);

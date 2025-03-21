@@ -12,12 +12,14 @@ class AuthController extends GetxController {
     try {
       if (kIsWeb) {
         GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
+        BotToast.showLoading();
         final UserCredential userCredential =
             await FirebaseHandler.auth.signInWithPopup(googleAuthProvider);
+        BotToast.closeAllLoading();
         return userCredential;
       } else {
         GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
+        BotToast.showLoading();
         GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
         AuthCredential credential = GoogleAuthProvider.credential(

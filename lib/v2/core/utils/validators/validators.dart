@@ -78,4 +78,24 @@ class Validators {
     }
     return null;
   }
+
+  static String? defenseMarkValidator(String? value){
+    if(value!.trim().isEmpty){
+      return "Enter Mark";
+    } else {
+      double mark = double.tryParse(value) ?? 0;
+      if(mark.abs() > 30) return "Exceed marking limit 30";
+    }
+    return null;
+  }
+
+  static String? supervisorMarkValidator(String? value){
+    if(value!.trim().isEmpty){
+      return "Enter Mark";
+    } else {
+      double mark = double.tryParse(value) ?? 0;
+      if(mark.abs() > 20) return "Exceed marking limit 20";
+    }
+    return null;
+  }
 }

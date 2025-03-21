@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class GridItem extends StatelessWidget {
   const GridItem({
@@ -27,10 +28,15 @@ class GridItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(gridImage),
-                )),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      gridImage,
+                      height: Get.height * 0.2,
+                      width: Get.width * 0.4,
+                    ),
+                  ),
+                ),
                 Text(
                   gridText,
                   textAlign: TextAlign.center,

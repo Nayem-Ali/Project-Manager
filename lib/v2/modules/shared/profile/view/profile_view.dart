@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:teamlead/v2/core/route/app_route.dart';
 import 'package:teamlead/v2/modules/shared/profile/view/components/about_us.dart';
 import 'package:teamlead/v2/core/database/firebase_db/firebase_handler.dart';
 import 'package:teamlead/v2/core/route/route_name.dart';
@@ -65,6 +66,7 @@ class _ProfileViewState extends State<ProfileView> {
               // User Details Card
               Card(
                 elevation: 4,
+                color: Theme.of(context).cardTheme.color,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -72,24 +74,24 @@ class _ProfileViewState extends State<ProfileView> {
                       profileRow(
                         title: "Name",
                         value: isStudent ? student.name ?? "" : teacher.name ?? "",
-                        icon: Icons.person,
+                        icon: Icons.person_2_outlined,
                       ),
                       profileRow(
                         title: isStudent ? "Student ID" : "Initial",
                         value: isStudent ? student.id ?? "" : teacher.initial ?? "",
-                        icon: Icons.badge,
+                        icon: Icons.badge_outlined,
                       ),
                       profileRow(
                         title: isStudent ? "Batch (Section)" : "Designation",
                         value: isStudent
                             ? "${student.batch} (${student.section})"
                             : teacher.designation ?? "",
-                        icon: isStudent ? Icons.groups : Icons.work,
+                        icon: isStudent ? Icons.groups : Icons.work_outline,
                       ),
                       profileRow(
                         title: "Email",
                         value: FirebaseHandler.auth.currentUser!.email!.trim() ?? "N/A",
-                        icon: Icons.email,
+                        icon: Icons.email_outlined,
                       ),
                     ],
                   ),
@@ -131,14 +133,14 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
                   width: double.infinity,
                   child: OutlinedButton.icon(
                     onPressed: () {
-                      Get.to(()=>AboutUs());
+                      Get.toNamed(RouteName.aboutUs);
                     },
                     icon: const Icon(Icons.info_outline),
                     label: const Text("About Us"),
